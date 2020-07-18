@@ -1,7 +1,7 @@
 <?php
-include "../utils.php";
 session_start();
-if (!isset($_SESSION['email']) && !isset($_SESSION['login_as'])) {
+include "../utils.php";
+if (!isset($_SESSION['logged_in'])) {
     goto_login_page();
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['email']) && isset($_SESSION['login_as'])) {
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 	$login_as = $_SESSION['login_as'];
 	header("location: $login_as/index.php");
 }
@@ -21,13 +21,36 @@ if (isset($_SESSION['email']) && isset($_SESSION['login_as'])) {
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 
 		<label class="mx-1" for="email">email</label>
-		<input autocomplete="off" autofocus id="email" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" type="email" name="email" required minlength="6">
+		<input
+			autocomplete="off"
+			autofocus id="email"
+			class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg"
+			id="email"
+			minlength="6"
+			name="email"
+			required
+			type="email"
+			value="donnisnoni@uyelindo.ac.id"
+		>
 
 		<label class="mx-1" for="password">Sandi</label>
-		<input id="password" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" type="password" name="password" required minlength="8">
+		<input
+			class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md"
+			id="password"
+			minlength="8"
+			name="password" 
+			required
+			type="password"
+			value="donnisnoni@1234"
+		>
 
 		<label class="mx-1" for="login-as">Login sebagai</label>
-		<select id="login-as" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" name="login_as" value="admin">
+		<select
+			class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg"
+			id="login-as"
+			name="login_as"
+			value="admin"
+		>
 			<option value="admin">Admin</option>
 			<option value="super_admin">Super Admin</option>
 		</select>

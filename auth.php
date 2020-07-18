@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include "./connection/connection.php";
 include "./utils.php";
 
@@ -40,6 +42,7 @@ if ($login_as == 'admin') {
             if (password_verify($password, $hashed_password)) {
                 $_SESSION['email'] = $email;
                 $_SESSION['login_as'] = $login_as;
+                $_SESSION['logged_in'] = true;
                 header('location: ./admin/index.php');
             } else {
                 goto_login_page("Email atau sandi salah");

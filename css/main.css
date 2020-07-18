@@ -19,8 +19,10 @@
 .main {
   margin-left: 250px;
   padding: 10px;
-  /* height: calc(100vh - 36px);
-  max-height: calc(100vh - 36px); */
+  height: calc(100vh - 36px);
+  max-height: calc(100vh - 36px);
+  min-height: calc(100vh - 36px);
+  overflow-y: auto;
 }
 
 .page-header {

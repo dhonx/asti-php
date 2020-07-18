@@ -8,7 +8,7 @@ include_once "config.php"
     <h3 class="brand text-3xl font-bold">ASTI</h3>
 </header>
 
-<nav class="py-3 sm:h-full sidenav text-white fixed">
+<nav class="py-3 sm:h-full sidenav text-white absolute">
     <ul>
         <li><a href="<?php echo BASE_PATH; ?>/admin">Dashboard</a></li>
         <li><a href="<?php echo BASE_PATH; ?>/admin/manajemen_admin">Manajemen Admin</a></li>

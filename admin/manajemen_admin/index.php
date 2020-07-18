@@ -51,33 +51,21 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
                         $aktif      = $row[5];
                         $tipe_admin = $row[6];
                         $created_at = $row[7];
-                        $updated_at = $row[7];
+                        $updated_at = $row[8];
                     ?>
-                    <tr>
-                        <td class="border px-4 py-2"><?php echo $id_admin; ?></td>
-                        <td class="border px-4 py-2"><?php echo $nama; ?></td>
-                        <td class="border px-4 py-2"><?php echo $email; ?></td>
-                        <td class="border px-4 py-2">
-                            <a class="text-blue-600 underline" href="telp:<?php echo $no_telp; ?>"><?php echo $no_telp; ?></a>
-                        </td>
-                        <td class="border px-4 py-2"><?php echo $aktif == 1 ? 'aktif' : 'tidak aktif'; ?></td>
-                        <td class="border px-4 py-2"><?php echo $tipe_admin; ?></td>
-                        <td class="border px-4 py-2"><?php echo $created_at; ?></td>
-                        <td class="border px-4 py-2"><?php echo $updated_at; ?></td>
-                    </tr>
+                        <tr>
+                            <td class="border px-4 py-2"><?php echo $id_admin; ?></td>
+                            <td class="border px-4 py-2"><?php echo $nama; ?></td>
+                            <td class="border px-4 py-2"><?php echo $email; ?></td>
+                            <td class="border px-4 py-2">
+                                <a class="text-blue-600 underline" href="telp:<?php echo $no_telp; ?>"><?php echo $no_telp; ?></a>
+                            </td>
+                            <td class="border px-4 py-2"><?php echo $aktif == 1 ? 'aktif' : 'tidak aktif'; ?></td>
+                            <td class="border px-4 py-2"><?php echo $tipe_admin; ?></td>
+                            <td class="border px-4 py-2"><?php echo $created_at; ?></td>
+                            <td class="border px-4 py-2"><?php echo $updated_at; ?></td>
+                        </tr>
                     <?php } ?>
-                    <!-- <tr>
-                        <td class="border px-4 py-2">2</td>
-                        <td class="border px-4 py-2">Adam</td>
-                        <td class="border px-4 py-2">Adam</td>
-                        <td class="border px-4 py-2">112</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">3</td>
-                        <td class="border px-4 py-2">Chris</td>
-                        <td class="border px-4 py-2">Chris</td>
-                        <td class="border px-4 py-2">1,280</td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>

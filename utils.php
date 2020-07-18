@@ -8,3 +8,10 @@ function goto_login_page($message = "")
         header("location: /asti/login.php?message=$message");
     }
 }
+
+function authenticate() {
+    session_start();
+    if (!isset($_SESSION['logged_in'])) {
+        goto_login_page();
+    }
+}

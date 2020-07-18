@@ -2,10 +2,7 @@
 include "../../utils.php";
 include_once "../../config.php";
 
-session_start();
-if (!isset($_SESSION['logged_in'])) {
-    goto_login_page();
-}
+authenticate();
 ?>
 <!DOCTYPE html>
 <html lang="en">

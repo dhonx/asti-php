@@ -1,10 +1,8 @@
 <?php
 include "../utils.php";
+include "../config.php";
 
-session_start();
-if (!isset($_SESSION['logged_in'])) {
-    goto_login_page();
-}
+authenticate();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +11,7 @@ if (!isset($_SESSION['logged_in'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="/asti/css/main.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH; ?>/css/main.css" rel="stylesheet">
     <title>Dashboard - ASTI</title>
 </head>
 

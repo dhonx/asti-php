@@ -2,10 +2,7 @@
 include "../../utils.php";
 include_once "../../config.php";
 
-session_start();
-if (!isset($_SESSION['logged_in'])) {
-    goto_login_page();
-}
+authenticate();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +20,39 @@ if (!isset($_SESSION['logged_in'])) {
 
     <main class="main">
         <h3 class="text-2xl font-bold p-2 page-header">Manajemen Admin</h3>
+
+        <div class="my-5">
+            <table class="table-auto bg-white">
+                <thead>
+                    <tr>
+                        <th class="border px-4 py-2">ID</th>
+                        <th class="border px-4 py-2">Nama</th>
+                        <th class="border px-4 py-2">Email</th>
+                        <th class="border px-4 py-2">Telp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border px-4 py-2">1</td>
+                        <td class="border px-4 py-2">Adam</td>
+                        <td class="border px-4 py-2">adam@gmail.com</td>
+                        <td class="border px-4 py-2">858</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2">2</td>
+                        <td class="border px-4 py-2">Adam</td>
+                        <td class="border px-4 py-2">Adam</td>
+                        <td class="border px-4 py-2">112</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2">3</td>
+                        <td class="border px-4 py-2">Chris</td>
+                        <td class="border px-4 py-2">Chris</td>
+                        <td class="border px-4 py-2">1,280</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
 </body>
 

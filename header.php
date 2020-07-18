@@ -13,7 +13,3 @@
         <li><a href="/asti/logout.php">Logout</a></li>
     </ul>
 </nav>
-
-<main class="main">
-    <h3 class="text-2xl font-bold p-2 page-header">Dashboard</h3>
-</main>

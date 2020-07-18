@@ -1,5 +1,6 @@
 <?php
-include "../utils.php";
+include "../../utils.php";
+include_once "../../config.php";
 
 session_start();
 if (!isset($_SESSION['logged_in'])) {
@@ -13,15 +14,15 @@ if (!isset($_SESSION['logged_in'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="/asti/css/main.css" rel="stylesheet">
-    <title>Dashboard - ASTI</title>
+    <link href="<?php echo BASE_PATH; ?>/css/main.css" rel="stylesheet">
+    <title>Manajemen Admin - ASTI</title>
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200">
-    <?php require_once "../header.php"; ?>
+    <?php require_once "../../header.php"; ?>
 
     <main class="main">
-        <h3 class="text-2xl font-bold p-2 page-header">Dashboard</h3>
+        <h3 class="text-2xl font-bold p-2 page-header">Manajemen Admin</h3>
     </main>
 </body>
 

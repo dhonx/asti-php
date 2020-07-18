@@ -40,6 +40,7 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
                         <th class="border px-4 py-2">Tipe</th>
                         <th class="border px-4 py-2">Tgl Tambah</th>
                         <th class="border px-4 py-2">Tgl Update</th>
+                        <th class="border px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,10 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
                             <td class="border px-4 py-2"><?php echo $tipe_admin; ?></td>
                             <td class="border px-4 py-2"><?php echo $created_at; ?></td>
                             <td class="border px-4 py-2"><?php echo $updated_at; ?></td>
+                            <td class="border px-4 py-2">
+                                <button class="p-2 m-1 bg-blue-500 text-white rounded-sm">Edit</button>
+                                <button class="p-2 m-1 bg-red-500 text-white rounded-sm">Hapus</button>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

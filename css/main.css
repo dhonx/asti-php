@@ -1,0 +1,28 @@
+.sidenav {
+  /* border-right: 1px solid red; */
+  background-color: #363544;
+  height: calc(100vh - 36px);
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  width: 250px;
+}
+
+.sidenav a {
+  display: block;
+  padding: 5px 10px;
+}
+
+.sidenav a:hover {
+  background-color: #1f1e27;
+}
+
+.main {
+  margin-left: 250px;
+  padding: 10px;
+  /* height: calc(100vh - 36px);
+  max-height: calc(100vh - 36px); */
+}
+
+.page-header {
+  border-bottom: 1px solid #c6cbd0;
+}

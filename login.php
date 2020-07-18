@@ -1,0 +1,47 @@
+<?php
+session_start();
+if (isset($_SESSION['email']) && isset($_SESSION['login_as'])) {
+	$login_as = $_SESSION['login_as'];
+	header("location: $login_as/index.php");
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css">
+	<title>Login - ASTI</title>
+</head>
+
+<body class="font-sans min-h-screen bg-gray-200 flex items-center">
+	<form action="auth.php" class="bg-white max-w-sm mx-auto shadow-md rounded-lg overflow-hidden px-6 py-4" method="post">
+		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
+
+		<label class="mx-1" for="email">email</label>
+		<input autocomplete="off" autofocus id="email" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" type="email" name="email" required minlength="6">
+
+		<label class="mx-1" for="password">Sandi</label>
+		<input id="password" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" type="password" name="password" required minlength="8">
+
+		<label class="mx-1" for="login-as">Login sebagai</label>
+		<select id="login-as" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" name="login_as" value="admin">
+			<option value="admin">Admin</option>
+			<option value="super_admin">Super Admin</option>
+		</select>
+
+		<div class="my-3 text-red-600">
+			<?php if (isset($_GET['message'])) {
+				echo $_GET['message'];
+			} ?>
+		</div>
+
+		<div class="flex justify-end">
+			<button class="bg-blue-500 text-white block py-2 px-6 my-2 rounded-md">Login</button>
+		</div>
+	</form>
+</body>
+
+</html>

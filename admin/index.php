@@ -1,0 +1,30 @@
+<?php
+include "../utils.php";
+session_start();
+if (!isset($_SESSION['email']) && !isset($_SESSION['login_as'])) {
+    goto_login_page();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <title>Dashboard - ASTI</title>
+</head>
+
+<body class="font-sans min-h-screen bg-gray-200">
+    <header class="flex bg-blue-500 text-white px-5 md:items-center">
+        <span class="brand text-2xl font-bold">ASTI</span>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+        </ul>
+    </nav>
+</body>
+
+</html>

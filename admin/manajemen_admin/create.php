@@ -59,7 +59,7 @@ if (isset($_POST["create_admin"])) {
     <title>Tambah Admin - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200 overflow-hidden">
+<body class="font-sans min-h-screen bg-gray-200 overflow-y-auto">
     <?php require_once "../../header.php"; ?>
 
     <main class="main">

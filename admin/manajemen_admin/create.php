@@ -15,13 +15,14 @@ if (isset($_POST["create_admin"])) {
         "required"  => ":attribute harus diisi",
         "email"     => ":email bukan email yang valid",
         "min"       => ":attribute minimal berisi :min karakter/digit",
+        "max"       => ":attribute maximal berisi :max karakter/digit",
         "same"      => "Konfirmasi sandi harus sama dengan sandi"
     ]);
 
     $validation = $validator->make($_POST, [
         "nama"                  => "required|min:6",
         "email"                 => "required|email",
-        "nomor_hp"              => "required|numeric|min:8",
+        "nomor_hp"              => "required|numeric|min:8|max:12",
         "sandi"                 => "required|min:8",
         "konfirmasi_sandi"      => "required|same:sandi",
     ]);

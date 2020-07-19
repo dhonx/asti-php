@@ -16,12 +16,13 @@ if (isset($_POST["update_admin"])) {
         "required"  => ":attribute harus diisi",
         "email"     => ":email bukan email yang valid",
         "min"       => ":attribute minimal berisi :min karakter/digit",
+        "max"       => ":attribute maximal berisi :max karakter/digit",
     ]);
 
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:6",
         "email"    => "required|email",
-        "nomor_hp" => "required|numeric|min:8",
+        "nomor_hp" => "required|numeric|min:8|max:12",
         // "status"   => "required"
     ]);
 

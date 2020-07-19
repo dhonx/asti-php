@@ -18,7 +18,7 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
     <title>Manajemen Admin - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200 overflow-y-auto">
+<body class="font-sans min-h-screen bg-gray-200 overflow-hidden">
     <?php require_once "../../header.php"; ?>
 
     <main class="main">

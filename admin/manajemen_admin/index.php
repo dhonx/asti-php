@@ -5,7 +5,7 @@ include_once "../../connection/connection.php";
 
 authenticate();
 
-$result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super admin'");
+$result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super admin' ORDER BY id_admin DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,29 +18,25 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
     <title>Manajemen Admin - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200 overflow-hidden">
+<body class="font-sans min-h-screen bg-gray-200 overflow-y-auto">
     <?php require_once "../../header.php"; ?>
 
     <main class="main">
         <h3 class="text-2xl font-bold py-2 page-header">Manajemen Admin</h3>
 
-        <div class="flex my-5 justify">
+        <div class="flex my-5 justify-end">
             <a class="py-2 px-3 bg-blue-500 text-white rounded-md" href="create.php">Tambah Admin</a>
         </div>
 
-        <div class="my-5">
-            <table class="table-auto bg-white">
+        <div class="container mb-2">
+            <table class="border-collapse w-full">
                 <thead>
-                    <tr>
-                        <th class="border px-4 py-2">ID</th>
-                        <th class="border px-4 py-2">Nama</th>
-                        <th class="border px-4 py-2">Email</th>
-                        <th class="border px-4 py-2">Telp</th>
-                        <th class="border px-4 py-2">Aktif</th>
-                        <th class="border px-4 py-2">Tipe</th>
-                        <th class="border px-4 py-2">Tgl Tambah</th>
-                        <th class="border px-4 py-2">Tgl Update</th>
-                        <th class="border px-4 py-2">Aksi</th>
+                    <tr class="bg-blue-400 font-bold  text-white">
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">Nama</th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">Email</th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">No HP</th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">Status</th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,20 +50,28 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
                         $created_at = $row[7];
                         $updated_at = $row[8];
                     ?>
-                        <tr>
-                            <td class="border px-4 py-2"><?php echo $id_admin; ?></td>
-                            <td class="border px-4 py-2"><?php echo $nama; ?></td>
-                            <td class="border px-4 py-2"><?php echo $email; ?></td>
-                            <td class="border px-4 py-2">
-                                <a class="text-blue-600 underline" href="telp:<?php echo $no_telp; ?>"><?php echo $no_telp; ?></a>
+                        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama</span>
+                                <?php echo $nama ?>
                             </td>
-                            <td class="border px-4 py-2"><?php echo $aktif == 1 ? 'aktif' : 'tidak aktif'; ?></td>
-                            <td class="border px-4 py-2"><?php echo $tipe_admin; ?></td>
-                            <td class="border px-4 py-2"><?php echo $created_at; ?></td>
-                            <td class="border px-4 py-2"><?php echo $updated_at; ?></td>
-                            <td class="border px-4 py-2">
-                                <button class="p-2 m-1 bg-blue-500 text-white rounded-sm">Edit</button>
-                                <button class="p-2 m-1 bg-red-500 text-white rounded-sm">Hapus</button>
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Email</span>
+                                <?php echo $email ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">No HP</span>
+                                <?php echo $no_telp ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">No HP</span>
+                                <span class="rounded bg-<?php echo $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold"><?php echo $aktif == 1 ? 'aktif' : 'tidak aktif' ?></span>
+                            </td>
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Aksi</span>
+                                <a href="view.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">view</a>
+                                <a href="update.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">edit</a>
+                                <a href="delete.php?id_admin=<?php echo $id_admin ?>" class="text-red-400 hover:text-blue-600 underline">hapus</a>
                             </td>
                         </tr>
                     <?php } ?>

@@ -71,7 +71,7 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Aksi</span>
                                 <a href="view.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">view</a>
                                 <a href="update.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">edit</a>
-                                <a href="delete.php?id_admin=<?php echo $id_admin ?>" class="text-red-400 hover:text-blue-600 underline">hapus</a>
+                                <a href="delete.php?id_admin=<?php echo $id_admin ?>" class="text-red-400 hover:text-red-600 underline">hapus</a>
                             </td>
                         </tr>
                     <?php } ?>

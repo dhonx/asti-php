@@ -21,36 +21,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 
 		<label class="mx-1" for="email">email</label>
-		<input
-			autocomplete="off"
-			autofocus id="email"
-			class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg"
-			id="email"
-			minlength="6"
-			name="email"
-			required
-			type="email"
-			value="donnisnoni@uyelindo.ac.id"
-		>
+		<input autocomplete="off" autofocus id="email" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" id="email" minlength="6" name="email" required type="email" value="donnisnoni@uyelindo.ac.id">
 
 		<label class="mx-1" for="password">Sandi</label>
-		<input
-			class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md"
-			id="password"
-			minlength="8"
-			name="password" 
-			required
-			type="password"
-			value="donnisnoni@1234"
-		>
+		<input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="password" minlength="8" name="password" required type="password" value="donnisnoni@1234">
 
 		<label class="mx-1" for="login-as">Login sebagai</label>
-		<select
-			class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg"
-			id="login-as"
-			name="login_as"
-			value="admin"
-		>
+		<select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" id="login-as" name="login_as" value="admin">
 			<option value="admin">Admin</option>
 			<option value="super_admin">Super Admin</option>
 		</select>

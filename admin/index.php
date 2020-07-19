@@ -19,7 +19,7 @@ authenticate();
     <?php require_once "../header.php"; ?>
 
     <main class="main">
-        <h3 class="text-2xl font-bold p-2 page-header">Dashboard</h3>
+        <h3 class="text-2xl font-bold py-2 page-header">Dashboard</h3>
     </main>
 </body>
 

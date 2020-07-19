@@ -43,7 +43,7 @@ if (isset($_POST["create_admin"])) {
 
         $query = htmlspecialchars(
             "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
-                    VALUES ('$nama', '$email', $nomor_hp, '$encrypted_sandi', $status, '$tipe_admin')"
+                    VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
         );
         if ($connection->query($query) == TRUE) {
             redirect("./index.php");

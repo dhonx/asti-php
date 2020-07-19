@@ -9,7 +9,10 @@ use Rakit\Validation\Validator;
 authenticate();
 
 $errors = null;
-$id_admin_to_update = 0;
+
+if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
+    redirect($_SERVER['HTTP_REFERER']);
+}
 
 if (isset($_POST["update_admin"])) {
     $validator = new Validator([
@@ -39,11 +42,10 @@ if (isset($_POST["update_admin"])) {
 
         $query = htmlspecialchars(
             "UPDATE admin 
-                    SET nama = '$nama', email = '$email', no_telp = $nomor_hp, aktif = $status 
+                    SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status 
                     WHERE id_admin = $id_admin_to_update"
         );
 
-        echo "sssssss";
         if ($connection->query($query) == TRUE) {
             $connection->close();
             redirect("./index.php");
@@ -53,15 +55,11 @@ if (isset($_POST["update_admin"])) {
         }
     }
 } else {
-    if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
-        redirect("./index.php");
-    } else {
-        $id_admin_to_update = $_GET["id_admin"];
-        $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin_to_update";
-        $result = $connection->query($query);
-        if ($result && $result->num_rows < 1) {
-            redirect('./index.php');
-        }
+    $id_admin_to_update = $_GET["id_admin"];
+    $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin_to_update";
+    $result = $connection->query($query);
+    if ($result && $result->num_rows < 1) {
+        redirect('./index.php');
     }
 }
 
@@ -85,7 +83,7 @@ if (isset($_POST["update_admin"])) {
     <main class="main">
         <h3 class="text-2xl font-bold py-2 page-header">Update Admin</h3>
 
-        <form action="update.php?id_admin=<?php echo $id_admin_to_update; ?>" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
+        <form action="update.php?id_admin=<?php echo $_GET['id_admin']; ?>" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">
@@ -100,7 +98,7 @@ if (isset($_POST["update_admin"])) {
             <?php
             $data = null;
             if (!isset($_POST["update_admin"])) {
-                $query = "SELECT * FROM admin WHERE id_admin = $id_admin_to_update";
+                $query = "SELECT * FROM admin WHERE id_admin = " . $_GET['id_admin'];
                 $result = $connection->query($query);
                 while ($row = $result->fetch_row()) {
                     $data["nama"]       = $row[1];
@@ -115,15 +113,15 @@ if (isset($_POST["update_admin"])) {
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
             <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?php $errors && get_prev_field('nama');
-                                                                                                                                                                        $id_admin_to_update > 0 && prints($data['nama']) ?>">
+                                                                                                                                                                        $_GET["id_admin"] != NULL && prints($data['nama']) ?>">
 
             <label class="block" for="email">Email <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?php $errors && get_prev_field('email');
-                                                                                                                                                                $id_admin_to_update > 0 && prints($data['email']) ?>">
+                                                                                                                                                                $_GET["id_admin"] != NULL && prints($data['email']) ?>">
 
             <label class="block" for="nomor_hp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<?php $errors && get_prev_field('nomor_hp');
-                                                                                                                                                    $id_admin_to_update > 0 && prints($data['no_telp']) ?>">
+                                                                                                                                                    $_GET["id_admin"] != NULL && prints($data['no_telp']) ?>">
 
             <span class="block">Status</span>
             <input class="bg-gray-200 inline-block px-3 py-2 ml-2" <?php echo $data['aktif'] == 1 ? "checked" : "" ?> id="status" name="status" type="checkbox">

@@ -36,7 +36,11 @@ if (isset($_POST["update_admin"])) {
         $nomor_hp           = $_POST["nomor_hp"];
         $status             = $_POST["status"] == "on" ? 1 : 0;
 
-        $query = "UPDATE admin SET nama = '$nama', email = '$email', no_telp = $nomor_hp, aktif = $status WHERE id_admin = $id_admin_to_update";
+        $query = htmlspecialchars(
+            "UPDATE admin 
+                    SET nama = '$nama', email = '$email', no_telp = $nomor_hp, aktif = $status 
+                    WHERE id_admin = $id_admin_to_update"
+        );
 
         echo "sssssss";
         if ($connection->query($query) == TRUE) {

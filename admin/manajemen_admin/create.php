@@ -40,8 +40,10 @@ if (isset($_POST["create_admin"])) {
         $tipe_admin             = "admin";
         $encrypted_sandi        = password_hash($sandi, PASSWORD_BCRYPT);
 
-        $query = "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
-                    VALUES ('$nama', '$email', $nomor_hp, '$encrypted_sandi', $status, '$tipe_admin')";
+        $query = htmlspecialchars(
+            "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
+                    VALUES ('$nama', '$email', $nomor_hp, '$encrypted_sandi', $status, '$tipe_admin')"
+        );
         if ($connection->query($query) == TRUE) {
             redirect("./index.php");
         }

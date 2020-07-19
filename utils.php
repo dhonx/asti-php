@@ -26,3 +26,9 @@ function get_prev_field($field_name)
 {
     echo isset($_POST[$field_name]) ? $_POST[$field_name] : "";
 }
+
+
+function prints($text = "")
+{
+    echo $text;
+}

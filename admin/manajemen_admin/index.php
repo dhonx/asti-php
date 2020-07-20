@@ -27,11 +27,11 @@ $result = $connection->query($query);
     <?php require_once "../../header.php"; ?>
 
     <main class="main lg:ml-64">
-        <h3 class="text-2xl font-bold py-2 page-header">Manajemen Admin</h3>
+        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
 
         <div class="flex my-5 justify-end">
-            <a class="py-2 px-3 bg-green-500 ml-2 text-white rounded-md" href="./">Reset Sort</a>
-            <a class="py-2 px-3 bg-blue-500 ml-2 text-white rounded-md" href="create.php">Tambah Admin</a>
+            <a class="bg-green-500 ml-2 py-2 px-3 rounded-md text-white" href="./">Reset Sort</a>
+            <a class="bg-blue-500 ml-2 py-2 px-3 rounded-md text-white" href="create.php">Tambah Admin</a>
         </div>
 
         <div class="mb-2">

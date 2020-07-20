@@ -42,11 +42,14 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             $query = "SELECT * FROM admin WHERE id_admin = $id_admin";
             $result = $connection->query($query);
             while ($row = $result->fetch_row()) {
+                $data["id_admin"]   = $row[0];
                 $data["nama"]       = $row[1];
                 $data["email"]      = $row[2];
                 $data["no_telp"]    = $row[3];
                 $data["aktif"]      = $row[5];
                 $data["tipe_admin"] = $row[6];
+                $data["created_at"] = $row[7];
+                $data["updated_at"] = $row[8];
             }
             $connection->close();
         }
@@ -68,6 +71,19 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             <div class="mt-2">
                 <span class="font-bold">Status:</span>
                 <span class="rounded bg-blue-400 text-white py-1 px-3 text-xs font-bold"><?php echo $data["aktif"] == 1 ? "aktif" : "tidak aktif"; ?></span>
+            </div>
+            <div class="mt-2">
+                <span class="font-bold">Tanggal dibuat:</span>
+                <span><?php echo $data["created_at"]; ?></span>
+            </div>
+            <div class="mt-2">
+                <span class="font-bold">Tanggal terakhir diupdate:</span>
+                <span><?php echo $data["updated_at"]; ?></span>
+            </div>
+            <div class="border border-b mt-2"></div>
+            <div class="flex">
+                <a class="bg-blue-500 block py-2 px-6 mx-1 my-2 rounded-md text-white" href="update.php?id_admin=<?php echo $data["id_admin"] ?>">Edit</a>
+                <a class="bg-red-500 block py-2 px-6 mx-1 my-2 rounded-md text-white" href="delete.php?id_admin=<?php echo $data["id_admin"] ?>">Hapus</a>
             </div>
         </div>
     </main>

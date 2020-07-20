@@ -87,6 +87,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             </div>
         </div>
     </main>
+    <?php require_once "../../scripts.php"; ?>
 </body>
 
 </html>

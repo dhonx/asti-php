@@ -115,6 +115,7 @@ if (isset($_POST["create_admin"])) {
             </div>
         </form>
     </main>
+    <?php require_once "../../scripts.php"; ?>
 </body>
 
 </html>

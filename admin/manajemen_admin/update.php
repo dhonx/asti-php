@@ -137,6 +137,7 @@ if (isset($_POST["update_admin"])) {
             </div>
         </form>
     </main>
+    <?php require_once "../../scripts.php"; ?>
 </body>
 
 </html>

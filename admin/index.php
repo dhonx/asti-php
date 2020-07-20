@@ -15,12 +15,13 @@ authenticate();
     <title>Dashboard - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200">
+<body class="font-sans min-h-screen bg-gray-200 overflow-hidden">
     <?php require_once "../header.php"; ?>
 
     <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">Dashboard</h3>
     </main>
+    <?php require_once "../scripts.php"; ?>
 </body>
 
 </html>

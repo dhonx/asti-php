@@ -37,20 +37,20 @@ $result = $connection->query($query);
         <div class="mb-2">
             <table class="border-collapse w-full">
                 <thead>
-                    <tr class="bg-blue-400 font-bold text-white">
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                    <tr class="bg-gray-300 font-bold text-gray-800">
+                        <th class="border border-gray-400 hidden lg:table-cell p-2">
                             <a class="block" href="index.php?sort_by=nama&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">Nama</a>
                         </th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                        <th class="border border-gray-400 hidden lg:table-cell p-2">
                             <a class="block" href="index.php?sort_by=email&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">Email</a>
                         </th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                        <th class="border border-gray-400 hidden lg:table-cell p-2">
                             <a class="block" href="index.php?sort_by=no_telp&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">No HP</a>
                         </th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                        <th class="border border-gray-400 hidden lg:table-cell p-2">
                             <a class="block" href="index.php?sort_by=aktif&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">Status</a>
                         </th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">Aksi</th>
+                        <th class="border border-gray-400 hidden lg:table-cell p-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,6 +93,7 @@ $result = $connection->query($query);
             </table>
         </div>
     </main>
+    <?php require_once "../../scripts.php"; ?>
 </body>
 
 </html>

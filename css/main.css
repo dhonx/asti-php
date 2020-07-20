@@ -1,10 +1,8 @@
 .sidenav {
-  /* border-right: 1px solid red; */
-  background-color: #363544;
   height: calc(100vh - 36px);
   max-height: calc(100vh - 36px);
   overflow-y: auto;
-  width: 250px;
+  z-index: 2;
 }
 
 .sidenav a {
@@ -13,11 +11,10 @@
 }
 
 .sidenav a:hover {
-  background-color: #1f1e27;
+  background-color: #2a70b3;
 }
 
 .main {
-  /* margin-left: 250px; */
   padding: 10px;
   height: calc(100vh - 36px);
   max-height: calc(100vh - 36px);
@@ -30,8 +27,11 @@
   color: #1f1e27;
 }
 
-@media (min-width: 320px) and (max-width: 640px) {
+@media (max-width: 640px) {
   .xs\:hidden {
     display: none;
+  }
+  .xs\:flex {
+    display: flex;
   }
 }

@@ -30,7 +30,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     <title>Tambah Admin - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200 overflow-hidden">
+<body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
     <?php require_once "../../header.php"; ?>
 
     <main class="main lg:ml-64">
@@ -82,8 +82,8 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             </div>
             <div class="border border-b mt-2"></div>
             <div class="flex">
-                <a class="bg-blue-500 block py-2 px-6 mx-1 my-2 rounded-md text-white" href="update.php?id_admin=<?php echo $data["id_admin"] ?>">Edit</a>
-                <a class="bg-red-500 block py-2 px-6 mx-1 my-2 rounded-md text-white" href="delete.php?id_admin=<?php echo $data["id_admin"] ?>">Hapus</a>
+                <a class="bg-blue-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update.php?id_admin=<?php echo $data["id_admin"] ?>">Edit</a>
+                <a class="bg-red-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete.php?id_admin=<?php echo $data["id_admin"] ?>">Hapus</a>
             </div>
         </div>
     </main>

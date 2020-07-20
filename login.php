@@ -18,7 +18,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 	<title>Login - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200 flex items-center">
+<body class="font-sans min-h-screen bg-gray-200 flex items-center text-sm">
 	<form action="auth.php" class="bg-white max-w-sm mx-auto shadow-md rounded-lg overflow-hidden px-6 py-4" method="post">
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 

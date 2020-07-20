@@ -1,4 +1,6 @@
 <?php
+require_once "./config.php";
+
 session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 	$login_as = $_SESSION['login_as'];

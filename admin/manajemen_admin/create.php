@@ -40,7 +40,7 @@ if (isset($_POST["create_admin"])) {
         $status                 = isset($_POST["status"]) ? 1 : 0;
         $tipe_admin             = "admin";
         $encrypted_sandi        = password_hash($sandi, PASSWORD_BCRYPT);
-        
+
         // Check if email is exist
         $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");
         $result = $connection->query($query);
@@ -48,7 +48,7 @@ if (isset($_POST["create_admin"])) {
             array_push($errors, "Email $email sudah ada");
         } else {
             $query = htmlspecialchars(
-            "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
+                "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
                     VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
             );
             if ($connection->query($query) == TRUE) {
@@ -73,7 +73,7 @@ if (isset($_POST["create_admin"])) {
 <body class="font-sans min-h-screen bg-gray-200 overflow-y-auto">
     <?php require_once "../../header.php"; ?>
 
-    <main class="main">
+    <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">Tambah Admin</h3>
 
         <form action="create.php" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">

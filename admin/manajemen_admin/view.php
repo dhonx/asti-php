@@ -33,7 +33,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden">
     <?php require_once "../../header.php"; ?>
 
-    <main class="main">
+    <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
 
         <?php

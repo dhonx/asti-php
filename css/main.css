@@ -17,7 +17,7 @@
 }
 
 .main {
-  margin-left: 250px;
+  /* margin-left: 250px; */
   padding: 10px;
   height: calc(100vh - 36px);
   max-height: calc(100vh - 36px);
@@ -28,4 +28,10 @@
 .page-header {
   border-bottom: 1px solid #c6cbd0;
   color: #1f1e27;
+}
+
+@media (min-width: 320px) and (max-width: 640px) {
+  .xs\:hidden {
+    display: none;
+  }
 }

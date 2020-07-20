@@ -38,7 +38,7 @@ if (isset($_POST["update_admin"])) {
         $nama               = $_POST["nama"];
         $email              = $_POST["email"];
         $nomor_hp           = $_POST["nomor_hp"];
-        $status             = $_POST["status"] == "on" ? 1 : 0;
+        $status             = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
         $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");

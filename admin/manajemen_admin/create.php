@@ -37,7 +37,7 @@ if (isset($_POST["create_admin"])) {
         $nomor_hp               = $_POST["nomor_hp"];
         $sandi                  = $_POST["sandi"];
         $konfirmasi_sandi       = $_POST["konfirmasi_sandi"];
-        $status                 = $_POST["status"] == "on" ? 1 : 0;
+        $status                 = isset($_POST["status"]) ? 1 : 0;
         $tipe_admin             = "admin";
         $encrypted_sandi        = password_hash($sandi, PASSWORD_BCRYPT);
         

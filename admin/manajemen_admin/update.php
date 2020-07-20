@@ -8,7 +8,7 @@ use Rakit\Validation\Validator;
 
 authenticate();
 
-$errors = null;
+$errors = [];
 
 if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     redirect($_SERVER['HTTP_REFERER']);
@@ -40,18 +40,20 @@ if (isset($_POST["update_admin"])) {
         $nomor_hp           = $_POST["nomor_hp"];
         $status             = $_POST["status"] == "on" ? 1 : 0;
 
-        $query = htmlspecialchars(
-            "UPDATE admin 
-                    SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status 
-                    WHERE id_admin = $id_admin_to_update"
-        );
-
-        if ($connection->query($query) == TRUE) {
-            $connection->close();
-            redirect("./index.php");
+        // Check if email is exist
+        $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");
+        $result = $connection->query($query);
+        if ($result && $result->num_rows > 0) {
+            array_push($errors, "Email $email sudah ada");
         } else {
-            print_r($connection->error_list);
-            $connection->close();
+            $query = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE id_admin = $id_admin_to_update");
+            if ($connection->query($query) == TRUE) {
+                $connection->close();
+                redirect("./index.php");
+            } else {
+                print_r($connection->error_list);
+                $connection->close();
+            }
         }
     }
 } else {

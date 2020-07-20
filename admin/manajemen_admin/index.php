@@ -30,8 +30,8 @@ $result = $connection->query($query);
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
 
         <div class="flex my-5 justify-end">
-            <a class="bg-green-500 ml-2 py-2 px-3 rounded-md text-white" href="./">Reset Sort</a>
-            <a class="bg-blue-500 ml-2 py-2 px-3 rounded-md text-white" href="create.php">Tambah Admin</a>
+            <a class="bg-green-500 ml-2 px-3 py-2 rounded-md text-white" href="./">Reset Sort</a>
+            <a class="bg-blue-500 ml-2 px-3 py-2 rounded-md text-white" href="create.php">Tambah Admin</a>
         </div>
 
         <div class="mb-2">

@@ -110,8 +110,8 @@ if (isset($_POST["create_admin"])) {
             <div class="border-b border-solid my-2 w-full"></div>
 
             <div class="flex justify-end">
-                <input class="bg-gray-500 text-white block py-2 px-6 mx-1 my-2 rounded-md" type="reset" />
-                <input class="bg-blue-500 text-white block py-2 px-6 mx-1 my-2 rounded-md" role="button" name="create_admin" type="submit" value="Tambah" />
+                <input class="bg-gray-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" type="reset" />
+                <input class="bg-blue-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" role="button" name="create_admin" type="submit" value="Tambah" />
             </div>
         </form>
     </main>

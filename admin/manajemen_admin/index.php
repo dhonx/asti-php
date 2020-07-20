@@ -31,7 +31,7 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
         <div class="mb-2">
             <table class="border-collapse w-full">
                 <thead>
-                    <tr class="bg-blue-400 font-bold  text-white">
+                    <tr class="bg-blue-400 font-bold text-white">
                         <th class="border border-gray-300 hidden lg:table-cell p-2">Nama</th>
                         <th class="border border-gray-300 hidden lg:table-cell p-2">Email</th>
                         <th class="border border-gray-300 hidden lg:table-cell p-2">No HP</th>
@@ -55,19 +55,19 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Nama</span>
                                 <?php echo $nama ?>
                             </td>
-                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Email</span>
                                 <?php echo $email ?>
                             </td>
-                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">No HP</span>
                                 <?php echo $no_telp ?>
                             </td>
-                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">No HP</span>
                                 <span class="rounded bg-<?php echo $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold"><?php echo $aktif == 1 ? 'aktif' : 'tidak aktif' ?></span>
                             </td>
-                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Aksi</span>
                                 <a href="view.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">view</a>
                                 <a href="update.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">edit</a>

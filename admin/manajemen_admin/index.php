@@ -5,7 +5,12 @@ include_once "../../connection/connection.php";
 
 authenticate();
 
-$result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super admin' ORDER BY id_admin DESC");
+$valid_asc  = ["asc", "desc"];
+$sort_by    = isset($_GET["sort_by"]) ? $_GET["sort_by"] : "id_admin";
+$asc        = isset($_GET["asc"]) && in_array($_GET["asc"], $valid_asc) ? $_GET["asc"] : "asc";
+
+$query = "SELECT * FROM admin WHERE tipe_admin != 'super admin' ORDER BY $sort_by $asc";
+$result = $connection->query($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,10 +37,18 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
             <table class="border-collapse w-full">
                 <thead>
                     <tr class="bg-blue-400 font-bold text-white">
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">Nama</th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">Email</th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">No HP</th>
-                        <th class="border border-gray-300 hidden lg:table-cell p-2">Status</th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                            <a class="block" href="index.php?sort_by=nama&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">Nama</a>
+                        </th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                            <a class="block" href="index.php?sort_by=email&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">Email</a>
+                        </th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                            <a class="block" href="index.php?sort_by=no_telp&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">No HP</a>
+                        </th>
+                        <th class="border border-gray-300 hidden lg:table-cell p-2">
+                             <a class="block" href="index.php?sort_by=aktif&asc=<?php echo $asc == 'asc' ? 'desc' : 'asc' ?>">Status</a>
+                        </th>
                         <th class="border border-gray-300 hidden lg:table-cell p-2">Aksi</th>
                     </tr>
                 </thead>

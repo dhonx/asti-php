@@ -41,7 +41,7 @@ if (isset($_POST["update_admin"])) {
         $status             = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
-        $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");
+        $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND id_admin != $id_admin_to_update");
         $result = $connection->query($query);
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");

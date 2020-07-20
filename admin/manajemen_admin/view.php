@@ -25,7 +25,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?php echo BASE_PATH; ?>/css/main.css" rel="stylesheet">
     <title>Tambah Admin - ASTI</title>
 </head>

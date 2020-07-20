@@ -10,6 +10,11 @@
   padding: 10px;
 }
 
+i.mdi {
+  font-family: "Material Icons";
+  font-style: normal;
+}
+
 .sidenav a:hover {
   background-color: #2a70b3;
 }

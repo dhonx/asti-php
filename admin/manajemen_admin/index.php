@@ -20,6 +20,7 @@ $result = $connection->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?php echo BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?php echo BASE_PATH; ?>/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
     <title>Manajemen Admin - ASTI</title>
 </head>
 
@@ -82,10 +83,10 @@ $result = $connection->query($query);
                                 <span class="rounded bg-<?php echo $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold"><?php echo $aktif == 1 ? 'aktif' : 'tidak aktif' ?></span>
                             </td>
                             <td class="w-full lg:w-auto p-2 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Aksi</span>
-                                <a href="view.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">view</a>
-                                <a href="update.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 hover:text-blue-600 underline">edit</a>
-                                <a href="delete.php?id_admin=<?php echo $id_admin ?>" class="text-red-400 hover:text-red-600 underline">hapus</a>
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 text-xs font-bold uppercase">Aksi</span>
+                                <a href="view.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600"><i class="mdi">visibility</i></a>
+                                <a href="update.php?id_admin=<?php echo $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600"><i class="mdi">edit</i></a>
+                                <a href="delete.php?id_admin=<?php echo $id_admin ?>" class="text-red-400 text-lg p-1 hover:text-red-600"><i class="mdi">delete</i></a>
                             </td>
                         </tr>
                     <?php } ?>

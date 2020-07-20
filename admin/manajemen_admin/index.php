@@ -28,7 +28,7 @@ $result = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super adm
             <a class="py-2 px-3 bg-blue-500 text-white rounded-md" href="create.php">Tambah Admin</a>
         </div>
 
-        <div class="container mb-2">
+        <div class="mb-2">
             <table class="border-collapse w-full">
                 <thead>
                     <tr class="bg-blue-400 font-bold  text-white">

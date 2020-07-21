@@ -119,7 +119,7 @@ $page_count     = ceil($total_items / $ipp)
             <div class="flex w-full justify-center items-center my-2">
                 <? foreach (range(1, $page_count) as $page_num) { ?>
                 <? if ($page_count == 1) continue; ?>
-                <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? " text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>"><?= $page_num ?></a>
+                <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>"><?= $page_num ?></a>
                 <? } ?>
             </div>
         </div>

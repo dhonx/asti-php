@@ -1,4 +1,4 @@
-<?
+<?php
 require_once "../../connection/connection.php";
 require_once "../../utils.php";
 

@@ -1,4 +1,4 @@
-<?
+<?php
 include "../../utils.php";
 include_once "../../config.php";
 include_once "../../connection/connection.php";
@@ -40,7 +40,7 @@ $page_count     = ceil($total_items / $ipp)
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
-    <? require_once "../../header.php"; ?>
+    <?php require_once "../../header.php"; ?>
 
     <main class="main lg:ml-64">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
@@ -88,7 +88,7 @@ $page_count     = ceil($total_items / $ipp)
                     </tr>
                 </thead>
                 <tbody>
-                    <? while ($row = $result->fetch_row()) {
+                    <?php while ($row = $result->fetch_row()) {
                         $id_admin   = $row[0];
                         $nama       = $row[1];
                         $email      = $row[2];
@@ -98,59 +98,59 @@ $page_count     = ceil($total_items / $ipp)
                         $created_at = $row[7];
                         $updated_at = $row[8];
                     ?>
-                    <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                        <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                Nama
-                            </span>
-                            <?= $nama ?>
-                        </td>
-                        <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                Email
-                            </span>
-                            <?= $email ?>
-                        </td>
-                        <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                No HP
-                            </span>
-                            <?= $no_telp ?>
-                        </td>
-                        <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                Status
-                            </span>
-                            <span class="rounded bg-<?= $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold">
-                                <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
-                            </span>
-                        </td>
-                        <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
-                                <i class="mdi">visibility</i>
-                            </a>
-                            <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
-                                <i class="mdi">edit</i>
-                            </a>
-                            <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600">
-                                <i class="mdi">delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                    <? } ?>
+                        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Nama
+                                </span>
+                                <?= $nama ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Email
+                                </span>
+                                <?= $email ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    No HP
+                                </span>
+                                <?= $no_telp ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Status
+                                </span>
+                                <span class="rounded bg-<?= $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold">
+                                    <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
+                                </span>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                    <i class="mdi">visibility</i>
+                                </a>
+                                <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                    <i class="mdi">edit</i>
+                                </a>
+                                <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600">
+                                    <i class="mdi">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
             <div class="flex w-full justify-center items-center my-2">
-                <? foreach (range(1, $page_count) as $page_num) { ?>
-                <? if ($page_count == 1) continue; ?>
-                <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>">
-                    <?= $page_num ?>
-                </a>
-                <? } ?>
+                <?php foreach (range(1, $page_count) as $page_num) { ?>
+                    <?php if ($page_count == 1) continue; ?>
+                    <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>">
+                        <?= $page_num ?>
+                    </a>
+                <?php } ?>
             </div>
         </div>
     </main>
-    <? require_once "../../scripts.php"; ?>
+    <?php require_once "../../scripts.php"; ?>
 </body>
 
 </html>

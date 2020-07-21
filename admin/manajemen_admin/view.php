@@ -1,4 +1,4 @@
-<?
+<?php
 include_once "../../utils.php";
 include_once "../../connection/connection.php";
 include_once "../../config.php";
@@ -31,12 +31,12 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
-    <? require_once "../../header.php" ?>
+    <?php require_once "../../header.php" ?>
 
     <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
 
-        <?
+        <?php
         $data = null;
         if (!isset($_POST["update_admin"])) {
             $query = "SELECT * FROM admin WHERE id_admin = $id_admin";
@@ -87,7 +87,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             </div>
         </div>
     </main>
-    <? require_once "../../scripts.php" ?>
+    <?php require_once "../../scripts.php" ?>
 </body>
 
 </html>

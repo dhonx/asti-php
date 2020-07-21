@@ -1,4 +1,4 @@
-<?
+<?php
 include_once "../../utils.php";
 include_once "../../connection/connection.php";
 include_once "../../config.php";
@@ -57,7 +57,7 @@ if (isset($_POST["update_admin"])) {
             }
         }
     }
-} 
+}
 
 // It's GET mode
 else {
@@ -75,30 +75,30 @@ else {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?= BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
-    <link href="<?= BASE_PATH; ?>/css/main.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <title>Tambah Admin - ASTI</title>
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
-    <? require_once "../../header.php"; ?>
+    <?php require_once "../../header.php"; ?>
 
     <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">Update Admin</h3>
 
         <form action="update.php?id_admin=<?= $_GET['id_admin']; ?>" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
 
-            <? if ($errors != null) { ?>
+            <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">
-                    <?
+                    <?php
                     foreach ($errors as $error) {
                         echo "<div>" .  $error . "</div>";
                     }
                     ?>
                 </div>
-            <? } ?>
+            <?php } ?>
 
-            <?
+            <?php
             if (!isset($_POST["update_admin"])) {
                 $query = "SELECT * FROM admin WHERE id_admin = " . $_GET['id_admin'];
                 $result = $connection->query($query);
@@ -137,7 +137,7 @@ else {
             </div>
         </form>
     </main>
-    <? require_once "../../scripts.php"; ?>
+    <?php require_once "../../scripts.php" ?>
 </body>
 
 </html>

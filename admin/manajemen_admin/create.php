@@ -1,4 +1,4 @@
-<?
+<?php
 include_once "../../utils.php";
 include_once "../../connection/connection.php";
 include_once "../../config.php";
@@ -65,13 +65,13 @@ if (isset($_POST["create_admin"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?php echo BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
-    <link href="<?php echo BASE_PATH; ?>/css/main.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <title>Tambah Admin - ASTI</title>
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
-    <?php require_once "../../header.php"; ?>
+    <?php require_once "../../header.php" ?>
 
     <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">Tambah Admin</h3>
@@ -89,19 +89,19 @@ if (isset($_POST["create_admin"])) {
             <?php } ?>
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?php $errors && get_prev_field('nama'); ?>">
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors && get_prev_field('nama') ?>">
 
             <label class="block" for="email">Email <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?php $errors && get_prev_field('email'); ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors && get_prev_field('email') ?>">
 
             <label class="block" for="nomor_hp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" maxlength="12" minlength="8" name="nomor_hp" required type="number" value="<?php $errors && get_prev_field('nomor_hp'); ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" maxlength="12" minlength="8" name="nomor_hp" required type="number" value="<?= $errors && get_prev_field('nomor_hp') ?>">
 
             <label class="block" for="sandi">Sandi <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="sandi" minlength="8" name="sandi" required type="password" value="<?php $errors && get_prev_field('sandi'); ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="sandi" minlength="8" name="sandi" required type="password" value="<?= $errors && get_prev_field('sandi') ?>">
 
             <label class="block" for="konfirmasi_sandi">Konfirmasi Sandi <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="konfirmasi_sandi" minlength="8" name="konfirmasi_sandi" required type="password" value="<?php $errors && get_prev_field('konfirmasi_sandi'); ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="konfirmasi_sandi" minlength="8" name="konfirmasi_sandi" required type="password" value="<?= $errors && get_prev_field('konfirmasi_sandi') ?>">
 
             <span class="block">Status</span>
             <input class="bg-gray-200 inline-block px-3 py-2 ml-2" checked id="status" name="status" type="checkbox">
@@ -115,7 +115,7 @@ if (isset($_POST["create_admin"])) {
             </div>
         </form>
     </main>
-    <?php require_once "../../scripts.php"; ?>
+    <?php require_once "../../scripts.php" ?>
 </body>
 
 </html>

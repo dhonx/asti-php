@@ -110,7 +110,7 @@ $page_count     = ceil($total_items / $ipp)
                             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 text-xs font-bold uppercase">Aksi</span>
                             <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600"><i class="mdi">visibility</i></a>
                             <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600"><i class="mdi">edit</i></a>
-                            <a href="delete.php?id_admin=<?= $id_admin ?>" class="text-red-400 text-lg p-1 hover:text-red-600"><i class="mdi">delete</i></a>
+                            <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600"><i class="mdi">delete</i></a>
                         </td>
                     </tr>
                     <? } ?>

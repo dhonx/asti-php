@@ -1,4 +1,4 @@
-<?php
+<?
 include_once "../../utils.php";
 include_once "../../connection/connection.php";
 include_once "../../config.php";

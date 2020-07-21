@@ -1,4 +1,4 @@
-<?php
+<?
 require_once "./config.php";
 
 session_start();
@@ -13,7 +13,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="<?php echo BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
+	<link href="<?= BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/main.css">
 	<title>Login - ASTI</title>
 </head>
@@ -35,7 +35,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 		</select>
 
 		<div class="my-3 text-red-600">
-			<?php if (isset($_GET['message'])) {
+			<? if (isset($_GET['message'])) {
 				echo $_GET['message'];
 			} ?>
 		</div>

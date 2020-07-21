@@ -17,11 +17,11 @@ $page   = isset($_GET["page"]) && is_numeric($_GET["page"]) ? $_GET["page"] : 1;
 $offset = $page * $ipp - $ipp;
 $limit  = $ipp - 0;
 
-$query = "SELECT * FROM admin WHERE tipe_admin != 'super admin' LIMIT $limit OFFSET $offset";
-$query = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
+$query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' LIMIT $limit OFFSET $offset";
+$query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 $result = $connection->query($query);
 
-$query = "SELECT * FROM admin WHERE tipe_admin != 'super admin'";
+$query          = "SELECT * FROM admin WHERE tipe_admin != 'super admin'";
 $count_result   = $connection->query($query);
 
 $total_items    = $count_result->num_rows;

@@ -46,6 +46,9 @@ $page_count     = ceil($total_items / $ipp)
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
 
         <div class="flex my-5 justify-end">
+            <form class="flex" action="cari.php" method="get">
+                <input class="px-2 mx-2 rounded-md" type="text" name="keyword">
+            </form>
             <form class="flex" action="index.php" method="get">
                 <select class="px-1 rounded-sm" name="ipp" onchange="this.form.submit()">
                     <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>

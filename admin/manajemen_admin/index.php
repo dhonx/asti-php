@@ -65,16 +65,24 @@ $page_count     = ceil($total_items / $ipp)
                 <thead>
                     <tr class="bg-gray-300 font-bold text-gray-800">
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=nama&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">Nama</a>
+                            <a class="block" href="index.php?sort_by=nama&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
+                                Nama
+                            </a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=email&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">Email</a>
+                            <a class="block" href="index.php?sort_by=email&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
+                                Email
+                            </a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=no_telp&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">No HP</a>
+                            <a class="block" href="index.php?sort_by=no_telp&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
+                                No HP
+                            </a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=aktif&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">Status</a>
+                            <a class="block" href="index.php?sort_by=aktif&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
+                                Status
+                            </a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">Aksi</th>
                     </tr>
@@ -92,28 +100,41 @@ $page_count     = ceil($total_items / $ipp)
                     ?>
                     <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                         <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">Nama</span>
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                Nama
+                            </span>
                             <?= $nama ?>
                         </td>
                         <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">Email</span>
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                Email
+                            </span>
                             <?= $email ?>
                         </td>
                         <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">No HP</span>
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                No HP
+                            </span>
                             <?= $no_telp ?>
                         </td>
                         <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">Status</span>
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                Status
+                            </span>
                             <span class="rounded bg-<?= $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold">
                                 <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
                             </span>
                         </td>
                         <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 text-xs font-bold uppercase flex self-center h-full">Aksi</span>
-                            <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600"><i class="mdi">visibility</i></a>
-                            <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600"><i class="mdi">edit</i></a>
-                            <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600"><i class="mdi">delete</i></a>
+                            <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                <i class="mdi">visibility</i>
+                            </a>
+                            <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                <i class="mdi">edit</i>
+                            </a>
+                            <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600">
+                                <i class="mdi">delete</i>
+                            </a>
                         </td>
                     </tr>
                     <? } ?>
@@ -122,7 +143,9 @@ $page_count     = ceil($total_items / $ipp)
             <div class="flex w-full justify-center items-center my-2">
                 <? foreach (range(1, $page_count) as $page_num) { ?>
                 <? if ($page_count == 1) continue; ?>
-                <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>"><?= $page_num ?></a>
+                <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>">
+                    <?= $page_num ?>
+                </a>
                 <? } ?>
             </div>
         </div>

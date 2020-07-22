@@ -50,7 +50,7 @@ $page_count     = ceil($total_items / $ipp)
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
-    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword" : "" ?> - Manajemen Admin - ASTI</title>
+    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Admin - ASTI</title>
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">

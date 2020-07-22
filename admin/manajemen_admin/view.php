@@ -26,6 +26,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <title>Tambah Admin - ASTI</title>
 </head>
@@ -82,8 +83,14 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             </div>
             <div class="border border-b mt-2"></div>
             <div class="flex">
-                <a class="bg-blue-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update.php?id_admin=<?= $data["id_admin"] ?>">Edit</a>
-                <a class="bg-red-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete.php?id_admin=<?= $data["id_admin"] ?>">Hapus</a>
+                <a class="bg-blue-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_admin=<?= $data["id_admin"] ?>" title="Ubah data ini">
+                    <i class="mdi align-middle">edit</i>
+                    Ubah
+                </a>
+                <a class="bg-red-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_admin=<?= $data["id_admin"] ?>" title="Hapus data ini">
+                    <i class="mdi align-middle">delete</i>
+                    Hapus
+                </a>
             </div>
         </div>
     </main>

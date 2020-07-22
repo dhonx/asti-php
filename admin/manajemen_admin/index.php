@@ -58,9 +58,12 @@ $page_count     = ceil($total_items / $ipp)
 
     <main class="main lg:ml-64">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
-        <div class="flex my-4 ">
-            <a class="bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php">Tambah</a>
-            <form class="hidden lg:flex ml-auto relative" method="get">
+        <div class="flex my-4">
+            <a class="bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php">
+                <i class="mdi font-bold">add</i>
+                Tambah
+            </a>
+            <form class="flex ml-auto relative" method="get">
                 <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari..." value="<?= $keyword ?>">
                 <i class="absolute mdi self-center" style="right:15px">search</i>
             </form>

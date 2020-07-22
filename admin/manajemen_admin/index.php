@@ -50,7 +50,7 @@ $page_count     = ceil($total_items / $ipp)
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
-    <title>Manajemen Admin - ASTI</title>
+    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword" : "" ?> - Manajemen Admin - ASTI</title>
 </head>
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
     <?php require_once "../../header.php" ?>
@@ -67,6 +67,7 @@ $page_count     = ceil($total_items / $ipp)
         </div>
 
         <div class="mb-2">
+            <?php if ($total_items > 0) { ?>
             <table class="border-collapse w-full">
                 <thead>
                     <tr class="bg-gray-300 font-bold text-gray-800">
@@ -142,7 +143,6 @@ $page_count     = ceil($total_items / $ipp)
                     <?php } ?>
                 </tbody>
             </table>
-
             <div class="flex justify-center lg:justify-end my-3">
                 <form class="flex" method="get">
                     <label class="self-center px-2">Baris per halaman</label>
@@ -162,6 +162,12 @@ $page_count     = ceil($total_items / $ipp)
                     </a>
                 <?php } ?>
             </div>
+            <?php } ?>
+            <?php
+                if ($is_search_mode && $total_items == 0) {
+                    echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
+                }
+            ?>
         </div>
     </main>
     <?php require_once "../../scripts.php"; ?>

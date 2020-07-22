@@ -126,8 +126,8 @@ else {
                                                                                                                                                     !$errors && prints($data['no_telp']) ?>">
 
             <span class="block">Status</span>
-            <input class="bg-gray-200 inline-block px-3 py-2 ml-2" <?= !$errors && $data['aktif'] == 1 ? "checked" : "" ?> id="status" name="status" type="checkbox">
-            <label for="status">Aktif</label>
+            <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= !$errors && $data['aktif'] == 1 ? "checked" : "" ?> id="status" name="status" type="checkbox">
+            <label class="cursor-pointer inline-block w-11/12" for="status">Aktif</label>
 
             <div class="border-b border-solid my-2 w-full"></div>
 

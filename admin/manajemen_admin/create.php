@@ -104,8 +104,8 @@ if (isset($_POST["create_admin"])) {
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="konfirmasi_sandi" minlength="8" name="konfirmasi_sandi" required type="password" value="<?= $errors && get_prev_field('konfirmasi_sandi') ?>">
 
             <span class="block">Status</span>
-            <input class="bg-gray-200 inline-block px-3 py-2 ml-2" checked id="status" name="status" type="checkbox">
-            <label for="status">Aktif</label>
+            <input class="bg-gray-200 inline-block ml-2 px-3 py-2" checked id="status" name="status" type="checkbox">
+            <label class="cursor-pointer inline-block w-11/12" for="status">Aktif</label>
 
             <div class="border-b border-solid my-2 w-full"></div>
 

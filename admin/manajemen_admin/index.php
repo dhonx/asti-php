@@ -59,12 +59,12 @@ $page_count     = ceil($total_items / $ipp)
     <main class="main lg:ml-64">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
         <div class="flex my-4">
-            <a class="active-scale bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create" role="button">
+            <a class="active-scale bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Admin">
                 <i class="mdi font-bold align-middle">add</i>
                 tambah
             </a>
             <form class="flex ml-auto relative" method="get">
-                <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari..." value="<?= $keyword ?>">
+                <input class="px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data admin" type="text" value="<?= $keyword ?>">
                 <i class="absolute mdi self-center" style="right:15px">search</i>
             </form>
         </div>
@@ -90,7 +90,7 @@ $page_count     = ceil($total_items / $ipp)
                                 <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
                                 <a class="block" href="?<?= $url_query ?>">Status</a>
                             </th>
-                            <th class="border border-gray-400 hidden lg:table-cell p-2">Aksi</th>
+                            <th class="border border-gray-400 hidden lg:table-cell p-2"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,13 +132,13 @@ $page_count     = ceil($total_items / $ipp)
                                     </span>
                                 </td>
                                 <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                    <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
+                                    <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
                                         <i class="mdi">visibility</i>
                                     </a>
-                                    <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
+                                    <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Edit/update data">
                                         <i class="mdi">edit</i>
                                     </a>
-                                    <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button">
+                                    <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus data">
                                         <i class="mdi">delete</i>
                                     </a>
                                 </td>

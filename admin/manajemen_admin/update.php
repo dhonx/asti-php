@@ -132,11 +132,11 @@ else {
             <div class="border-b border-solid my-2 w-full"></div>
 
             <div class="flex justify-end">
-                <button class="active-scale bg-gray-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" type="reset">
+                <button class="active-scale bg-gray-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" title="Reset Formulir" type="reset">
                     <i class="mdi align-middle">clear_all</i>
                     reset
                 </button>
-                <button class="active-scale bg-blue-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" name="update_admin" type="submit">
+                <button class="active-scale bg-blue-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" name="update_admin" title="Simpan/Update" type="submit">
                     <i class="mdi align-middle">save</i>
                     simpan
                 </button>

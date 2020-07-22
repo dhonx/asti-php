@@ -52,6 +52,7 @@ $page_count     = ceil($total_items / $ipp)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
     <title><?= $is_search_mode ? "Hasil pencarian dari $keyword" : "" ?> - Manajemen Admin - ASTI</title>
 </head>
+
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
     <?php require_once "../../header.php" ?>
 
@@ -62,111 +63,111 @@ $page_count     = ceil($total_items / $ipp)
             <a class="bg-green-500 mr-2 px-3 py-2 rounded-md text-white" href="./">Reset Sort</a>
             <form class="hidden lg:flex ml-auto relative" method="get">
                 <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari..." value="<?= isset($_GET["keyword"]) ? $_GET["keyword"] : "" ?>">
-                <i class="mdi self-center absolute" style="right:10px">search</i>
+                <i class="mdi self-center absolute" style="right:15px">search</i>
             </form>
         </div>
 
         <div class="mb-2">
             <?php if ($total_items > 0) { ?>
-            <table class="border-collapse w-full">
-                <thead>
-                    <tr class="bg-gray-300 font-bold text-gray-800">
-                        <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Nama</a>
-                        </th>
-                        <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Email</a>
-                        </th>
-                        <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
-                            <a class="block" href="?<?= $url_query ?>">No HP</a>
-                        </th>
-                        <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Status</a>
-                        </th>
-                        <th class="border border-gray-400 hidden lg:table-cell p-2">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_row()) {
-                        $id_admin   = $row[0];
-                        $nama       = $row[1];
-                        $email      = $row[2];
-                        $no_telp    = $row[3];
-                        $aktif      = $row[5];
-                        $tipe_admin = $row[6];
-                        $created_at = $row[7];
-                        $updated_at = $row[8];
-                    ?>
-                        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Nama
-                                </span>
-                                <?= $nama ?>
-                            </td>
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Email
-                                </span>
-                                <?= $email ?>
-                            </td>
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    No HP
-                                </span>
-                                <?= $no_telp ?>
-                            </td>
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Status
-                                </span>
-                                <span class="rounded bg-<?= $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold">
-                                    <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
-                                </span>
-                            </td>
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
-                                    <i class="mdi">visibility</i>
-                                </a>
-                                <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
-                                    <i class="mdi">edit</i>
-                                </a>
-                                <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600">
-                                    <i class="mdi">delete</i>
-                                </a>
-                            </td>
+                <table class="border-collapse w-full">
+                    <thead>
+                        <tr class="bg-gray-300 font-bold text-gray-800">
+                            <th class="border border-gray-400 hidden lg:table-cell p-2">
+                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                                <a class="block" href="?<?= $url_query ?>">Nama</a>
+                            </th>
+                            <th class="border border-gray-400 hidden lg:table-cell p-2">
+                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                                <a class="block" href="?<?= $url_query ?>">Email</a>
+                            </th>
+                            <th class="border border-gray-400 hidden lg:table-cell p-2">
+                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                                <a class="block" href="?<?= $url_query ?>">No HP</a>
+                            </th>
+                            <th class="border border-gray-400 hidden lg:table-cell p-2">
+                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                                <a class="block" href="?<?= $url_query ?>">Status</a>
+                            </th>
+                            <th class="border border-gray-400 hidden lg:table-cell p-2">Aksi</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_row()) {
+                            $id_admin   = $row[0];
+                            $nama       = $row[1];
+                            $email      = $row[2];
+                            $no_telp    = $row[3];
+                            $aktif      = $row[5];
+                            $tipe_admin = $row[6];
+                            $created_at = $row[7];
+                            $updated_at = $row[8];
+                        ?>
+                            <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                        Nama
+                                    </span>
+                                    <?= $nama ?>
+                                </td>
+                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                        Email
+                                    </span>
+                                    <?= $email ?>
+                                </td>
+                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                        No HP
+                                    </span>
+                                    <?= $no_telp ?>
+                                </td>
+                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                        Status
+                                    </span>
+                                    <span class="rounded bg-<?= $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold">
+                                        <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
+                                    </span>
+                                </td>
+                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                                    <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                        <i class="mdi">visibility</i>
+                                    </a>
+                                    <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                        <i class="mdi">edit</i>
+                                    </a>
+                                    <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600">
+                                        <i class="mdi">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <div class="flex justify-center lg:justify-end my-3">
+                    <form class="flex" method="get">
+                        <label class="self-center px-2">Baris per halaman</label>
+                        <select class="p-2 rounded-sm" name="ipp" onchange="this.form.submit()">
+                            <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
+                            <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
+                            <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="flex w-full justify-center items-center my-3">
+                    <?php foreach (range(1, $page_count) as $page_num) { ?>
+                        <?php if ($page_count == 1) continue; ?>
+                        <?php $url_query = http_build_query(array_merge($_GET, ["page" => $page_num])) ?>
+                        <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="?<?= $url_query ?>">
+                            <?= $page_num ?>
+                        </a>
                     <?php } ?>
-                </tbody>
-            </table>
-            <div class="flex justify-center lg:justify-end my-3">
-                <form class="flex" method="get">
-                    <label class="self-center px-2">Baris per halaman</label>
-                    <select class="p-2 rounded-sm" name="ipp" onchange="this.form.submit()">
-                        <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
-                        <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
-                        <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
-                    </select>
-                </form>
-            </div>
-            <div class="flex w-full justify-center items-center my-3">
-                <?php foreach (range(1, $page_count) as $page_num) { ?>
-                    <?php if ($page_count == 1) continue; ?>
-                    <?php $url_query = http_build_query(array_merge($_GET, ["page" => $page_num])) ?>
-                    <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="?<?= $url_query ?>">
-                        <?= $page_num ?>
-                    </a>
-                <?php } ?>
-            </div>
+                </div>
             <?php } ?>
             <?php
-                if ($is_search_mode && $total_items == 0) {
-                    echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
-                }
+            if ($is_search_mode && $total_items == 0) {
+                echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
+            }
             ?>
         </div>
     </main>

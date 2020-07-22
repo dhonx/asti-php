@@ -87,7 +87,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
                     <i class="mdi align-middle">edit</i>
                     Ubah
                 </a>
-                <a class="bg-red-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_admin=<?= $data["id_admin"] ?>" title="Hapus data ini">
+                <a data-nama="<?= $data["nama"] ?>" class="bg-red-500 delete-link block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_admin=<?= $data["id_admin"] ?>" title="Hapus data ini">
                     <i class="mdi align-middle">delete</i>
                     Hapus
                 </a>

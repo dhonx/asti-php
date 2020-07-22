@@ -33,31 +33,23 @@ $page_count     = ceil($total_items / $ipp)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?= BASE_PATH; ?>/css/tailwind.min.css" rel="stylesheet">
-    <link href="<?= BASE_PATH; ?>/css/main.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
     <title>Manajemen Admin - ASTI</title>
 </head>
-
 <body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
-    <?php require_once "../../header.php"; ?>
+    <?php require_once "../../header.php" ?>
 
     <main class="main lg:ml-64">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
-
-        <div class="flex my-5 justify-end">
-            <form class="flex" action="cari.php" method="get">
-                <input class="px-2 mx-2 rounded-md" type="text" name="keyword">
+        <div class="flex my-4 ">
+            <a class="bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php">Tambah</a>
+            <a class="bg-green-500 mr-2 px-3 py-2 rounded-md text-white" href="./">Reset Sort</a>
+            <form class="hidden lg:flex ml-auto relative" action="cari.php" method="get">
+                <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari...">
+                <i class="mdi self-center absolute" style="right:10px">search</i>
             </form>
-            <form class="flex" action="index.php" method="get">
-                <select class="px-1 rounded-sm" name="ipp" onchange="this.form.submit()">
-                    <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
-                    <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
-                    <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
-                </select>
-            </form>
-            <a class="bg-green-500 ml-2 px-3 py-2 rounded-md text-white" href="./">Reset Sort</a>
-            <a class="bg-blue-500 ml-2 px-3 py-2 rounded-md text-white" href="create.php">Tambah Admin</a>
         </div>
 
         <div class="mb-2">
@@ -65,24 +57,20 @@ $page_count     = ceil($total_items / $ipp)
                 <thead>
                     <tr class="bg-gray-300 font-bold text-gray-800">
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=nama&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
-                                Nama
-                            </a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Nama</a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=email&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
-                                Email
-                            </a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Email</a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=no_telp&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
-                                No HP
-                            </a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">No HP</a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">
-                            <a class="block" href="index.php?sort_by=aktif&asc=<?= $asc == 'asc' ? 'desc' : 'asc' ?>&page=<?= $page ?>&ipp=<?= $ipp ?>">
-                                Status
-                            </a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc"=> $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Status</a>
                         </th>
                         <th class="border border-gray-400 hidden lg:table-cell p-2">Aksi</th>
                     </tr>
@@ -140,7 +128,17 @@ $page_count     = ceil($total_items / $ipp)
                     <?php } ?>
                 </tbody>
             </table>
-            <div class="flex w-full justify-center items-center my-2">
+            <div class="flex justify-center lg:justify-end my-3">
+                <form class="flex" method="get">
+                    <label class="self-center px-2">Baris per halaman</label>
+                    <select class="p-2 rounded-sm" name="ipp" onchange="this.form.submit()">
+                        <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
+                        <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
+                        <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
+                    </select>
+                </form>
+            </div>
+            <div class="flex w-full justify-center items-center my-3">
                 <?php foreach (range(1, $page_count) as $page_num) { ?>
                     <?php if ($page_count == 1) continue; ?>
                     <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="index.php?page=<?= $page_num ?>&ipp=<?= $ipp ?>">

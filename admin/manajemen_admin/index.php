@@ -21,13 +21,13 @@ $keyword = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["key
 $is_search_mode = strlen($keyword) >= 1;
 
 // Main query
-$query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' LIMIT $limit OFFSET $offset";
+$query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' LIMIT $limit OFFSET $offset";
 $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 
 // If on search mode
 if ($is_search_mode) {
     $splited_keyword = explode(" ", $keyword);
-    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' AND ";
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
     $query .= " LIMIT $limit OFFSET $offset";
     $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
@@ -35,7 +35,7 @@ if ($is_search_mode) {
 
 $result = $connection->query($query);
 
-$query          = "SELECT * FROM admin WHERE tipe_admin != 'super admin'";
+$query          = "SELECT * FROM admin WHERE tipe_admin != 'super_admin'";
 $count_result   = $connection->query($query);
 
 $total_items    = !$is_search_mode ? $count_result->num_rows : $result->num_rows;

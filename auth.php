@@ -33,22 +33,25 @@ else if (!isset($login_as)) {
     goto_login_page("Login sebagai tidak valid");
 }
 
-if ($login_as == "admin") {
-    $result = $connection->query("SELECT email, sandi FROM admin");
-    while ($row = $result->fetch_row()) {
-        $email_from_db = $row[0];
-        $hashed_password = $row[1];
-        if ($email == $email_from_db) {
+if ($login_as == "super_admin" || $login_as == "admin") {
+    $query = "SELECT email, sandi, nama FROM admin WHERE email = '$email' AND tipe_admin = '$login_as'";
+    $result = $connection->query($query);
+    if ($result && $result->num_rows >= 1) {
+        while ($row = $result->fetch_row()) {
+            $email_from_db = $row[0];
+            $hashed_password = $row[1];
+            $nama = $row[2];
             if (password_verify($password, $hashed_password)) {
                 $_SESSION["email"] = $email;
+                $_SESSION["nama"] = $nama;
                 $_SESSION["login_as"] = $login_as;
                 $_SESSION["logged_in"] = true;
-                header("location: ./admin");
+                redirect("./admin");
             } else {
                 goto_login_page("Email atau sandi salah");
             }
-        } else {
-            goto_login_page("Email atau sandi salah");
         }
+    } else {
+        goto_login_page("Email atau sandi salah");
     }
 }

@@ -59,7 +59,7 @@ $page_count     = ceil($total_items / $ipp)
     <main class="main lg:ml-64">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
         <div class="flex my-4">
-            <a class="bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php">
+            <a class="bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php" role="button">
                 <i class="mdi font-bold">add</i>
                 Tambah
             </a>
@@ -132,13 +132,13 @@ $page_count     = ceil($total_items / $ipp)
                                     </span>
                                 </td>
                                 <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                    <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                    <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
                                         <i class="mdi">visibility</i>
                                     </a>
-                                    <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600">
+                                    <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
                                         <i class="mdi">edit</i>
                                     </a>
-                                    <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600">
+                                    <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button">
                                         <i class="mdi">delete</i>
                                     </a>
                                 </td>
@@ -148,8 +148,8 @@ $page_count     = ceil($total_items / $ipp)
                 </table>
                 <div class="flex justify-center lg:justify-end my-3">
                     <form class="flex" method="get">
-                        <label class="self-center px-2">Baris per halaman</label>
-                        <select class="p-2 rounded-sm" name="ipp" onchange="this.form.submit()">
+                        <label class="self-center px-2" for="ipp">Baris per halaman</label>
+                        <select class="p-2 rounded-sm" id="ipp" name="ipp" onchange="this.form.submit()">
                             <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
                             <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
                             <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
@@ -160,7 +160,7 @@ $page_count     = ceil($total_items / $ipp)
                     <?php foreach (range(1, $page_count) as $page_num) { ?>
                         <?php if ($page_count == 1) continue; ?>
                         <?php $url_query = http_build_query(array_merge($_GET, ["page" => $page_num])) ?>
-                        <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="?<?= $url_query ?>">
+                        <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="?<?= $url_query ?>" role="button">
                             <?= $page_num ?>
                         </a>
                     <?php } ?>

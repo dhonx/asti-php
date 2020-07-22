@@ -18,12 +18,13 @@ $offset = $page * $ipp - $ipp;
 $limit  = $ipp - 0;
 
 $keyword = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
+$is_search_mode = strlen($keyword) >= 1;
 
 $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' LIMIT $limit OFFSET $offset";
 $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 
 // If on search mode
-if ($keyword != "") {
+if ($is_search_mode) {
     $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' AND nama LIKE '%$keyword%' LIMIT $limit OFFSET $offset";
     $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 }
@@ -33,7 +34,7 @@ $result = $connection->query($query);
 $query          = "SELECT * FROM admin WHERE tipe_admin != 'super admin'";
 $count_result   = $connection->query($query);
 
-$total_items    = $count_result->num_rows;
+$total_items    = !$is_search_mode ? $count_result->num_rows : $result->num_rows;
 $page_count     = ceil($total_items / $ipp)
 ?>
 <!DOCTYPE html>

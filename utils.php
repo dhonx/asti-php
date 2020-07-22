@@ -31,3 +31,20 @@ function prints($text = "")
 {
     echo $text;
 }
+
+function build_search_query($keyword, $fields = ["id"]) {
+    $query = "";
+    $splited_keyword = explode(" ", $keyword);
+    foreach ($splited_keyword as $idx_keyword => $alphabet) {
+        foreach ($fields as $idx_field => $field) {
+            $query .= " $field LIKE '%$alphabet%' ";
+            if ($idx_field < count($fields) - 1) {
+                $query .= " OR";
+            }    
+        }
+        if ($idx_keyword < count($splited_keyword) - 1) {
+            $query .= " OR";
+        }
+    }
+    return $query;
+}

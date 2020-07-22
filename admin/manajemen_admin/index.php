@@ -20,12 +20,16 @@ $limit  = $ipp - 0;
 $keyword = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
 $is_search_mode = strlen($keyword) >= 1;
 
+// Main query
 $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' LIMIT $limit OFFSET $offset";
 $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 
 // If on search mode
 if ($is_search_mode) {
-    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' AND nama LIKE '%$keyword%' LIMIT $limit OFFSET $offset";
+    $splited_keyword = explode(" ", $keyword);
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' AND ";
+    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
+    $query .= " LIMIT $limit OFFSET $offset";
     $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 }
 
@@ -138,6 +142,7 @@ $page_count     = ceil($total_items / $ipp)
                     <?php } ?>
                 </tbody>
             </table>
+
             <div class="flex justify-center lg:justify-end my-3">
                 <form class="flex" method="get">
                     <label class="self-center px-2">Baris per halaman</label>

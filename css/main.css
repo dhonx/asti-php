@@ -32,6 +32,10 @@ i.mdi {
   color: #1f1e27;
 }
 
+.active-scale:active {
+  transform: scale(0.9);
+}
+
 @media (max-width: 640px) {
   .xs\:hidden {
     display: none;

@@ -76,7 +76,7 @@ else {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <title>Tambah Admin - ASTI</title>
 </head>
@@ -134,11 +134,11 @@ else {
 
             <div class="flex justify-end">
                 <button class="active-scale bg-gray-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" title="Reset Formulir" type="reset">
-                    <i class="mdi align-middle">clear_all</i>
+                    <span class="mdi align-middle mdi-notification-clear-all"></span>
                     reset
                 </button>
                 <button class="active-scale bg-blue-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" name="update_admin" title="Simpan/Update" type="submit">
-                    <i class="mdi align-middle">save</i>
+                    <span class="mdi align-middle mdi-content-save"></span>
                     simpan
                 </button>
             </div>

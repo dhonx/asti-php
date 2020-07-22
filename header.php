@@ -9,13 +9,53 @@
 </header>
 <nav class="sidenav bg-blue-600 lg:w-64 absolute w-screen lg:block md:hidden py-3 sm:hidden text-white xs:hidden" id="nav-menu">
     <ul>
-        <li><a href="<?= BASE_PATH ?>/admin">Dashboard</a></li>
-        <li><a href="<?= BASE_PATH ?>/admin/manajemen_admin">Manajemen Admin</a></li>
-        <li><a href="#">Manajemen Instansi</a></li>
-        <li><a href="#">Manajemen Komponen</a></li>
-        <li><a href="#">Manajemen Pegawai</a></li>
-        <li><a href="#">Manajemen Peminjam</a></li>
-        <li><a href="#">Pengaturan</a></li>
-        <li><a href="<?= BASE_PATH ?>/logout">Logout</a></li>
+        <li>
+            <a href="<?= BASE_PATH ?>/admin" role="menuitem">
+                <span class="mdi align-middle mdi-view-dashboard text-lg"></span>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="<?= BASE_PATH ?>/admin/manajemen_admin">
+                <span class="mdi align-middle mdi-account-cog text-lg"></span>
+                Manajemen Admin
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mdi align-middle mdi-office-building text-lg"></span>
+                Manajemen Instansi
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mdi align-middle mdi-package text-lg"></span>
+                Manajemen Komponen
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mdi align-middle mdi-account-supervisor text-lg"></span>
+                Manajemen Pegawai
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mdi align-middle mdi-account-group text-lg"></span>
+                Manajemen Peminjam
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mdi align-middle mdi-cog text-lg"></span>
+                Pengaturan
+            </a>
+        </li>
+        <li>
+            <a href="<?= BASE_PATH ?>/logout">
+                <span class="mdi align-middle mdi-exit-to-app text-lg"></span>
+                Logout
+            </a>
+        </li>
     </ul>
 </nav>

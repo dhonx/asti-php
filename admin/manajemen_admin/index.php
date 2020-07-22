@@ -48,7 +48,7 @@ $page_count     = ceil($total_items / $ipp)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha512-mRuH7OxetZB1XiSaKZ2fxENKgxVvx3ffpzX0FUcaP6GBqAuqOLc8YiC/3EVTUVt5p5mIRT5D9i4LitZUQKWNCg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
     <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Admin - ASTI</title>
 </head>
@@ -60,12 +60,12 @@ $page_count     = ceil($total_items / $ipp)
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
         <div class="flex my-4">
             <a class="active-scale bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Admin">
-                <i class="mdi font-bold align-middle">add</i>
+                <span class="mdi align-middle mdi-plus"></span>
                 tambah
             </a>
             <form class="flex ml-auto relative" method="get">
                 <input class="px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data admin" type="text" value="<?= $keyword ?>">
-                <i class="absolute mdi self-center" style="right:15px">search</i>
+                <span class="absolute mdi mdi-magnify self-center" style="right:15px"></span>
             </form>
         </div>
 
@@ -133,13 +133,13 @@ $page_count     = ceil($total_items / $ipp)
                                 </td>
                                 <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                     <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
-                                        <i class="mdi">visibility</i>
+                                        <span class="mdi mdi-eye"></span>
                                     </a>
                                     <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
-                                        <i class="mdi">edit</i>
+                                        <span class="mdi mdi-pencil"></span>
                                     </a>
                                     <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
-                                        <i class="mdi">delete</i>
+                                        <span class="mdi mdi-trash-can"></span>
                                     </a>
                                 </td>
                             </tr>

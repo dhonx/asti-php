@@ -63,7 +63,7 @@ $page_count     = ceil($total_items / $ipp)
             <a class="bg-green-500 mr-2 px-3 py-2 rounded-md text-white" href="./">Reset Sort</a>
             <form class="hidden lg:flex ml-auto relative" method="get">
                 <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari..." value="<?= $keyword ?>">
-                <i class="mdi self-center absolute" style="right:15px">search</i>
+                <i class="absolute mdi self-center" style="right:15px">search</i>
             </form>
         </div>
 

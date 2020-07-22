@@ -50,7 +50,7 @@ if (isset($_POST["update_admin"])) {
             $query = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE id_admin = $id_admin_to_update");
             if ($connection->query($query) == TRUE) {
                 $connection->close();
-                redirect("./index.php");
+                redirect("./");
             } else {
                 print_r($connection->error_list);
                 $connection->close();
@@ -65,7 +65,7 @@ else {
     $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin_to_update";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
-        redirect('./index.php');
+        redirect('./');
     }
 }
 ?>
@@ -86,7 +86,7 @@ else {
     <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">Update Admin</h3>
 
-        <form action="?id_admin=<?= $_GET['id_admin']; ?>" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
+        <form action="?id_admin=<?= $id_admin_to_update ?>" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">

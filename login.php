@@ -4,7 +4,7 @@ require_once "./config.php";
 session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 	$login_as = $_SESSION['login_as'];
-	header("location: $login_as/index.php");
+	header("location: $login_as");
 }
 ?>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 flex items-center text-sm">
-	<form action="auth.php" class="bg-white max-w-sm mx-auto shadow-md rounded-lg overflow-hidden px-6 py-4" method="post">
+	<form action="auth" class="bg-white max-w-sm mx-auto shadow-md rounded-lg overflow-hidden px-6 py-4" method="post">
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 
 		<label class="mx-1" for="email">Email</label>

@@ -3,9 +3,9 @@
 function goto_login_page($message = "")
 {
     if (strlen($message) < 1) {
-        header('location: /asti/login.php');
+        header('location: /asti/login');
     } else {
-        header("location: /asti/login.php?message=$message");
+        header("location: /asti/login?message=$message");
     }
 }
 
@@ -32,7 +32,8 @@ function prints($text = "")
     echo $text;
 }
 
-function build_search_query($keyword, $fields = ["id"]) {
+function build_search_query($keyword, $fields = ["id"])
+{
     $query = "";
     $splited_keyword = explode(" ", $keyword);
     foreach ($splited_keyword as $idx_keyword => $alphabet) {
@@ -40,7 +41,7 @@ function build_search_query($keyword, $fields = ["id"]) {
             $query .= " $field LIKE '%$alphabet%' ";
             if ($idx_field < count($fields) - 1) {
                 $query .= " OR";
-            }    
+            }
         }
         if ($idx_keyword < count($splited_keyword) - 1) {
             $query .= " OR";

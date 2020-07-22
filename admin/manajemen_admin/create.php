@@ -53,7 +53,7 @@ if (isset($_POST["create_admin"])) {
             );
             if ($connection->query($query) == TRUE) {
                 $connection->close();
-                redirect("./index.php");
+                redirect("./");
             }
         }
     }
@@ -76,7 +76,7 @@ if (isset($_POST["create_admin"])) {
     <main class="main lg:ml-64">
         <h3 class="text-2xl font-bold py-2 page-header">Tambah Admin</h3>
 
-        <form action="create.php" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
+        <form class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">

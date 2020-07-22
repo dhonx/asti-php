@@ -59,7 +59,7 @@ $page_count     = ceil($total_items / $ipp)
     <main class="main lg:ml-64">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
         <div class="flex my-4">
-            <a class="active-scale bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php" role="button">
+            <a class="active-scale bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create" role="button">
                 <i class="mdi font-bold align-middle">add</i>
                 tambah
             </a>
@@ -127,18 +127,18 @@ $page_count     = ceil($total_items / $ipp)
                                     <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                         Status
                                     </span>
-                                    <span class="rounded bg-<?= $aktif == 1 ? 'blue' : 'red' ?>-400 text-white py-1 px-3 text-xs font-bold">
+                                    <span class="rounded bg-<?= $aktif == 1 ? "blue" : "red" ?>-400 text-white py-1 px-3 text-xs font-bold">
                                         <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
                                     </span>
                                 </td>
                                 <td class="w-full lg:w-auto p-1 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                    <a href="view.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
+                                    <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
                                         <i class="mdi">visibility</i>
                                     </a>
-                                    <a href="update.php?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
+                                    <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button">
                                         <i class="mdi">edit</i>
                                     </a>
-                                    <a data-nama="<?= $nama ?>" href="delete.php?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button">
+                                    <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button">
                                         <i class="mdi">delete</i>
                                     </a>
                                 </td>

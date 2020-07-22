@@ -15,6 +15,6 @@
         <li><a href="#">Manajemen Komponen</a></li>
         <li><a href="#">Manajemen Pegawai</a></li>
         <li><a href="#">Manajemen Peminjam</a></li>
-        <li><a href="<?= BASE_PATH ?>/logout.php">Logout</a></li>
+        <li><a href="<?= BASE_PATH ?>/logout">Logout</a></li>
     </ul>
 </nav>

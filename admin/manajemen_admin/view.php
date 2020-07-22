@@ -9,13 +9,13 @@ authenticate();
 $id_admin = 0;
 
 if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
-    redirect("./index.php");
+    redirect("./");
 } else {
     $id_admin = $_GET["id_admin"];
     $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
-        redirect('./index.php');
+        redirect('./');
     }
 }
 ?>

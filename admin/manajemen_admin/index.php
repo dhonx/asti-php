@@ -17,8 +17,17 @@ $page   = isset($_GET["page"]) && is_numeric($_GET["page"]) ? $_GET["page"] : 1;
 $offset = $page * $ipp - $ipp;
 $limit  = $ipp - 0;
 
+$keyword = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
+
 $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' LIMIT $limit OFFSET $offset";
 $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
+
+// If on search mode
+if ($keyword != "") {
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super admin' AND nama LIKE '%$keyword%' LIMIT $limit OFFSET $offset";
+    $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
+}
+
 $result = $connection->query($query);
 
 $query          = "SELECT * FROM admin WHERE tipe_admin != 'super admin'";
@@ -46,8 +55,8 @@ $page_count     = ceil($total_items / $ipp)
         <div class="flex my-4 ">
             <a class="bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create.php">Tambah</a>
             <a class="bg-green-500 mr-2 px-3 py-2 rounded-md text-white" href="./">Reset Sort</a>
-            <form class="hidden lg:flex ml-auto relative" action="cari.php" method="get">
-                <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari...">
+            <form class="hidden lg:flex ml-auto relative" method="get">
+                <input class="px-2 mx-2 rounded-md" type="text" name="keyword" placeholder="Cari..." value="<?= isset($_GET["keyword"]) ? $_GET["keyword"] : "" ?>">
                 <i class="mdi self-center absolute" style="right:10px">search</i>
             </form>
         </div>

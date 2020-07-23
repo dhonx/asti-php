@@ -8,7 +8,7 @@
     </div>
 </header>
 <nav class="bg-gray-200 hidden lg:flex p-2 sidenav" id="nav-menu" role="menu">
-    <ul>
+    <ul class="flex flex-col">
         <li>
             <a href="<?= BASE_PATH ?>/admin" role="menuitem" role="menuitem">
                 <span class="mdi align-middle mdi-view-dashboard text-lg"></span>
@@ -45,7 +45,7 @@
                 <span class="label">Manajemen Peminjam</span>
             </a>
         </li>
-        <li>
+        <li class="lg:mt-auto">
             <a href="#" role="menuitem">
                 <span class="mdi align-middle mdi-cog text-lg"></span>
                 <span class="label">Pengaturan</span>

@@ -7,7 +7,7 @@
         <img src="<?= BASE_PATH ?>/img/open-menu.svg" alt="">
     </div>
 </header> -->
-<nav class="bg-gray-200 lg:flex p-2 sidenav" id="nav-menu" role="menu">
+<nav class="bg-gray-200 hidden lg:flex p-2 sidenav" id="nav-menu" role="menu">
     <ul>
         <li>
             <a href="<?= BASE_PATH ?>/admin" role="menuitem" role="menuitem">

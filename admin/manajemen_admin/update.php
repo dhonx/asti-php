@@ -52,7 +52,7 @@ if (isset($_POST["update_admin"])) {
                 $connection->close();
                 redirect("./");
             } else {
-                print_r($connection->error_list);
+                // print_r($connection->error_list);
                 $connection->close();
             }
         }

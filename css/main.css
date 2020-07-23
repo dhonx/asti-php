@@ -6,7 +6,6 @@ body {
   max-height: 100vh;
   min-height: 100vh;
   overflow-y: auto;
-  z-index: 2;
 }
 
 /* .sidenav:hover .label {
@@ -60,12 +59,15 @@ body {
 }
 
 @media screen and (max-width: 1200px) {
+  body {
+    flex-direction: column;
+  }
   .main {
-    margin-top: 45px;
+    max-height: calc(100vh - 45px);
+    min-height: calc(100vh - 45px);
   }
   .sidenav.active {
     display: flex;
-    position: absolute;
     top: 45px;
     width: 100%;
     -webkit-animation: slide-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)

@@ -10,6 +10,8 @@
 
         mobileMenuBtn.addEventListener("click", function() {
             navMenu.classList.toggle("active");
+            mobileMenuBtn.querySelector(".mdi").classList.toggle("mdi-close")
+            mobileMenuBtn.querySelector(".mdi").classList.toggle("mdi-menu")
         });
 
         deleteLinks.forEach(function(deleteLink) {

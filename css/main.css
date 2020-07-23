@@ -1,3 +1,7 @@
+body {
+  color: #172b4d;
+}
+
 .sidenav {
   max-height: 100vh;
   min-height: 100vh;
@@ -30,10 +34,10 @@
   overflow-y: auto;
 }
 
-.page-header {
-  /* border-bottom: 1px solid #c6cbd0; */
-  color: #1f1e27;
-}
+/* .page-header { */
+/* border-bottom: 1px solid #c6cbd0; */
+/* color: #1f1e27; */
+/* } */
 
 .active-scale:active {
   transform: scale(0.9);

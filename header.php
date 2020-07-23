@@ -12,49 +12,49 @@
         <li>
             <a href="<?= BASE_PATH ?>/admin" role="menuitem" role="menuitem">
                 <span class="mdi align-middle mdi-view-dashboard text-lg"></span>
-                <span class="label">Dashboard</span>
+                <span class="lg:hidden label">Dashboard</span>
             </a>
         </li>
         <li>
             <a href="<?= BASE_PATH ?>/admin/manajemen_admin" role="menuitem">
                 <span class="mdi align-middle mdi-account-cog text-lg"></span>
-                <span class="label">Manajemen Admin</span>
+                <span class="lg:hidden label">Manajemen Admin</span>
             </a>
         </li>
         <li>
             <a href="#" role="menuitem">
                 <span class="mdi align-middle mdi-office-building text-lg"></span>
-                <span class="label">Manajemen Instansi</span>
+                <span class="lg:hidden label">Manajemen Instansi</span>
             </a>
         </li>
         <li>
             <a href="#" role="menuitem">
                 <span class="mdi align-middle mdi-package text-lg"></span>
-                <span class="label">Manajemen Komponen</span>
+                <span class="lg:hidden label">Manajemen Komponen</span>
             </a>
         </li>
         <li>
             <a href="#" role="menuitem">
                 <span class="mdi align-middle mdi-account-supervisor text-lg"></span>
-                <span class="label">Manajemen Pegawai</span>
+                <span class="lg:hidden label">Manajemen Pegawai</span>
             </a>
         </li>
         <li>
             <a href="#" role="menuitem">
                 <span class="mdi align-middle mdi-account-group text-lg"></span>
-                <span class="label">Manajemen Peminjam</span>
+                <span class="lg:hidden label">Manajemen Peminjam</span>
             </a>
         </li>
         <li class="lg:mt-auto">
             <a href="#" role="menuitem">
                 <span class="mdi align-middle mdi-cog text-lg"></span>
-                <span class="label">Pengaturan</span>
+                <span class="lg:hidden label">Pengaturan</span>
             </a>
         </li>
         <li>
             <a href="<?= BASE_PATH ?>/logout" role="menuitem">
                 <span class="mdi align-middle mdi-exit-to-app text-lg"></span>
-                <span class="label">Logout</span>
+                <span class="lg:hidden label">Logout</span>
             </a>
         </li>
     </ul>

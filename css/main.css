@@ -8,10 +8,9 @@ body {
   overflow-y: auto;
 }
 
-/* .sidenav:hover .label {
+.sidenav:hover .label {
   display: inline-block;
-  transition: display 0.3s ease;
-} */
+}
 
 .sidenav a {
   display: block;

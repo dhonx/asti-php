@@ -31,7 +31,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     <title>Tambah Admin - ASTI</title>
 </head>
 
-<body class="bg-gray-200 flex font-sans min-h-screen overflow-hidden text-sm">
+<body class="flex font-sans min-h-screen overflow-hidden text-sm">
     <?php require_once "../../header.php" ?>
 
     <main class="flex flex-auto flex-col main">

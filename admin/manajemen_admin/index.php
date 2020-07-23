@@ -53,10 +53,10 @@ $page_count     = ceil($total_items / $ipp)
     <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Admin - ASTI</title>
 </head>
 
-<body class="font-sans min-h-screen bg-gray-200 overflow-hidden text-sm">
+<body class="bg-gray-200 flex font-sans min-h-screen overflow-hidden text-sm">
     <?php require_once "../../header.php" ?>
 
-    <main class="main lg:ml-64">
+    <main class="flex flex-auto flex-col main">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>
         <div class="flex my-4">
             <a class="active-scale bg-blue-500 mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Admin">

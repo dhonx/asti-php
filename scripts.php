@@ -8,12 +8,12 @@
             main = document.body.querySelector("main"),
             deleteLinks = document.body.querySelectorAll(".delete-link");
 
-        mobileMenuBtn.addEventListener("click", function() {
-            navMenu.style.display = getComputedStyle(navMenu).display == "none" ? "block" : "none";
-            main.classList.toggle("lg:ml-64")
-        });
+        // mobileMenuBtn.addEventListener("click", function() {
+        //     navMenu.style.display = getComputedStyle(navMenu).display == "none" ? "block" : "none";
+        //     main.classList.toggle("lg:ml-64")
+        // });
 
-        deleteLinks.forEach(function (deleteLink) {
+        deleteLinks.forEach(function(deleteLink) {
             deleteLink.addEventListener("click", function(event) {
                 event.preventDefault();
                 var nama = this.dataset.nama;

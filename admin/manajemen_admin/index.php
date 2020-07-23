@@ -64,7 +64,7 @@ $page_count     = ceil($total_items / $ipp)
                 tambah
             </a>
             <form class="flex ml-auto relative" method="get">
-                <input class="px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data admin" type="text" value="<?= $keyword ?>">
+                <input class="bg-gray-200 px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data admin" type="text" value="<?= $keyword ?>">
                 <span class="absolute mdi mdi-magnify self-center" style="right:15px"></span>
             </form>
         </div>

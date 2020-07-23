@@ -62,6 +62,10 @@ body {
   body {
     flex-direction: column;
   }
+  .header {
+    box-shadow: #2b262694 0px 2px 2px 0px;
+    z-index: 3;
+  }
   .main {
     max-height: calc(100vh - 45px);
     min-height: calc(100vh - 45px);

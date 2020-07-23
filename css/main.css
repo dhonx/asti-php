@@ -17,9 +17,12 @@ body {
 .sidenav a {
   display: block;
   padding: 7px;
-  flex: none;
   margin: 2px 4px;
   border-radius: 5px;
+}
+
+.sidenav ul {
+  flex: 1;
 }
 
 .sidenav a:hover {
@@ -43,11 +46,46 @@ body {
   transform: scale(0.9);
 }
 
-@media (max-width: 640px) {
+@media screen and (max-width: 640px) {
   .xs\:hidden {
     display: none;
   }
   .xs\:flex {
     display: flex;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .main {
+    margin-top: 45px;
+  }
+  .sidenav.active {
+    display: flex;
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    -webkit-animation: slide-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      both;
+    animation: slide-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+}
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-100vw);
+    transform: translateX(-100vw);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-100vh);
+    transform: translateX(-100vh);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
 }

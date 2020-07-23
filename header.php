@@ -7,7 +7,11 @@
         <span class="mdi mdi-big mdi-menu"></span>
     </div>
 </header>
-<nav class="bg-gray-200 hidden lg:flex p-2 sidenav" id="nav-menu" role="menu">
+<nav class="bg-gray-200 hidden lg:flex flex-col p-2 sidenav" id="nav-menu" role="menu">
+    <div class="flex border-bottom cursor-pointer" style="padding: 20px 4px;">
+        <img src="https://pbs.twimg.com/profile_images/1272910160609107974/VLBJhHRb_bigger.jpg" width="30px" style="border-radius: 20px;" alt="">
+        <span class="lg:hidden ml-1 label self-center">Don</span>
+    </div>
     <ul class="flex flex-col">
         <li>
             <a href="<?= BASE_PATH ?>/admin" role="menuitem" role="menuitem">

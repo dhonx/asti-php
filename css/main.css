@@ -46,6 +46,10 @@ body {
   transform: scale(0.9);
 }
 
+.mdi-big::before {
+  font-size: 30px;
+}
+
 @media screen and (max-width: 640px) {
   .xs\:hidden {
     display: none;

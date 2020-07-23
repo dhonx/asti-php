@@ -87,7 +87,7 @@ else {
     <main class="flex flex-auto flex-col main">
         <h3 class="text-2xl font-bold py-2 page-header">Update Admin</h3>
 
-        <form action="?id_admin=<?= $id_admin_to_update ?>" class="bg-white my-5 p-5 pb-2 rounded-md" method="post">
+        <form action="?id_admin=<?= $id_admin_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">

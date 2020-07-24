@@ -70,109 +70,113 @@ $page_count     = ceil($total_items / $ipp)
             </form>
         </div>
 
-        <div class="mb-2">
-            <?php if ($total_items > 0) { ?>
-                <table class="w-full">
-                    <thead>
-                        <tr class="bg-gray-200 font-bold text-gray-800 rounded-lg">
-                            <th class="hidden lg:table-cell p-2">
-                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
-                                <a class="block" href="?<?= $url_query ?>">Nama</a>
-                            </th>
-                            <th class="hidden lg:table-cell p-2">
-                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
-                                <a class="block" href="?<?= $url_query ?>">Email</a>
-                            </th>
-                            <th class="hidden lg:table-cell p-2">
-                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
-                                <a class="block" href="?<?= $url_query ?>">No HP</a>
-                            </th>
-                            <th class="hidden lg:table-cell p-2">
-                                <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
-                                <a class="block" href="?<?= $url_query ?>">Status</a>
-                            </th>
-                            <th class="hidden lg:table-cell p-2"></th>
+        <?php if ($total_items > 0) { ?>
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-200 font-bold text-gray-800 rounded-lg">
+                        <th class="hidden lg:table-cell p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Nama</a>
+                        </th>
+                        <th class="hidden lg:table-cell p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Email</a>
+                        </th>
+                        <th class="hidden lg:table-cell p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">No HP</a>
+                        </th>
+                        <th class="hidden lg:table-cell p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Status</a>
+                        </th>
+                        <th class="hidden lg:table-cell p-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch_row()) {
+                        $id_admin   = $row[0];
+                        $nama       = $row[1];
+                        $email      = $row[2];
+                        $no_telp    = $row[3];
+                        $aktif      = $row[5];
+                        $tipe_admin = $row[6];
+                        $created_at = $row[7];
+                        $updated_at = $row[8];
+                    ?>
+                        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Nama
+                                </span>
+                                <?= $nama ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Email
+                                </span>
+                                <?= $email ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    No HP
+                                </span>
+                                <?= $no_telp ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Status
+                                </span>
+                                <span class="rounded bg-<?= $aktif == 1 ? "blue" : "red" ?>-400 text-white py-1 px-3 text-xs font-bold">
+                                    <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
+                                </span>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                                <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
+                                    <span class="mdi mdi-eye"></span>
+                                </a>
+                                <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
+                                    <span class="mdi mdi-pencil"></span>
+                                </a>
+                                <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
+                                    <span class="mdi mdi-trash-can"></span>
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $result->fetch_row()) {
-                            $id_admin   = $row[0];
-                            $nama       = $row[1];
-                            $email      = $row[2];
-                            $no_telp    = $row[3];
-                            $aktif      = $row[5];
-                            $tipe_admin = $row[6];
-                            $created_at = $row[7];
-                            $updated_at = $row[8];
-                        ?>
-                            <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                        Nama
-                                    </span>
-                                    <?= $nama ?>
-                                </td>
-                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                        Email
-                                    </span>
-                                    <?= $email ?>
-                                </td>
-                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                        No HP
-                                    </span>
-                                    <?= $no_telp ?>
-                                </td>
-                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                        Status
-                                    </span>
-                                    <span class="rounded bg-<?= $aktif == 1 ? "blue" : "red" ?>-400 text-white py-1 px-3 text-xs font-bold">
-                                        <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
-                                    </span>
-                                </td>
-                                <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
-                                    <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
-                                        <span class="mdi mdi-eye"></span>
-                                    </a>
-                                    <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
-                                        <span class="mdi mdi-pencil"></span>
-                                    </a>
-                                    <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
-                                        <span class="mdi mdi-trash-can"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-                <div class="flex justify-center lg:justify-end my-3">
-                    <form class="flex" method="get">
-                        <label class="self-center px-2" for="ipp">Baris per halaman</label>
-                        <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="this.form.submit()">
-                            <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
-                            <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
-                            <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
-                        </select>
-                    </form>
-                </div>
-                <div class="flex w-full justify-center items-center my-3">
-                    <?php foreach (range(1, $page_count) as $page_num) { ?>
-                        <?php if ($page_count == 1) continue; ?>
-                        <?php $url_query = http_build_query(array_merge($_GET, ["page" => $page_num])) ?>
-                        <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="?<?= $url_query ?>" role="button">
-                            <?= $page_num ?>
-                        </a>
                     <?php } ?>
-                </div>
-            <?php } ?>
-            <?php
-            if ($is_search_mode && $total_items == 0) {
-                echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
-            }
-            ?>
-        </div>
+                </tbody>
+            </table>
+
+            <!-- -------------------------- SELECT ITEMS PER PAGE ------------------------- -->
+            <div class="flex justify-center lg:justify-end my-3">
+                <form class="flex" method="get">
+                    <label class="self-center px-2" for="ipp">Baris per halaman</label>
+                    <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="this.form.submit()">
+                        <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
+                        <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
+                        <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- ------------------------------- PAGINATION ------------------------------- -->
+            <div class="flex w-full justify-center items-center my-3">
+                <?php foreach (range(1, $page_count) as $page_num) { ?>
+                    <?php if ($page_count == 1) continue; ?>
+                    <?php $url_query = http_build_query(array_merge($_GET, ["page" => $page_num])) ?>
+                    <a class="bg-blue-400 m-1 px-2 py-1 text-white rounded-sm <?= $page_num == $page ? "bg-blue-500 text-lg" : "" ?>" href="?<?= $url_query ?>" role="button">
+                        <?= $page_num ?>
+                    </a>
+                <?php } ?>
+            </div>
+        <?php } ?>
+
+        <!-- --------------------------- EMPTY SEARCH RESULT -------------------------- -->
+        <?php
+        if ($is_search_mode && $total_items == 0) {
+            echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
+        }
+        ?>
     </main>
     <?php require_once "../../scripts.php"; ?>
 </body>

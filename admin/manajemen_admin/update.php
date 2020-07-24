@@ -133,7 +133,7 @@ else {
             <div class="border-b border-solid my-2 w-full"></div>
 
             <div class="flex justify-end">
-                <button class="active-scale bg-gray-900 block px-3 py-2 mx-1 my-2 text-white rounded-md" title="Reset Formulir" type="reset">
+                <button class="active-scale bg-gray-300 block px-3 py-2 mx-1 my-2 rounded-md" title="Reset Formulir" type="reset">
                     <span class="mdi align-middle mdi-notification-clear-all"></span>
                     Reset
                 </button>

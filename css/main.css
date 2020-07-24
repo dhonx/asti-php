@@ -29,6 +29,7 @@ table {
 }
 
 .sidenav a {
+  color: inherit;
   display: block;
   padding: 7px;
   margin: 2px 4px;
@@ -40,7 +41,7 @@ table {
 }
 
 .sidenav a:hover {
-  background-color: #d4d9df;
+  background-color: #d4d9df94;
   transition: background-color 0.3s ease;
 }
 

@@ -26,6 +26,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 	<form action="auth" class="bg-white max-w-sm mx-auto shadow-md rounded-lg overflow-hidden px-6 py-4" method="post">
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 
+		<?php if (isset($_GET['message'])) { ?>
+			<div class="bg-red-400 my-5 p-3 rounded-md">
+				<?= $_GET['message'] ?>
+			</div>
+		<?php } ?>
+
 		<label class="mx-1" for="email">Email</label>
 		<input autocomplete="off" autofocus id="email" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-lg" id="email" minlength="6" name="email" required spellcheck="false" type="email" value="donnisnoni.tid3@gmail.com">
 
@@ -37,12 +43,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 			<option value="admin">Admin</option>
 			<option value="super_admin">Super Admin</option>
 		</select>
-
-		<div class="my-3 text-red-600">
-			<?php if (isset($_GET['message'])) {
-				echo $_GET['message'];
-			} ?>
-		</div>
 
 		<div class="flex justify-end">
 			<button class="active-scale bg-blue-900 text-white block py-2 px-6 my-2 rounded-md">Login</button>

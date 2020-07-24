@@ -6,6 +6,11 @@ body {
   color: #172b4d;
 }
 
+table {
+  border-right: 1px solid #edf2f7;
+  border-left: 1px solid #edf2f7;
+}
+
 .sidenav {
   max-height: 100vh;
   min-height: 100vh;

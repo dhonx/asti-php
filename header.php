@@ -1,5 +1,8 @@
 <?php require_once "config.php" ?>
 <?php require_once "utils.php" ?>
+<?php
+$sidenav_active = isset($_SESSION["sidenav"]) ? $_SESSION["sidenav"] : 0
+?>
 
 <header class="bg-blue-900 flex header lg:hidden w-screen lg:mb-10 pl-2 pr-5 items-center text-white">
     <h3 class="brand font-bold ml-auto lg:ml-0 text-3xl"><a href="<?= BASE_PATH ?>">ASTI</a></h3>
@@ -7,7 +10,7 @@
         <span class="mdi mdi-big mdi-menu"></span>
     </div>
 </header>
-<nav class="bg-gray-200 hidden lg:flex flex-col p-2 sidenav" id="nav-menu" role="menu">
+<nav class="bg-gray-200 hidden lg:flex flex-col p-2 sidenav <?= $sidenav_active == 1 ? "expand" : "" ?>" id="nav-menu" role="menu">
     <div class="flex border-bottom cursor-pointer" style="padding: 20px 4px; border-bottom: 1px solid #dde4e8;">
         <img src="https://pbs.twimg.com/profile_images/1272910160609107974/VLBJhHRb_bigger.jpg" width="30px" style="border-radius: 20px;" alt="">
         <span class="font-bold lg:hidden ml-2 mr-auto label self-center"><?= explode(" ",$_SESSION["nama"])[0] ?></span>
@@ -49,7 +52,13 @@
                 <span class="lg:hidden label">Manajemen Peminjam</span>
             </a>
         </li>
-        <li class="lg:mt-auto">
+        <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= BASE_PATH ?>/admin/set_config?sidenav" onclick="toggleSidenavExpand(this)">
+            <a class="w-full" href="#"  role="menuitem" title="Perluas">
+                <span class="mdi align-middle mdi-chevron-double-right text-lg"></span>
+                <span class="lg:hidden label">Perluas</span>
+            </a>
+        </li>
+        <li>
             <a href="#" role="menuitem" title="Pengaturan">
                 <span class="mdi align-middle mdi-cog text-lg"></span>
                 <span class="lg:hidden label">Pengaturan</span>

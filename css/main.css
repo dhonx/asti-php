@@ -12,6 +12,10 @@ body {
   display: inline-block;
 }
 
+.sidenav.expand .label {
+  display: initial;
+}
+
 .sidenav a {
   display: block;
   padding: 7px;

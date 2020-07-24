@@ -23,5 +23,29 @@
                 }
             })
         })
+
+        window.toggleSidenavExpand = function(el) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                navMenu.classList.toggle("expand");
+                handle_sidenav();
+            }
+            xhr.open("GET", el.dataset.url, true);
+            xhr.send();
+        }
+        
+        function handle_sidenav(el = document.querySelector("#expand-button")) {
+            var expanded = navMenu.classList.contains("expand");
+            el.querySelector("a").title = el.querySelector(".label").textContent = expanded ? "Perkecil" : "Perluas";
+            if (expanded) {
+                el.querySelector(".mdi").classList.remove("mdi-chevron-double-right");
+                el.querySelector(".mdi").classList.add("mdi-chevron-double-left");
+            } else {
+                el.querySelector(".mdi").classList.add("mdi-chevron-double-right");
+                el.querySelector(".mdi").classList.remove("mdi-chevron-double-left");
+            }
+        }
+
+        handle_sidenav()
     })();
 </script>

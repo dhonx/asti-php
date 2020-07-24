@@ -35,6 +35,12 @@ body {
   overflow-y: auto;
 }
 
+.pagination a.active {
+  color: #fff;
+  background-color: #2a4365;
+  font-weight: bold;
+}
+
 /* .page-header { */
 /* border-bottom: 1px solid #c6cbd0; */
 /* color: #1f1e27; */

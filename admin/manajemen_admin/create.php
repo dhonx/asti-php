@@ -111,13 +111,13 @@ if (isset($_POST["create_admin"])) {
             <div class="border-b border-solid my-2 w-full"></div>
 
             <div class="flex justify-end">
-                <button class="active-scale bg-gray-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" title="Reset formulir" type="reset">
+                <button class="active-scale bg-gray-700 font-bold block px-3 py-2 mx-1 my-2 text-white rounded-md" title="Reset formulir" type="reset">
                     <span class="mdi align-middle mdi-notification-clear-all"></span>
-                    reset
+                    Reset
                 </button>
-                <button class="active-scale bg-blue-500 block px-3 py-2 mx-1 my-2 text-white rounded-md" name="create_admin" title="Tambah Admin" type="submit">
+                <button class="active-scale bg-blue-900 font-bold block px-3 py-2 mx-1 my-2 text-white rounded-md" name="create_admin" title="Tambah Admin" type="submit">
                     <span class="mdi align-middle mdi-plus"></span>
-                    tambah
+                    Tambah
                 </button>
             </div>
         </form>

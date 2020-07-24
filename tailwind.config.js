@@ -1,9 +1,12 @@
 module.exports = {
   purge: {
     enabled: true,
-    content: ["./**/*.php"],
+    content: [
+      "./**/*.php",
+      "./node_modules/tailwindcss-dark-mode/prefers-dark.js",
+    ],
     options: {
-      whitelist: ["bg-blue-500", "mode-dark"],
+      whitelist: ["bg-blue-500", "mode-dark", "dark-mode"],
     },
   },
   theme: {

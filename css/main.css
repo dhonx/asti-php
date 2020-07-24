@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   color: #172b4d;
 }
@@ -12,6 +11,14 @@ body {
 table {
   border-right: 1px solid #edf2f7;
   border-left: 1px solid #edf2f7;
+}
+
+tbody tr {
+  border-bottom: 1px solid #edf2f7;
+}
+
+tbody tr:hover {
+  background-color: #edf2f7;
 }
 
 .sidenav {
@@ -71,12 +78,40 @@ table {
   font-size: 30px;
 }
 
-@media(prefers-color-scheme:dark){ 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #2d3748;
+    color: #fff;
+  }
+  table {
+    border-right: 1px solid #374357;
+    border-left: 1px solid #374357;
+  }
+  tbody tr {
+    border-bottom: 1px solid #374357;
+  }
+  tbody tr:hover {
+    background-color: #374357;
+  }
+  .bg-blue-200 {
+    background-color: #2a4365;
+  }
+  .bg-gray-200 {
+    background-color: #374357;
+  }
+  .bg-gray-300 {
+    background-color: #374357;
+  }
+  .bg-white {
+    background-color: #2d3748;
+  }
+  .sidenav {
+    background-color: #1a202c;
+  }
   .sidenav a:hover {
     background-color: #2d3748;
   }
 }
-
 
 @media screen and (max-width: 1200px) {
   body {

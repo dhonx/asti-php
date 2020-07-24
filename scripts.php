@@ -33,7 +33,7 @@
             xhr.open("GET", el.dataset.url, true);
             xhr.send();
         }
-        
+
         function handle_sidenav(el = document.querySelector("#expand-button")) {
             var expanded = navMenu.classList.contains("expand");
             el.querySelector("a").title = el.querySelector(".label").textContent = expanded ? "Perkecil" : "Perluas";
@@ -47,5 +47,15 @@
         }
 
         handle_sidenav()
+
+        function checkDarkMode() {
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        if (checkDarkMode()) {
+            document.documentElement.classList.add('mode-dark');
+        } else {
+            document.documentElement.classList.remove('mode-dark');
+        }
     })();
 </script>

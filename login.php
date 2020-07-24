@@ -45,7 +45,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 		</div>
 
 		<div class="flex justify-end">
-			<button class="bg-blue-900 text-white block py-2 px-6 my-2 rounded-md">Login</button>
+			<button class="active-scale bg-blue-900 text-white block py-2 px-6 my-2 rounded-md">Login</button>
 		</div>
 	</form>
 </body>

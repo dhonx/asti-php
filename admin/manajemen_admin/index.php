@@ -49,7 +49,7 @@ $page_count     = ceil($total_items / $ipp)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/main.compiled.css" rel="stylesheet">
     <link rel="stylesheet">
     <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Admin - ASTI</title>
 </head>

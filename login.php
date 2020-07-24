@@ -18,7 +18,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/main.compiled.css">
 	<title>Login - ASTI</title>
 </head>
 

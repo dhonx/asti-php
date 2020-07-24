@@ -27,7 +27,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
+    <link href="<?= BASE_PATH ?>/css/main.compiled.css" rel="stylesheet">
     <title>View Admin - ASTI</title>
 </head>
 

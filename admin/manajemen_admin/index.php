@@ -74,15 +74,15 @@ $page_count     = ceil($total_items / $ipp)
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-200 font-bold text-gray-800 rounded-lg">
-                        <th class="hidden lg:table-cell p-2">
+                        <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
                             <a class="block" href="?<?= $url_query ?>">Nama</a>
                         </th>
-                        <th class="hidden lg:table-cell p-2">
+                        <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
                             <a class="block" href="?<?= $url_query ?>">Email</a>
                         </th>
-                        <th class="hidden lg:table-cell p-2">
+                        <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
                             <a class="block" href="?<?= $url_query ?>">No HP</a>
                         </th>
@@ -90,7 +90,7 @@ $page_count     = ceil($total_items / $ipp)
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
                             <a class="block" href="?<?= $url_query ?>">Status</a>
                         </th>
-                        <th class="hidden lg:table-cell p-2"></th>
+                        <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,19 +105,19 @@ $page_count     = ceil($total_items / $ipp)
                         $updated_at = $row[8];
                     ?>
                         <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-1 text-gray-800 lg:text-left text-center border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Nama
                                 </span>
                                 <?= $nama ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center lg:text-left border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Email
                                 </span>
                                 <?= $email ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center border-b block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-1 text-gray-800 text-center lg:text-left border-b block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     No HP
                                 </span>

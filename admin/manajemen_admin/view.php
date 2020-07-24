@@ -83,7 +83,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             </div>
             <div class="border border-b mt-2"></div>
             <div class="flex">
-                <a class="active-scale bg-blue-500 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_admin=<?= $data["id_admin"] ?>" title="Ubah data ini">
+                <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_admin=<?= $data["id_admin"] ?>" title="Ubah data ini">
                     <span class="mdi align-middle mdi-pencil"></span>
                     Ubah
                 </a>

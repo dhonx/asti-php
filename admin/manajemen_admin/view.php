@@ -28,7 +28,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
-    <title>Tambah Admin - ASTI</title>
+    <title>View Admin - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">

@@ -65,7 +65,7 @@ if (isset($_POST["create_admin"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
+    <!-- <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet"> -->
     <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/main.compiled.css" rel="stylesheet">
     <title>Tambah Admin - ASTI</title>

@@ -47,7 +47,7 @@ $page_count     = ceil($total_items / $ipp)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
+    <!-- <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet"> -->
     <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/main.compiled.css" rel="stylesheet">
     <link rel="stylesheet">
@@ -127,7 +127,7 @@ $page_count     = ceil($total_items / $ipp)
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Status
                                 </span>
-                                <span class="rounded bg-<?= $aktif == 1 ? "blue" : "red" ?>-400 text-white py-1 px-3 text-xs font-bold">
+                                <span class="rounded bg-<?= $aktif == 1 ? "blue" : "red" ?>-500 text-white py-1 px-3 text-xs font-bold">
                                     <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
                                 </span>
                             </td>

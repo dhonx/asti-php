@@ -1,0 +1,12 @@
+{
+  "name": "asti",
+  "version": "1.0.0",
+  "description": "Simple Powerfull Asset Management System",
+  "main": "index.js",
+  "repository": "https://github.com/dhonx/asti-php.git",
+  "author": "Don Alfons Nisnoni <donnisnoni.tid3@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^1.5.2"
+  }
+}

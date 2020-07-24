@@ -71,6 +71,12 @@ table {
   font-size: 30px;
 }
 
+@media(prefers-color-scheme:dark){ 
+  .sidenav a:hover {
+    background-color: #2d3748;
+  }
+}
+
 
 @media screen and (max-width: 1200px) {
   body {

@@ -67,14 +67,6 @@ table {
   font-size: 30px;
 }
 
-@media screen and (max-width: 640px) {
-  .xs\:hidden {
-    display: none;
-  }
-  .xs\:flex {
-    display: flex;
-  }
-}
 
 @media screen and (max-width: 1200px) {
   body {

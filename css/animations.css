@@ -1,0 +1,21 @@
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-100vw);
+    transform: translateX(-100vw);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-100vh);
+    transform: translateX(-100vh);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}

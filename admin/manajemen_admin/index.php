@@ -160,7 +160,7 @@ $page_count     = ceil($total_items / $ipp)
             </div>
 
             <!-- ------------------------------- PAGINATION ------------------------------- -->
-            <div class="flex w-full justify-center items-center my-3 pagination">
+            <div class="flex w-full justify-center items-center mt-auto my-3 pagination">
                 <?php foreach (range(1, $page_count) as $page_num) { ?>
                     <?php if ($page_count == 1) continue; ?>
                     <?php $url_query = http_build_query(array_merge($_GET, ["page" => $page_num])) ?>

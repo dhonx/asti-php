@@ -78,7 +78,7 @@ else {
     <link href="<?= BASE_PATH ?>/css/tailwind.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="<?= BASE_PATH ?>/css/main.css" rel="stylesheet">
-    <title>Tambah Admin - ASTI</title>
+    <title>Ubah Admin - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -90,7 +90,7 @@ else {
         <form action="?id_admin=<?= $id_admin_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
 
             <?php if ($errors != null) { ?>
-                <div class="bg-red-400 p-2 mb-2 text-white">
+                <div class="bg-red-400 p-2 mb-2 rounded-md text-white">
                     <?php
                     foreach ($errors as $error) {
                         echo "<div>" .  $error . "</div>";

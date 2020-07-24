@@ -27,7 +27,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 
 		<?php if (isset($_GET['message'])) { ?>
-			<div class="bg-red-400 my-5 p-3 rounded-md">
+			<div class="bg-red-400 my-5 p-3 rounded-md text-white">
 				<?= $_GET['message'] ?>
 			</div>
 		<?php } ?>

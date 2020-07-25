@@ -176,11 +176,9 @@ $page_count  = ceil($total_items / $ipp);
         <?php } ?>
 
         <!-- --------------------------- EMPTY SEARCH RESULT -------------------------- -->
-        <?php
-        if (($is_search_mode && $total_items == 0)) {
-            echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
-        }
-        ?>
+        <?php if (($is_search_mode && $total_items == 0)) { ?>
+            <div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '<?= $keyword ?>'</div>";
+        <?php } ?>
     </main>
     <?php require_once "../../scripts.php"; ?>
 </body>

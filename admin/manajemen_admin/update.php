@@ -19,12 +19,7 @@ $id_admin_to_update = $_GET["id_admin"];
 
 // It's a update mode
 if (isset($_POST["update_admin"])) {
-    $validator = new Validator([
-        "required"  => ":attribute harus diisi",
-        "email"     => ":email bukan email yang valid",
-        "min"       => ":attribute minimal berisi :min karakter/digit",
-        "max"       => ":attribute maximal berisi :max karakter/digit",
-    ]);
+    $validator = new Validator(VALIDATION_MESSAGES);
 
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:6",

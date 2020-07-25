@@ -8,17 +8,19 @@
 <nav class="bg-gray-200 hidden lg:flex flex-col p-2 sidenav <?= $sidenav_active == 1 ? "expand" : "" ?>" id="nav-menu" role="menu">
     <div class="flex border-bottom cursor-pointer" style="padding: 20px 4px; border-bottom: 1px solid #dde4e8;">
         <img src="https://pbs.twimg.com/profile_images/1272910160609107974/VLBJhHRb_bigger.jpg" width="30px" style="border-radius: 20px;" alt="">
-        <span class="font-bold lg:hidden ml-2 mr-auto label self-center"><?= explode(" ", $_SESSION["nama"])[0] ?></span>
+        <span class="font-bold lg:hidden ml-2 mr-auto label self-center">
+            <?= explode(" ", $_SESSION["nama"])[0] ?>
+        </span>
     </div>
     <ul class="flex flex-col mt-2">
         <li>
-            <a class="<?= check_active_url("/admin/") ?>" href="<?= BASE_PATH ?>/admin" role="menuitem" role="menuitem" title="Dashboard">
+            <a class="<?= check_active_url("/admin/") ?>" href="<?= build_url("/admin") ?>" role="menuitem" role="menuitem" title="Dashboard">
                 <span class="mdi align-middle mdi-view-dashboard text-lg"></span>
                 <span class="lg:hidden label">Dashboard</span>
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_admin/", TRUE) ?>" href="<?= BASE_PATH ?>/admin/manajemen_admin" role="menuitem" title="Manajemen Admin">
+            <a class="<?= check_active_url("/admin/manajemen_admin/", TRUE) ?>" href="<?= build_url("/admin/manajemen_admin") ?>" role="menuitem" title="Manajemen Admin">
                 <span class="mdi align-middle mdi-account-cog text-lg"></span>
                 <span class="lg:hidden label">Manajemen Admin</span>
             </a>
@@ -47,7 +49,7 @@
                 <span class="lg:hidden label">Manajemen Peminjam</span>
             </a>
         </li>
-        <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= BASE_PATH ?>/admin/set_config?sidenav" onclick="toggleSidenavExpand(this)">
+        <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">
             <a class="w-full" href="#" role="menuitem" title="Perluas">
                 <span class="mdi align-middle mdi-chevron-double-right text-lg"></span>
                 <span class="lg:hidden label">Perluas</span>

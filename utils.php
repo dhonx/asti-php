@@ -81,3 +81,8 @@ function starts_with($string, $startString)
     $len = strlen($startString);
     return (substr($string, 0, $len) === $startString);
 }
+
+function build_url($url = "")
+{
+    return BASE_PATH . $url;
+}

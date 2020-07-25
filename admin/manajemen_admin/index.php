@@ -1,5 +1,5 @@
 <?php
-include "../../utils.php";
+include_once "../../utils.php";
 include_once "../../config.php";
 include_once "../../connection/connection.php";
 
@@ -180,7 +180,7 @@ $page_count  = ceil($total_items / $ipp);
             <div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '<?= $keyword ?>'</div>";
         <?php } ?>
     </main>
-    <?php require_once "../../scripts.php"; ?>
+    <?php require_once "../../includes/scripts.php"; ?>
 </body>
 
 </html>

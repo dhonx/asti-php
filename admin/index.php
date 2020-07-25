@@ -1,6 +1,6 @@
 <?php
-include "../utils.php";
-include "../config.php";
+require_once "../utils.php";
+require_once "../config.php";
 
 authenticate();
 ?>
@@ -20,7 +20,7 @@ authenticate();
     <main class="flex flex-auto flex-col main">
         <h3 class="text-2xl font-bold py-2 page-header">Dashboard</h3>
     </main>
-    <?php require_once "../scripts.php" ?>
+    <?php require_once "../includes/scripts.php" ?>
 </body>
 
 </html>

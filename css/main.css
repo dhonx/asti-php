@@ -8,9 +8,17 @@ body {
   color: #172b4d;
 }
 
+a {
+  @apply text-blue-700;
+}
+
 table {
   border-right: 1px solid #edf2f7;
   border-left: 1px solid #edf2f7;
+}
+
+thead th a {
+  color: #172b4d;
 }
 
 tbody tr {

@@ -58,7 +58,7 @@ $page_count  = ceil($total_items / $ipp);
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
-    <?php require_once "../../header.php" ?>
+    <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Admin</h3>

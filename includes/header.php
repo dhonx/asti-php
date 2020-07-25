@@ -1,9 +1,4 @@
-<?php require_once "config.php" ?>
-<?php require_once "utils.php" ?>
-<?php
-$sidenav_active = isset($_SESSION["sidenav"]) ? $_SESSION["sidenav"] : 0
-?>
-
+<?php $sidenav_active = isset($_SESSION["sidenav"]) ? $_SESSION["sidenav"] : 0 ?>
 <header class="bg-blue-900 flex header lg:hidden w-screen lg:mb-10 pl-2 pr-5 items-center text-white">
     <h3 class="brand font-bold ml-auto lg:ml-0 text-3xl"><a href="<?= BASE_PATH ?>">ASTI</a></h3>
     <div class="cursor-pointer lg:hidden ml-auto md:flex self-center sm:flex xs:flex" id="mobile-menu" role="menu">

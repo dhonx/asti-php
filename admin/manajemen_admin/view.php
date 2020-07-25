@@ -30,7 +30,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
-    <?php require_once "../../header.php" ?>
+    <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
         <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>

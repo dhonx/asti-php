@@ -1,5 +1,6 @@
 <?php
-require_once "./config.php";
+require_once "config.php";
+require_once "utils.php";
 
 session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {

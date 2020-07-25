@@ -48,7 +48,11 @@
 
         /** @param {HTMLSelectElement} el */
         window.submit_items_per_page = function(el) {
-            var url = window.location.search.includes("&ipp=" + el.value) ? window.location.search : window.location.search + "&ipp=" + el.value;
+            var url = new URL(window.location.href);
+            if (url.searchParams.has("ipp")) {
+                url.searchParams.delete("ipp");
+            }
+            url.searchParams.append("ipp", el.value);
             window.location.assign(url);
         }
 

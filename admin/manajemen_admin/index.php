@@ -20,26 +20,32 @@ $limit  = $ipp - 0;
 $keyword = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
 $is_search_mode = strlen($keyword) >= 1;
 
-// Main query
-$query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' LIMIT $limit OFFSET $offset";
-$query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
-
 // If on search mode
 if ($is_search_mode) {
     $splited_keyword = explode(" ", $keyword);
+    // Search query
     $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
     $query .= " LIMIT $limit OFFSET $offset";
+    $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
+} else {
+    // Main query
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' LIMIT $limit OFFSET $offset";
     $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
 }
 
 $result = $connection->query($query);
 
-$query          = "SELECT * FROM admin WHERE tipe_admin != 'super_admin'";
-$count_result   = $connection->query($query);
+if ($is_search_mode) {
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
+    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
+    $count_all_result  = $connection->query("SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc");
+} else {
+    $count_all_result  = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super_admin'");
+}
 
-$total_items    = !$is_search_mode ? $count_result->num_rows : $result->num_rows;
-$page_count     = ceil($total_items / $ipp)
+$total_items = $count_all_result->num_rows;
+$page_count  = ceil($total_items / $ipp);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,9 +152,10 @@ $page_count     = ceil($total_items / $ipp)
 
             <!-- -------------------------- SELECT ITEMS PER PAGE ------------------------- -->
             <div class="flex justify-center lg:justify-end my-3">
+                <?php $url_query = http_build_query($_GET) ?>
                 <form class="flex" method="get">
                     <label class="self-center px-2" for="ipp">Baris per halaman</label>
-                    <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="this.form.submit()">
+                    <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="submit_items_per_page(this)">
                         <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
                         <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
                         <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>
@@ -170,7 +177,7 @@ $page_count     = ceil($total_items / $ipp)
 
         <!-- --------------------------- EMPTY SEARCH RESULT -------------------------- -->
         <?php
-        if ($is_search_mode && $total_items == 0) {
+        if (($is_search_mode && $total_items == 0)) {
             echo "<div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '$keyword'</div>";
         }
         ?>

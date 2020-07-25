@@ -48,6 +48,12 @@
 
         handle_sidenav();
 
+        /** @param {HTMLSelectElement} el */
+        window.submit_items_per_page = function(el) {
+            var url = window.location.search.includes("&ipp=" + el.value) ? window.location.search : window.location.search + "&ipp=" + el.value;
+            window.location.assign(url);
+        }
+
         // function checkDarkMode() {
         //     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         // }

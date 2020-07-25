@@ -17,7 +17,8 @@ table {
   border-left: 1px solid #edf2f7;
 }
 
-thead th a {
+thead a,
+.pagination a {
   color: #172b4d;
 }
 

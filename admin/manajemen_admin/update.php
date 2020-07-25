@@ -116,7 +116,7 @@ else {
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<? $errors && get_prev_field('nomor_hp');
                                                                                                                                                     !$errors && prints($data['no_telp']) ?>">
 
-            <a class="block my-2" href="change_password?id_admin=<?= $id_admin_to_update ?>">Ganti Sandi</a>
+            <a class="block my-2" href="change_password?id_admin=<?= $id_admin_to_update ?>">Ganti sandi</a>
 
             <span class="block">Status</span>
             <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= !$errors && $data['aktif'] == 1 ? "checked" : "" ?> id="status" name="status" type="checkbox">

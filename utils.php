@@ -1,5 +1,7 @@
 <?php
 
+// require "config.php";
+
 function goto_login_page($message = "")
 {
     if (strlen($message) < 1) {
@@ -48,4 +50,21 @@ function build_search_query($keyword, $fields = ["id"])
         }
     }
     return $query;
+}
+
+function get_current_url()
+{
+    $url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+    $url .= $_SERVER['HTTP_HOST'];
+    $url .= $_SERVER['REQUEST_URI'];
+    return $url;
+}
+
+function check_active_url($url)
+{
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+    $host = $_SERVER["HTTP_HOST"];
+    // echo $protocol . $host . BASE_PATH . $url . "<br>";
+    // echo get_current_url();
+    return get_current_url() == $protocol . $host . BASE_PATH . $url ? "active" : "";
 }

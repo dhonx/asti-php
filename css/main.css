@@ -41,15 +41,16 @@ tbody tr:hover {
   padding: 7px;
   margin: 2px 4px;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .sidenav ul {
   flex: 1;
 }
 
-.sidenav a:hover {
+.sidenav a:hover,
+.sidenav a.active {
   background-color: #d4d9df94;
-  transition: background-color 0.3s ease;
 }
 
 .main {
@@ -108,7 +109,8 @@ tbody tr:hover {
   .sidenav {
     background-color: #1a202c;
   }
-  .sidenav a:hover {
+  .sidenav a:hover,
+  .sidenav a.active {
     background-color: #2d3748;
   }
 }

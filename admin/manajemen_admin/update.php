@@ -15,6 +15,8 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     redirect($_SERVER['HTTP_REFERER']);
 }
 
+$id_admin_to_update = $_GET["id_admin"];
+
 // It's a update mode
 if (isset($_POST["update_admin"])) {
     $validator = new Validator([
@@ -35,25 +37,21 @@ if (isset($_POST["update_admin"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $id_admin_to_update = $_GET["id_admin"];
         $nama               = $_POST["nama"];
         $email              = $_POST["email"];
         $nomor_hp           = $_POST["nomor_hp"];
         $status             = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
-        $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND id_admin != $id_admin_to_update");
-        $result = $connection->query($query);
-        if ($result && $result->num_rows > 0) {
+        $q_check_email_exist = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND id_admin != $id_admin_to_update");
+        $result = $connection->query($q_check_email_exist);
+        if ($result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $query = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE id_admin = $id_admin_to_update");
-            if ($connection->query($query) == TRUE) {
+            $q_update_admin = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE id_admin = $id_admin_to_update");
+            if ($connection->query($q_update_admin) == TRUE) {
                 $connection->close();
                 redirect("./");
-            } else {
-                // print_r($connection->error_list);
-                $connection->close();
             }
         }
     }
@@ -61,7 +59,6 @@ if (isset($_POST["update_admin"])) {
 
 // It's GET mode
 else {
-    $id_admin_to_update = $_GET["id_admin"];
     $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin_to_update";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
@@ -123,6 +120,8 @@ else {
             <label class="block" for="nomor_hp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<? $errors && get_prev_field('nomor_hp');
                                                                                                                                                     !$errors && prints($data['no_telp']) ?>">
+
+            <a class="block my-2" href="change_password?id_admin=<?= $id_admin_to_update ?>">Ganti Sandi</a>
 
             <span class="block">Status</span>
             <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= !$errors && $data['aktif'] == 1 ? "checked" : "" ?> id="status" name="status" type="checkbox">

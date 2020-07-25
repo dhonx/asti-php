@@ -51,6 +51,7 @@ if (isset($_POST["login"])) {
 					$_SESSION["nama"] = $nama;
 					$_SESSION["login_as"] = $login_as;
 					$_SESSION["logged_in"] = true;
+					$_SESSION["sidenav"] = 1;
 					redirect("./admin");
 				} else {
 					array_push($errors, "Email atau sandi salah");

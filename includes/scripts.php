@@ -44,7 +44,7 @@
             }
         }
 
-        handle_sidenav();
+        // handle_sidenav();
 
         /** @param {HTMLSelectElement} el */
         window.submit_items_per_page = function(el) {

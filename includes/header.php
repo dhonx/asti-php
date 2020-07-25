@@ -51,8 +51,15 @@
         </li>
         <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">
             <a class="w-full" href="#" role="menuitem" title="Perluas">
-                <span class="mdi align-middle mdi-chevron-double-right text-lg"></span>
-                <span class="lg:hidden label">Perluas</span>
+                <?php if ($sidenav_active) { ?>
+                    <span class="mdi align-middle mdi-chevron-double-left text-lg"></span>
+                <?php } else { ?>
+                    <span class="mdi align-middle mdi-chevron-double-right text-lg"></span>
+                <?php } ?>
+
+                <span class="lg:hidden label">
+                    <?= $sidenav_active == 1 ? "Perkecil" : "Perbesar" ?>
+                </span>
             </a>
         </li>
         <li>

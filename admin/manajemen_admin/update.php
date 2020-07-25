@@ -75,8 +75,7 @@ else {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?= BASE_PATH ?>/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="<?= BASE_PATH ?>/css/main.compiled.css" rel="stylesheet">
+    <?php require_once "../../css.php" ?>
     <title>Ubah Admin - ASTI</title>
 </head>
 

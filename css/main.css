@@ -79,7 +79,7 @@ tbody tr:hover {
   font-size: 30px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   body {
     background-color: #2d3748;
     color: #fff;
@@ -113,7 +113,7 @@ tbody tr:hover {
   .sidenav a.active {
     background-color: #2d3748;
   }
-}
+} */
 
 @media screen and (max-width: 1200px) {
   body {

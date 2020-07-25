@@ -76,7 +76,7 @@ $page_count  = ceil($total_items / $ipp);
         <?php if ($total_items > 0) { ?>
             <table class="w-full">
                 <thead>
-                    <tr class="bg-gray-200 font-bold rounded-lg">
+                    <tr class="bg-gray-200 font-bold">
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
                             <a class="block" href="?<?= $url_query ?>">Nama</a>

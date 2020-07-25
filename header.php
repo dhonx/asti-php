@@ -23,7 +23,7 @@ $sidenav_active = isset($_SESSION["sidenav"]) ? $_SESSION["sidenav"] : 0
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_admin/") ?>" href="<?= BASE_PATH ?>/admin/manajemen_admin" role="menuitem" title="Manajemen Admin">
+            <a class="<?= check_active_url("/admin/manajemen_admin/", TRUE) ?>" href="<?= BASE_PATH ?>/admin/manajemen_admin" role="menuitem" title="Manajemen Admin">
                 <span class="mdi align-middle mdi-account-cog text-lg"></span>
                 <span class="lg:hidden label">Manajemen Admin</span>
             </a>

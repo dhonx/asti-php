@@ -60,11 +60,20 @@ function get_current_url()
     return $url;
 }
 
-function check_active_url($url)
+function check_active_url($url, $folder = FALSE)
 {
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
     $host = $_SERVER["HTTP_HOST"];
     // echo $protocol . $host . BASE_PATH . $url . "<br>";
     // echo get_current_url();
+    if ($folder) {
+        return starts_with(get_current_url(), $protocol . $host . BASE_PATH . $url) ? "active" : "";
+    }
     return get_current_url() == $protocol . $host . BASE_PATH . $url ? "active" : "";
+}
+
+function starts_with($string, $startString)
+{
+    $len = strlen($startString);
+    return (substr($string, 0, $len) === $startString);
 }

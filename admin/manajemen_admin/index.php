@@ -152,7 +152,6 @@ $page_count  = ceil($total_items / $ipp);
 
             <!-- -------------------------- SELECT ITEMS PER PAGE ------------------------- -->
             <div class="flex justify-center lg:justify-end my-3">
-                <?php $url_query = http_build_query($_GET) ?>
                 <form class="flex" method="get">
                     <label class="self-center px-2" for="ipp">Baris per halaman</label>
                     <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="submit_items_per_page(this)">

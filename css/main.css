@@ -135,4 +135,7 @@ tbody tr:hover {
       both;
     animation: slide-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
+  tbody tr:first-child {
+    border-top: 1px solid #edf2f7;
+  }
 }

@@ -1,5 +1,5 @@
 node_modules
 test.php
 css/main.compiled.css
-vendor/**
+vendor
 temp

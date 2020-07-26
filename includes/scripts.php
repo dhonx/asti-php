@@ -24,15 +24,13 @@
 
         window.toggleSidenavExpand = function(el) {
             var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                navMenu.classList.toggle("expand");
-                handle_sidenav();
-            }
+            handle_sidenav();
             xhr.open("GET", el.dataset.url, true);
             xhr.send();
         }
 
         function handle_sidenav(el = document.querySelector("#expand-button")) {
+            navMenu.classList.toggle("expand");
             var expanded = navMenu.classList.contains("expand");
             el.querySelector("a").title = el.querySelector(".label").textContent = expanded ? "Perkecil" : "Perluas";
             if (expanded) {

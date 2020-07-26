@@ -160,7 +160,7 @@ $result = $connection->query($query);
             <div class="flex justify-center lg:justify-end my-3">
                 <form class="flex" method="get">
                     <label class="self-center px-2" for="ipp">Baris per halaman</label>
-                    <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="submit_items_per_page(this)">
+                    <select class="p-2 rounded-sm bg-gray-200" id="ipp" name="ipp" onchange="submitItemsPerPage(this)">
                         <option <?= $ipp == 5 ? "selected" : "" ?> value="5">5</option>
                         <option <?= $ipp == 10 ? "selected" : "" ?> value="10">10</option>
                         <option <?= $ipp == 15 ? "selected" : "" ?> value="15">15</option>

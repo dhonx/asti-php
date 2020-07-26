@@ -47,7 +47,7 @@
         // handle_sidenav();
 
         /** @param {HTMLSelectElement} el */
-        window.submit_items_per_page = function(el) {
+        window.submitItemsPerPage = function(el) {
             var url = new URL(window.location.href);
             if (url.searchParams.has("ipp")) {
                 url.searchParams.delete("ipp");

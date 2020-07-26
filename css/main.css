@@ -30,6 +30,10 @@ tbody tr:hover {
   background-color: #edf2f7;
 }
 
+.brand a {
+  @apply text-white;
+}
+
 .sidenav {
   max-height: 100vh;
   min-height: 100vh;

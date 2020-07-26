@@ -11,11 +11,16 @@ function goto_login_page($message = "")
     }
 }
 
-function authenticate()
+function authenticate($user = [])
 {
     session_start();
     if (!isset($_SESSION['logged_in'])) {
         goto_login_page();
+    }
+    if (!in_array($_SESSION["login_as"], $user)) {
+        http_response_code(404);
+        include("error_pages/404.php"); // provide your own HTML for the error page
+        die();
     }
 }
 

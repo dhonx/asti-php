@@ -6,7 +6,7 @@ require('../../vendor/autoload.php');
 
 use Rakit\Validation\Validator;
 
-authenticate();
+authenticate(["super_admin"]);
 
 $valid_columns  = ["id_admin", "nama", "email", "no_telp", "aktif"];
 $valid_ipp      = [5, 10, 15];

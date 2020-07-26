@@ -2,6 +2,8 @@
 require_once "../../connection/connection.php";
 require_once "../../utils.php";
 
+authenticate(["super_admin"]);
+
 if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     redirect($_SERVER['HTTP_REFERER']);
 }

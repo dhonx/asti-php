@@ -6,7 +6,7 @@ require('../../vendor/autoload.php');
 
 use Rakit\Validation\Validator;
 
-authenticate();
+authenticate(["super_admin"]);
 
 $errors = [];
 

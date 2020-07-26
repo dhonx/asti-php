@@ -2,7 +2,7 @@
 require_once "../utils.php";
 require_once "../config.php";
 
-authenticate();
+authenticate(["super_admin", "admin"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">

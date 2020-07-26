@@ -4,7 +4,7 @@ include_once "../../connection/connection.php";
 include_once "../../config.php";
 require('../../vendor/autoload.php');
 
-authenticate();
+authenticate(["super_admin"]);
 
 $id_admin = 0;
 

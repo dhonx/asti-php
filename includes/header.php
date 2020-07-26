@@ -1,4 +1,8 @@
-<?php $sidenav_active = isset($_SESSION["sidenav"]) ? $_SESSION["sidenav"] : 0 ?>
+<?php
+$sidenav_active = isset($_SESSION["sidenav"]) ? $_SESSION["sidenav"] : 0;
+$login_as = $_SESSION["login_as"];
+$nama_awal = explode(" ", $_SESSION["nama"])[0];
+?>
 <header class="bg-blue-900 flex header lg:hidden w-screen lg:mb-10 pl-2 pr-5 items-center text-white">
     <h3 class="brand font-bold ml-auto lg:ml-0 text-3xl"><a href="<?= BASE_PATH ?>">ASTI</a></h3>
     <div class="cursor-pointer lg:hidden ml-auto md:flex self-center sm:flex xs:flex" id="mobile-menu" role="menu">
@@ -9,7 +13,7 @@
     <div class="flex border-bottom cursor-pointer" style="padding: 20px 4px; border-bottom: 1px solid #dde4e8;">
         <img src="https://pbs.twimg.com/profile_images/1272910160609107974/VLBJhHRb_bigger.jpg" width="30px" style="border-radius: 20px;" alt="">
         <span class="font-bold lg:hidden ml-2 mr-auto label self-center">
-            <?= explode(" ", $_SESSION["nama"])[0] ?>
+            <?= $nama_awal ?>
         </span>
     </div>
     <ul class="flex flex-col mt-2">
@@ -19,12 +23,14 @@
                 <span class="lg:hidden label">Dashboard</span>
             </a>
         </li>
-        <li>
-            <a class="<?= check_active_url("/admin/manajemen_admin/", TRUE) ?>" href="<?= build_url("/admin/manajemen_admin") ?>" role="menuitem" title="Manajemen Admin">
-                <span class="mdi align-middle mdi-account-cog text-lg"></span>
-                <span class="lg:hidden label">Manajemen Admin</span>
-            </a>
-        </li>
+        <?php if ($login_as == "super_admin") { ?>
+            <li>
+                <a class="<?= check_active_url("/admin/manajemen_admin/", TRUE) ?>" href="<?= build_url("/admin/manajemen_admin") ?>" role="menuitem" title="Manajemen Admin">
+                    <span class="mdi align-middle mdi-account-cog text-lg"></span>
+                    <span class="lg:hidden label">Manajemen Admin</span>
+                </a>
+            </li>
+        <?php } ?>
         <li>
             <a href="#" role="menuitem" title="Manajemen Instansi">
                 <span class="mdi align-middle mdi-office-building text-lg"></span>

@@ -7,4 +7,5 @@ IndexIgnore *.png *.zip *.jpg *.gif *.doc *.json
   Order allow,deny
   Deny from all
 </FilesMatch>
-ErrorDocument 404 /error_pages/404.php 
+
+ErrorDocument 404 /asti/error_pages/404.php

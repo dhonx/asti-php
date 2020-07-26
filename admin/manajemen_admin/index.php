@@ -1,22 +1,36 @@
 <?php
-include_once "../../utils.php";
-include_once "../../config.php";
-include_once "../../connection/connection.php";
+include "../../utils.php";
+include "../../config.php";
+include "../../connection/connection.php";
+require('../../vendor/autoload.php');
+
+use Rakit\Validation\Validator;
 
 authenticate();
 
-$valid_columns  = ["nama", "email", "no_telp", "aktif"];
+$valid_columns  = ["id_admin", "nama", "email", "no_telp", "aktif"];
 $valid_ipp      = [5, 10, 15];
 $valid_asc      = ["asc", "desc"];
 
-$sort_by    = isset($_GET["sort_by"]) && in_array($_GET["sort_by"], $valid_columns) ? $_GET["sort_by"] : "id_admin";
-$asc        = isset($_GET["asc"]) && in_array($_GET["asc"], $valid_asc) ? $_GET["asc"] : "asc";
+$validator = new Validator(VALIDATION_MESSAGES);
+$validation = $validator->make($_GET, [
+    "sort_by"   => ["default:id_admin", $validator("in", $valid_columns)],
+    "asc"       => ["default:asc", $validator("in", $valid_asc)],
+    "keyword"   => "default:|min:1",
+    "ipp"       => ["default:5", $validator("in", $valid_ipp)],
+    "page"      => "default:1"
+]);
+$validation->validate();
 
-$keyword        = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
+$valid_data = $validation->getValidData();
+
+$sort_by    = $valid_data["sort_by"];
+$asc        = $valid_data["asc"];
+$keyword    = $valid_data["keyword"];
+$ipp        = $valid_data["ipp"];
+$page       = $valid_data["page"];
+
 $is_search_mode = strlen($keyword) >= 1;
-
-$ipp    = isset($_GET["ipp"]) && is_numeric($_GET["ipp"]) && in_array($_GET["ipp"], $valid_ipp) ? $_GET["ipp"] : 5;
-$page   = isset($_GET["page"]) && is_numeric($_GET["page"]) ? $_GET["page"] : 1;
 
 if ($is_search_mode) {
     $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
@@ -83,20 +97,21 @@ $result = $connection->query($query);
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-200 font-bold">
+                        <?php $asc_toggle = $asc == "asc" ? "desc" : "asc"  ?>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Nama</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Email</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">No HP</a>
                         </th>
                         <th class="hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc == "asc" ? "desc" : "asc"])) ?>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Status</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>

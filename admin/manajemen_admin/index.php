@@ -7,18 +7,35 @@ authenticate();
 
 $valid_columns  = ["nama", "email", "no_telp", "aktif"];
 $valid_ipp      = [5, 10, 15];
+$valid_asc      = ["asc", "desc"];
 
-$valid_asc  = ["asc", "desc"];
 $sort_by    = isset($_GET["sort_by"]) && in_array($_GET["sort_by"], $valid_columns) ? $_GET["sort_by"] : "id_admin";
 $asc        = isset($_GET["asc"]) && in_array($_GET["asc"], $valid_asc) ? $_GET["asc"] : "asc";
 
+$keyword        = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
+$is_search_mode = strlen($keyword) >= 1;
+
 $ipp    = isset($_GET["ipp"]) && is_numeric($_GET["ipp"]) && in_array($_GET["ipp"], $valid_ipp) ? $_GET["ipp"] : 5;
 $page   = isset($_GET["page"]) && is_numeric($_GET["page"]) ? $_GET["page"] : 1;
+
+if ($is_search_mode) {
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
+    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
+    $count_all_result  = $connection->query("SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc");
+} else {
+    $count_all_result  = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super_admin'");
+}
+
+$total_items = $count_all_result->num_rows;
+$page_count  = ceil($total_items / $ipp);
+
+// If the requested page larger than counted page, goto the last page
+if ($page > $page_count) {
+    $page = $page_count;
+}
+
 $offset = $page * $ipp - $ipp;
 $limit  = $ipp - 0;
-
-$keyword = isset($_GET["keyword"]) && strlen($_GET["keyword"]) >= 1 ? $_GET["keyword"] : "";
-$is_search_mode = strlen($keyword) >= 1;
 
 // If on search mode
 if ($is_search_mode) {
@@ -35,17 +52,6 @@ if ($is_search_mode) {
 }
 
 $result = $connection->query($query);
-
-if ($is_search_mode) {
-    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
-    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
-    $count_all_result  = $connection->query("SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc");
-} else {
-    $count_all_result  = $connection->query("SELECT * FROM admin WHERE tipe_admin != 'super_admin'");
-}
-
-$total_items = $count_all_result->num_rows;
-$page_count  = ceil($total_items / $ipp);
 ?>
 <!DOCTYPE html>
 <html lang="en">

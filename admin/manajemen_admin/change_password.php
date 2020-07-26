@@ -79,6 +79,7 @@ if (isset($_POST["update_admin_password"])) {
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
+    <?php require_once "../../includes/loading.php" ?>
     <?php require_once "../../includes/header.php"; ?>
 
     <main class="flex flex-auto flex-col main">

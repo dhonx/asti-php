@@ -84,6 +84,7 @@ if (isset($_POST["login"])) {
 </head>
 
 <body class="font-sans min-h-screen bg-gray-200 flex items-center text-sm">
+	<?php require_once "includes/loading.php" ?>
 	<form class="bg-white max-w-sm mx-auto shadow-md rounded-lg overflow-hidden px-6 py-4" method="POST">
 		<h2 class="text-2xl text-center my-2 font-bold">Login ASTI</h2>
 

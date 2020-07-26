@@ -30,6 +30,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
+    <?php require_once "../../includes/loading.php" ?>
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">

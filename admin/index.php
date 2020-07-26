@@ -15,6 +15,7 @@ authenticate(["super_admin", "admin"]);
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
+    <?php require_once "../includes/loading.php" ?>
     <?php require_once "../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">

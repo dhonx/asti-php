@@ -1,7 +1,5 @@
 <?php
 
-// require "config.php";
-
 function goto_login_page($message = "")
 {
     if (strlen($message) < 1) {
@@ -19,7 +17,7 @@ function authenticate($user = [])
     }
     if (!in_array($_SESSION["login_as"], $user)) {
         http_response_code(404);
-        include("error_pages/404.php"); // provide your own HTML for the error page
+        include_once "error_pages/404.php";
         die();
     }
 }

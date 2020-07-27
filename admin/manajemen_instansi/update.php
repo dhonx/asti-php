@@ -109,19 +109,16 @@ else {
             ?>
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<? $errors && get_prev_field('nama');
-                                                                                                                                                                        !$errors && prints($data['nama']) ?>">
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('nama') : $data['nama'] ?>">
 
             <label class="block" for="email">Email <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<? $errors && get_prev_field('email');
-                                                                                                                                                                !$errors && prints($data['email']) ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors ? get_prev_field('email') : $data['email'] ?>">
 
             <label class="block" for="nomor_hp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<? $errors && get_prev_field('nomor_hp');
-                                                                                                                                                    !$errors && prints($data['no_telp']) ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<?= $errors ? get_prev_field('nomor_hp') : $data['no_telp'] ?>">
 
             <label class="block" for="alamat">Alamat <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="alamat" minlength="5" name="alamat" required spellcheck="false" type="text" value="<?= $errors && get_prev_field('alamat') ?>">
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="alamat" minlength="5" name="alamat" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('alamat') : $data['alamat'] ?>">
             <div class="border-b border-solid my-2 w-full"></div>
 
             <div class="flex justify-end">

@@ -97,13 +97,13 @@ if (isset($_POST["update_admin_password"])) {
             <?php } ?>
 
             <label class="block" for="sandi_lama">Sandi Lama <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 mb-2 px-3 py-2 rounded-md w-full" id="sandi_lama" minlength="5" name="sandi_lama" required type="password" value="<? $errors && get_prev_field('sandi_lama') ?>">
+            <input autofocus class="bg-gray-200 mb-2 px-3 py-2 rounded-md w-full" id="sandi_lama" minlength="5" name="sandi_lama" required type="password" value="<?= $errors ? get_prev_field('sandi_lama') : '' ?>">
 
             <label class="block" for="sandi_baru">Sandi Baru <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 mb-2 px-3 py-2 rounded-md w-full" id="sandi_baru" minlength="5" name="sandi_baru" required type="password" value="<? $errors && get_prev_field('sandi_baru') ?>">
+            <input class="bg-gray-200 mb-2 px-3 py-2 rounded-md w-full" id="sandi_baru" minlength="5" name="sandi_baru" required type="password" value="<?= $errors ? get_prev_field('sandi_baru') : '' ?>">
 
             <label class="block" for="konfirmasi_sandi_baru">Konfirmasi Sandi Baru <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 mb-2 px-3 py-2 rounded-md w-full" id="konfirmasi_sandi_baru" minlength="5" name="konfirmasi_sandi_baru" required type="password" value="<? $errors && get_prev_field('konfirmasi_sandi_baru') ?>">
+            <input class="bg-gray-200 mb-2 px-3 py-2 rounded-md w-full" id="konfirmasi_sandi_baru" minlength="5" name="konfirmasi_sandi_baru" required type="password" value="<?= $errors ? get_prev_field('konfirmasi_sandi_baru') : '' ?>">
 
             <div class="border-b border-solid my-2 w-full"></div>
 

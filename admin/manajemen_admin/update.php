@@ -32,18 +32,18 @@ if (isset($_POST["update_admin"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama               = $_POST["nama"];
-        $email              = $_POST["email"];
-        $nomor_hp           = $_POST["nomor_hp"];
-        $status             = isset($_POST["status"]) ? 1 : 0;
+        $nama     = $_POST["nama"];
+        $email    = $_POST["email"];
+        $nomor_hp = $_POST["nomor_hp"];
+        $status   = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
-        $q_check_email_exist = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND id_admin != $id_admin_to_update");
+        $q_check_email_exist = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND tipe_admin = 'admin' AND id_admin != $id_admin_to_update");
         $result = $connection->query($q_check_email_exist);
         if ($result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update_admin = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE id_admin = $id_admin_to_update");
+            $q_update_admin = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE tipe_admin = 'admin' AND id_admin = $id_admin_to_update");
             if ($connection->query($q_update_admin) == TRUE) {
                 $connection->close();
                 redirect("./");

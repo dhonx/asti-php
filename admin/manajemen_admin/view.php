@@ -12,7 +12,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     redirect("./");
 } else {
     $id_admin = $_GET["id_admin"];
-    $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin";
+    $query = "SELECT id_admin FROM admin WHERE tipe_admin = 'admin' AND id_admin = $id_admin";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
         redirect('./');

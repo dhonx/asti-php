@@ -32,7 +32,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </li>
         <?php } ?>
         <li>
-            <a href="#" role="menuitem" title="Manajemen Instansi">
+            <a class="<?= check_active_url("/admin/manajemen_instansi/", TRUE) ?>" href="<?= build_url("/admin/manajemen_instansi") ?>" role="menuitem" title="Manajemen Instansi">
                 <span class="mdi align-middle mdi-office-building text-lg"></span>
                 <span class="lg:hidden label">Manajemen Instansi</span>
             </a>

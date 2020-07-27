@@ -40,7 +40,7 @@ $limit          = $offset_limit["limit"];
 if ($is_search_mode) {
     $splited_keyword = explode(" ", $keyword);
     // Search query
-    $query  = "SELECT * FROM instansi WHERE id_instansi != 1 ";
+    $query  = "SELECT * FROM instansi WHERE id_instansi != 1 AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
     $query .= " LIMIT $limit OFFSET $offset";
     $query  = "SELECT * FROM ($query) AS instansi_ ORDER BY $sort_by $asc";
@@ -48,6 +48,7 @@ if ($is_search_mode) {
     // Main query
     $query  = "SELECT * FROM instansi WHERE id_instansi != 1 LIMIT $limit OFFSET $offset";
     $query  = "SELECT * FROM ($query) AS instansi_ ORDER BY $sort_by $asc";
+    $query = mysqli_escape_string($connection, $query);
 }
 
 $result = $connection->query($query);
@@ -93,12 +94,12 @@ $result = $connection->query($query);
                             <a class="block" href="?<?= $url_query ?>">Email</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">No HP</a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "alamat", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Alamat</a>
                         </th>
                         <th class="hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Status</a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">No Telp</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>

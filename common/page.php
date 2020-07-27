@@ -45,6 +45,8 @@ function get_offset_limit($page, $ipp)
 {
     $offset = $page * $ipp - $ipp;
     $limit  = $ipp - 0;
+    if ($limit < 0) $limit = 0;
+    if ($offset < 0) $offset = 1;
     return ["offset" => $offset, "limit" => $limit];
 }
 

@@ -9,8 +9,8 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 }
 
 $id_admin = $_GET["id_admin"];
-$query = "DELETE FROM admin WHERE id_admin = $id_admin";
-$result = $connection->query($query);
+$q_delete = "DELETE FROM admin WHERE id_admin = $id_admin";
+$result = $connection->query(mysqli_real_escape_string($connection, $q_delete));
 if ($result) {
     redirect($_SERVER['HTTP_REFERER']);
 }

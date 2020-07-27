@@ -26,26 +26,26 @@ if (isset($_POST["create_admin"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama                   = $_POST["nama"];
-        $email                  = $_POST["email"];
-        $nomor_hp               = $_POST["nomor_hp"];
-        $sandi                  = $_POST["sandi"];
-        $konfirmasi_sandi       = $_POST["konfirmasi_sandi"];
-        $status                 = isset($_POST["status"]) ? 1 : 0;
-        $tipe_admin             = "admin";
-        $encrypted_sandi        = password_hash($sandi, PASSWORD_BCRYPT);
+        $nama              = $_POST["nama"];
+        $email             = $_POST["email"];
+        $nomor_hp          = $_POST["nomor_hp"];
+        $sandi             = $_POST["sandi"];
+        $konfirmasi_sandi  = $_POST["konfirmasi_sandi"];
+        $status            = isset($_POST["status"]) ? 1 : 0;
+        $tipe_admin        = "admin";
+        $encrypted_sandi   = password_hash($sandi, PASSWORD_BCRYPT);
 
         // Check if email is exist
-        $query = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");
-        $result = $connection->query($query);
+        $q_check_email = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");
+        $result = $connection->query(mysqli_real_escape_string($connection, $q_check_email));
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $query = htmlspecialchars(
+            $q_insert = htmlspecialchars(
                 "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
                     VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
             );
-            if ($connection->query($query) == TRUE) {
+            if ($connection->query(mysqli_real_escape_string($connection, $q_insert))) {
                 $connection->close();
                 redirect("./");
             }

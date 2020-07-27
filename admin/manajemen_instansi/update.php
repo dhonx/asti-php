@@ -39,13 +39,13 @@ if (isset($_POST["update_instansi"])) {
         $alamat   = $_POST["alamat"];
 
         // Check if email is exist
-        $q_check_email_exist = htmlspecialchars("SELECT email FROM instansi WHERE email = '$email' AND id_instansi != 1 AND id_instansi != $id_admin_to_update");
-        $result = $connection->query($q_check_email_exist);
+        $q_check_email = htmlspecialchars("SELECT email FROM instansi WHERE email = '$email' AND id_instansi != 1 AND id_instansi != $id_admin_to_update");
+        $result = $connection->query($q_check_email);
         if ($result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update_admin = htmlspecialchars("UPDATE instansi SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', alamat = $alamat WHERE id_instansi != 1 AND id_instansi = $id_admin_to_update");
-            if ($connection->query($q_update_admin) == TRUE) {
+            $q_update = htmlspecialchars("UPDATE instansi SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', alamat = $alamat WHERE id_instansi != 1 AND id_instansi = $id_admin_to_update");
+            if ($connection->query(mysqli_real_escape_string($connection, $q_update)) == TRUE) {
                 $connection->close();
                 redirect("./");
             }

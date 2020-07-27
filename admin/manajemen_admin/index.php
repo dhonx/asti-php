@@ -17,7 +17,7 @@ $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
 
 if ($is_search_mode) {
-    $query  = "SELECT * FROM admin WHERE tipe_admin == 'admin' AND ";
+    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
     $count_all_result  = $connection->query("SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc");
 } else {

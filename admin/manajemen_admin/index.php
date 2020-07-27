@@ -38,7 +38,6 @@ $limit          = $offset_limit["limit"];
 
 // If on search mode
 if ($is_search_mode) {
-    $splited_keyword = explode(" ", $keyword);
     // Search query
     $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);

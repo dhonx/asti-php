@@ -2,35 +2,19 @@
 include "../../utils.php";
 include "../../config.php";
 include "../../connection/connection.php";
-require('../../vendor/autoload.php');
-
-use Rakit\Validation\Validator;
+include "../../common/page.php";
 
 authenticate(["super_admin"]);
 
 $valid_columns  = ["id_admin", "nama", "email", "no_telp", "aktif"];
-$valid_ipp      = [5, 10, 15];
-$valid_asc      = ["asc", "desc"];
+$common_data = processs_common_input($_GET, $valid_columns);
 
-$validator = new Validator(VALIDATION_MESSAGES);
-$validation = $validator->make($_GET, [
-    "sort_by"   => ["default:id_admin", $validator("in", $valid_columns)],
-    "asc"       => ["default:asc", $validator("in", $valid_asc)],
-    "keyword"   => "default:|min:1",
-    "ipp"       => ["default:5", $validator("in", $valid_ipp)],
-    "page"      => "default:1"
-]);
-$validation->validate();
-
-$valid_data = $validation->getValidData();
-
-$sort_by    = $valid_data["sort_by"];
-$asc        = $valid_data["asc"];
-$keyword    = $valid_data["keyword"];
-$ipp        = $valid_data["ipp"];
-$page       = $valid_data["page"];
-
-$is_search_mode = strlen($keyword) >= 1;
+$sort_by        = $common_data["sort_by"];
+$asc            = $common_data["asc"];
+$keyword        = $common_data["keyword"];
+$ipp            = $common_data["ipp"];
+$page           = $common_data["page"];
+$is_search_mode = $common_data["is_search_mode"];
 
 if ($is_search_mode) {
     $query  = "SELECT * FROM admin WHERE tipe_admin == 'admin' AND ";
@@ -41,15 +25,16 @@ if ($is_search_mode) {
 }
 
 $total_items = $count_all_result->num_rows;
-$page_count  = ceil($total_items / $ipp);
+$page_count  = get_page_count($total_items, $ipp);
 
 // If the requested page larger than counted page, goto the last page
 if ($page > $page_count) {
     $page = $page_count;
 }
 
-$offset = $page * $ipp - $ipp;
-$limit  = $ipp - 0;
+$offset_limit   = get_offset_limit($page, $ipp);
+$offset         = $offset_limit["offset"];
+$limit          = $offset_limit["limit"];
 
 // If on search mode
 if ($is_search_mode) {

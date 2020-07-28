@@ -40,7 +40,7 @@ if ($is_post) {
 
         // Check if email is exist
         $q_check_email = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND tipe_admin != 'super_admin' AND id_admin != $id_admin_to_update");
-        $result = $connection->query(mysqli_real_escape_string($connection, $q_check_email));
+        $result = $connection->query($q_check_email);
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {

@@ -57,11 +57,11 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Email:</span>
-                <span><?= $data["email"] ?></span>
+                <a href="mailto:<?= $data["email"] ?>"><?= $data["email"] ?></a>
             </div>
             <div class="mt-2">
                 <span class="font-bold">No HP/Telp:</span>
-                <a class="text-blue-500" href="telp:<?= $data["no_telp"] ?>"><?= $data["no_telp"] ?></a>
+                <a href="telp:<?= $data["no_telp"] ?>"><?= $data["no_telp"] ?></a>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Alamat:</span>

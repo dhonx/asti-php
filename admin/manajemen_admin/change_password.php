@@ -72,7 +72,7 @@ if (isset($_POST["update_admin_password"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>Ubah Password Admin - ASTI</title>
+    <title>Ubah Sandi Admin - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">

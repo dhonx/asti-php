@@ -31,13 +31,13 @@ if (isset($_POST["create_instansi"])) {
         $alamat   = $connection->real_escape_string($_POST["alamat"]);
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT email FROM instansi WHERE id_instansi != 1 email = '$email'");
+        $q_check_email = htmlspecialchars("SELECT `email` FROM `instansi` WHERE `id_instansi` != 1 AND `email` = '$email'");
         $result = $connection->query($q_check_email);
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
             $q_insert = htmlspecialchars(
-                "INSERT INTO instansi (nama, email, alamat, no_telp) 
+                "INSERT INTO `instansi` (`nama`, `email`, `alamat`, `no_telp`) 
                         VALUES ('$nama', '$email', '$alamat', '$nomor_hp')"
             );
             if ($connection->query($q_insert)) {

@@ -17,11 +17,11 @@ $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
 
 if ($is_search_mode) {
-    $query  = "SELECT * FROM instansi WHERE id_instansi != 1 AND ";
+    $query  = "SELECT * FROM `instansi` WHERE `id_instansi` != 1 AND ";
     $query .= build_search_query($keyword, ["nama", "email", "alamat", "no_telp"]);
-    $count_all_result  = $connection->query("SELECT * FROM ($query) AS instansi ORDER BY $sort_by $asc");
+    $count_all_result  = $connection->query("SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc");
 } else {
-    $count_all_result  = $connection->query("SELECT * FROM instansi WHERE id_instansi != 1");
+    $count_all_result  = $connection->query("SELECT * FROM `instansi` WHERE `id_instansi` != 1");
 }
 
 $total_items = $count_all_result->num_rows;
@@ -39,14 +39,14 @@ $limit          = $offset_limit["limit"];
 // If on search mode
 if ($is_search_mode) {
     // Search query
-    $query  = "SELECT * FROM instansi WHERE id_instansi != 1 AND ";
+    $query  = "SELECT * FROM `instansi` WHERE `id_instansi` != 1 AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
     $query .= " LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS instansi_ ORDER BY $sort_by $asc";
+    $query  = "SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc";
 } else {
     // Main query
     $query  = "SELECT * FROM instansi WHERE id_instansi != 1 LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS instansi_ ORDER BY $sort_by $asc";
+    $query  = "SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc";
     $query = mysqli_escape_string($connection, $query);
 }
 

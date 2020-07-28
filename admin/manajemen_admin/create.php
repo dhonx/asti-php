@@ -35,13 +35,13 @@ if (isset($_POST["create_admin"])) {
         $encrypted_sandi   = password_hash($sandi, PASSWORD_BCRYPT);
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT email FROM admin WHERE email = '$email'");
+        $q_check_email = htmlspecialchars("SELECT `email` FROM `admin` WHERE `email` = '$email'");
         $result = $connection->query(mysqli_real_escape_string($connection, $q_check_email));
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
             $q_insert = htmlspecialchars(
-                "INSERT INTO admin (nama, email, no_telp, sandi, aktif, tipe_admin) 
+                "INSERT INTO `admin` (`nama`, `email`, `no_telp`, `sandi`, `aktif`, `tipe_admin`) 
                     VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
             );
             if ($connection->query(mysqli_real_escape_string($connection, $q_insert))) {

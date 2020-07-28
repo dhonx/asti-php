@@ -39,12 +39,12 @@ if ($is_post) {
         $status   = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND tipe_admin != 'super_admin' AND id_admin != $id_admin_to_update");
+        $q_check_email = htmlspecialchars("SELECT email FROM `admin` WHERE `email` = '$email' AND `tipe_admin` != 'super_admin' AND `id_admin` != $id_admin_to_update");
         $result = $connection->query($q_check_email);
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE tipe_admin != 'super_admin' AND id_admin = $id_admin_to_update");
+            $q_update = htmlspecialchars("UPDATE `admin` SET `nama` = '$nama', `email` = '$email', `no_telp` = '$nomor_hp', `aktif` = $status WHERE `tipe_admin` != 'super_admin' AND `id_admin` = $id_admin_to_update");
             if ($connection->query($q_update)) {
                 redirect("./");
             }
@@ -54,7 +54,7 @@ if ($is_post) {
 
 // It's GET mode
 else {
-    $query = "SELECT id_admin FROM admin WHERE id_admin = $id_admin_to_update";
+    $query = "SELECT `id_admin` FROM `admin` WHERE `id_admin` = $id_admin_to_update";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
         redirect('./');
@@ -92,7 +92,7 @@ else {
 
             <?php
             if (!$is_post) {
-                $query = "SELECT * FROM admin WHERE id_admin = $id_admin_to_update";
+                $query = "SELECT * FROM `admin` WHERE `id_admin` = $id_admin_to_update";
                 $result = $connection->query($query);
                 while ($row = $result->fetch_row()) {
                     $data["nama"]       = $row[1];

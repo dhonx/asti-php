@@ -17,11 +17,11 @@ $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
 
 if ($is_search_mode) {
-    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
+    $query  = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
-    $count_all_result  = $connection->query("SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc");
+    $count_all_result  = $connection->query("SELECT * FROM ($query) AS `admin_` ORDER BY $sort_by $asc");
 } else {
-    $count_all_result  = $connection->query("SELECT * FROM admin WHERE tipe_admin = 'admin'");
+    $count_all_result  = $connection->query("SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin'");
 }
 
 $total_items = $count_all_result->num_rows;
@@ -39,14 +39,14 @@ $limit          = $offset_limit["limit"];
 // If on search mode
 if ($is_search_mode) {
     // Search query
-    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' AND ";
+    $query  = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' AND ";
     $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
     $query .= " LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
+    $query  = "SELECT * FROM ($query) AS `admin_` ORDER BY $sort_by $asc";
 } else {
     // Main query
-    $query  = "SELECT * FROM admin WHERE tipe_admin != 'super_admin' LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS admin_ ORDER BY $sort_by $asc";
+    $query  = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' LIMIT $limit OFFSET $offset";
+    $query  = "SELECT * FROM ($query) AS `admin_` ORDER BY $sort_by $asc";
 }
 
 $result = $connection->query($query);

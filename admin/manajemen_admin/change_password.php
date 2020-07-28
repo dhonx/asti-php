@@ -38,7 +38,7 @@ if (isset($_POST["update_admin_password"])) {
         $sandi_baru  = $_POST["sandi_baru"];
 
         // Get admin password from db
-        $result = $connection->query("SELECT sandi FROM admin WHERE tipe_admin = 'admin' AND id_admin = $id_admin_to_update");
+        $result = $connection->query("SELECT `sandi` FROM `admin` WHERE `tipe_admin` = 'admin' AND `id_admin` = $id_admin_to_update");
         if ($result->num_rows == 1) {
             $result_array   = $result->fetch_array(1);
             $sandi_from_db  = $result_array["sandi"];
@@ -46,7 +46,7 @@ if (isset($_POST["update_admin_password"])) {
             // Check if sandi lama is valid
             if (password_verify($sandi_lama, $sandi_from_db)) {
                 $new_password_hash = password_hash($sandi_baru, PASSWORD_BCRYPT);
-                $q_update_password = "UPDATE admin SET sandi = '$new_password_hash' WHERE tipe_admin = 'admin' AND id_admin = $id_admin_to_update";
+                $q_update_password = "UPDATE `admin` SET `sandi` = '$new_password_hash' WHERE `tipe_admin` = 'admin' AND `id_admin` = $id_admin_to_update";
                 if ($connection->query($q_update_password) == TRUE) {
                     redirect("./");
                 }

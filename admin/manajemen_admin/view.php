@@ -12,7 +12,7 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     redirect("./");
 } else {
     $id_admin = $_GET["id_admin"];
-    $query = "SELECT id_admin FROM admin WHERE tipe_admin = 'admin' AND id_admin = $id_admin";
+    $query = "SELECT `id_admin` FROM `admin` WHERE `tipe_admin` != 'super_admin' AND `id_admin` = $id_admin";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
         redirect('./');
@@ -37,22 +37,19 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
         <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
 
         <?php
-        $data = null;
-        if (!isset($_POST["update_admin"])) {
-            $query = "SELECT * FROM admin WHERE id_admin = $id_admin";
-            $result = $connection->query($query);
-            while ($row = $result->fetch_row()) {
-                $data["id_admin"]   = $row[0];
-                $data["nama"]       = $row[1];
-                $data["email"]      = $row[2];
-                $data["no_telp"]    = $row[3];
-                $data["aktif"]      = $row[5];
-                $data["tipe_admin"] = $row[6];
-                $data["created_at"] = $row[7];
-                $data["updated_at"] = $row[8];
-            }
-            $connection->close();
+        $query = "SELECT * FROM `admin` WHERE `id_admin` = $id_admin";
+        $result = $connection->query($query);
+        while ($row = $result->fetch_row()) {
+            $data["id_admin"]   = $row[0];
+            $data["nama"]       = $row[1];
+            $data["email"]      = $row[2];
+            $data["no_telp"]    = $row[3];
+            $data["aktif"]      = $row[5];
+            $data["tipe_admin"] = $row[6];
+            $data["created_at"] = $row[7];
+            $data["updated_at"] = $row[8];
         }
+        $connection->close();
         ?>
 
         <div class="bg-white my-2 p-2 rounded-md">

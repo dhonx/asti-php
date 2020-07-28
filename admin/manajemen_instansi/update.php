@@ -1,8 +1,8 @@
 <?php
-include_once "../../utils.php";
-include_once "../../connection/connection.php";
-include_once "../../config.php";
-require('../../vendor/autoload.php');
+require_once "../../utils.php";
+require_once "../../connection/connection.php";
+require_once "../../config.php";
+require_once '../../vendor/autoload.php';
 
 use Rakit\Validation\Validator;
 
@@ -34,10 +34,10 @@ if ($is_post) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama     = $_POST["nama"];
-        $email    = $_POST["email"];
-        $nomor_hp = $_POST["nomor_hp"];
-        $alamat   = $_POST["alamat"];
+        $nama     = $connection->real_escape_string($_POST["nama"]);
+        $email    = $connection->real_escape_string($_POST["email"]);
+        $nomor_hp = $connection->real_escape_string($_POST["nomor_hp"]);
+        $alamat   = $connection->real_escape_string($_POST["alamat"]);
 
         // Check if email is exist
         $q_check_email = htmlspecialchars("SELECT email FROM instansi WHERE email = '$email' AND id_instansi != 1 AND id_instansi != $id_admin_to_update");

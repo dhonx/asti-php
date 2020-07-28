@@ -16,9 +16,10 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
 }
 
 $id_admin_to_update = $_GET["id_instansi"];
+$is_post            = isset($_POST["update_instansi"]);
 
 // It's a update mode
-if (isset($_POST["update_instansi"])) {
+if ($is_post) {
     $validator = new Validator(VALIDATION_MESSAGES);
 
     $validation = $validator->make($_POST, [
@@ -41,11 +42,11 @@ if (isset($_POST["update_instansi"])) {
         // Check if email is exist
         $q_check_email = htmlspecialchars("SELECT email FROM instansi WHERE email = '$email' AND id_instansi != 1 AND id_instansi != $id_admin_to_update");
         $result = $connection->query($q_check_email);
-        if ($result->num_rows > 0) {
+        if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update = htmlspecialchars("UPDATE instansi SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', alamat = $alamat WHERE id_instansi != 1 AND id_instansi = $id_admin_to_update");
-            if ($connection->query(mysqli_real_escape_string($connection, $q_update)) == TRUE) {
+            $q_update = htmlspecialchars("UPDATE instansi SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', alamat = '$alamat' WHERE id_instansi != 1 AND id_instansi = $id_admin_to_update");
+            if ($connection->query($q_update)) {
                 $connection->close();
                 redirect("./");
             }
@@ -55,6 +56,7 @@ if (isset($_POST["update_instansi"])) {
 
 // It's GET mode
 else {
+    // Check if id_instansi is valid
     $query = "SELECT id_instansi FROM instansi WHERE id_instansi = $id_admin_to_update";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
@@ -92,8 +94,8 @@ else {
             <?php } ?>
 
             <?php
-            if (!isset($_POST["update_instansi"])) {
-                $query = "SELECT * FROM instansi WHERE id_instansi = " . $id_admin_to_update;
+            if (!$is_post) {
+                $query = "SELECT * FROM instansi WHERE id_instansi = $id_admin_to_update";
                 $result = $connection->query($query);
                 while ($row = $result->fetch_row()) {
                     $data["id_instansi"]    = $row[0];
@@ -118,7 +120,7 @@ else {
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<?= $errors ? get_prev_field('nomor_hp') : $data['no_telp'] ?>">
 
             <label class="block" for="alamat">Alamat <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="alamat" minlength="5" name="alamat" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('alamat') : $data['alamat'] ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="alamat" minlength="5" name="alamat" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('alamat') : $data['alamat'] ?>">
             <div class="border-b border-solid my-2 w-full"></div>
 
             <div class="flex justify-end">

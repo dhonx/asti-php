@@ -33,9 +33,9 @@ if ($is_post) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama     = $_POST["nama"];
-        $email    = $_POST["email"];
-        $nomor_hp = $_POST["nomor_hp"];
+        $nama     = $connection->real_escape_string($_POST["nama"]);
+        $email    = $connection->real_escape_string($_POST["email"]);
+        $nomor_hp = $connection->real_escape_string($_POST["nomor_hp"]);
         $status   = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist

@@ -25,14 +25,14 @@ if (isset($_POST["create_instansi"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama     = $_POST["nama"];
-        $email    = $_POST["email"];
-        $nomor_hp = $_POST["nomor_hp"];
-        $alamat   = $_POST["alamat"];
+        $nama     = $connection->real_escape_string($_POST["nama"]);
+        $email    = $connection->real_escape_string($_POST["email"]);
+        $nomor_hp = $connection->real_escape_string($_POST["nomor_hp"]);
+        $alamat   = $connection->real_escape_string($_POST["alamat"]);
 
         // Check if email is exist
         $q_check_email = htmlspecialchars("SELECT email FROM instansi WHERE id_instansi != 1 email = '$email'");
-        $result = $connection->query(mysqli_real_escape_string($connection, $q_check_email));
+        $result = $connection->query($q_check_email);
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
@@ -40,7 +40,7 @@ if (isset($_POST["create_instansi"])) {
                 "INSERT INTO instansi (nama, email, alamat, no_telp) 
                         VALUES ('$nama', '$email', '$alamat', '$nomor_hp')"
             );
-            if ($connection->query(mysqli_real_escape_string($connection, $q_insert))) {
+            if ($connection->query($q_insert)) {
                 $connection->close();
                 redirect("./");
             }

@@ -26,11 +26,10 @@ if (isset($_POST["create_admin"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama              = $_POST["nama"];
-        $email             = $_POST["email"];
-        $nomor_hp          = $_POST["nomor_hp"];
+        $nama              = $connection->real_escape_string($_POST["nama"]);
+        $email             = $connection->real_escape_string($_POST["email"]);
+        $nomor_hp          = $connection->real_escape_string($_POST["nomor_hp"]);
         $sandi             = $_POST["sandi"];
-        $konfirmasi_sandi  = $_POST["konfirmasi_sandi"];
         $status            = isset($_POST["status"]) ? 1 : 0;
         $tipe_admin        = "admin";
         $encrypted_sandi   = password_hash($sandi, PASSWORD_BCRYPT);

@@ -11,7 +11,7 @@ $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
 $asc            = $common_data["asc"];
-$keyword        = $common_data["keyword"];
+$keyword        = $connection->real_escape_string($common_data["keyword"]);
 $ipp            = $common_data["ipp"];
 $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];

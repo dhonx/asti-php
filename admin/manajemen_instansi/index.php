@@ -110,8 +110,8 @@ $result = $connection->query($query);
                         $email          = $row[2];
                         $alamat         = $row[3];
                         $no_telp        = $row[4];
-                        $created_at     = $row[5];
-                        $updated_at     = $row[6];
+                        // $created_at     = $row[5];
+                        // $updated_at     = $row[6];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">

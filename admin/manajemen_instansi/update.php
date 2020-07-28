@@ -102,8 +102,8 @@ else {
                     $data["email"]          = $row[2];
                     $data["alamat"]         = $row[3];
                     $data["no_telp"]        = (int)$row[4];
-                    $data["created_at"]     = $row[5];
-                    $data["updated_at"]     = $row[6];
+                    // $data["created_at"]     = $row[5];
+                    // $data["updated_at"]     = $row[6];
                 }
             }
             ?>

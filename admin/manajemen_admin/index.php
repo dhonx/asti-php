@@ -110,8 +110,8 @@ $result = $connection->query($query);
                         $no_telp    = $row[3];
                         $aktif      = $row[5];
                         $tipe_admin = $row[6];
-                        $created_at = $row[7];
-                        $updated_at = $row[8];
+                        // $created_at = $row[7];
+                        // $updated_at = $row[8];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">

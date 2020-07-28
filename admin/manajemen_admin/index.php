@@ -178,11 +178,12 @@ $result = $connection->query($query);
                     </a>
                 <?php } ?>
             </div>
-        <?php } ?>
-
-        <!-- --------------------------- EMPTY SEARCH RESULT -------------------------- -->
-        <?php if (($is_search_mode && $total_items == 0)) { ?>
-            <div class='text-lg text-center m-auto'>Tidak ada hasil dari kata pencarian '<?= $keyword ?>'</div>";
+        <?php } else { ?>
+            <?php if ($is_search_mode) { ?>
+                <div class="text-lg text-center m-auto">Tidak ada hasil dari kata pencarian '<?= $keyword ?>'</div>"
+            <?php } else { ?>
+                <div class="text-lg text-center m-auto">Belum ada data</div>"
+            <?php } ?>
         <?php } ?>
     </main>
     <?php require_once "../../includes/scripts.php"; ?>

@@ -44,7 +44,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </a>
         </li>
         <li>
-            <a href="#" role="menuitem" title="Manajemen Pegawai">
+            <a class="<?= check_active_url("/admin/manajemen_pegawai/", TRUE) ?>" href="<?= build_url("/admin/manajemen_pegawai") ?>" role="menuitem" title="Manajemen Pegawai">
                 <span class="mdi align-middle mdi-account-supervisor text-lg"></span>
                 <span class="lg:hidden label">Manajemen Pegawai</span>
             </a>

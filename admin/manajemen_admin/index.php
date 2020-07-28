@@ -1,8 +1,8 @@
 <?php
-include "../../utils.php";
-include "../../config.php";
-include "../../connection/connection.php";
-include "../../common/page.php";
+require_once "../../utils.php";
+require_once "../../config.php";
+require_once "../../connection/connection.php";
+require_once "../../common/page.php";
 
 authenticate(["super_admin"]);
 

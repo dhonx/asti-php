@@ -1,8 +1,8 @@
 <?php
-include_once "../../utils.php";
-include_once "../../connection/connection.php";
-include_once "../../config.php";
-require('../../vendor/autoload.php');
+require_once "../../utils.php";
+require_once "../../connection/connection.php";
+require_once "../../config.php";
+require_once "../../vendor/autoload.php";
 
 use Rakit\Validation\Validator;
 

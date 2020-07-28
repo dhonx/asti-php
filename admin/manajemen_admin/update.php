@@ -16,9 +16,10 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 }
 
 $id_admin_to_update = $_GET["id_admin"];
+$is_post            = isset($_POST["update_admin"]);
 
 // It's a update mode
-if (isset($_POST["update_admin"])) {
+if ($is_post) {
     $validator = new Validator(VALIDATION_MESSAGES);
 
     $validation = $validator->make($_POST, [
@@ -38,13 +39,13 @@ if (isset($_POST["update_admin"])) {
         $status   = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND tipe_admin = 'admin' AND id_admin != $id_admin_to_update");
+        $q_check_email = htmlspecialchars("SELECT email FROM admin WHERE email = '$email' AND tipe_admin != 'super_admin' AND id_admin != $id_admin_to_update");
         $result = $connection->query(mysqli_real_escape_string($connection, $q_check_email));
-        if ($result->num_rows > 0) {
+        if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE tipe_admin = 'admin' AND id_admin = $id_admin_to_update");
-            if ($connection->query(mysqli_real_escape_string($connection, $q_update))) {
+            $q_update = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE tipe_admin != 'super_admin' AND id_admin = $id_admin_to_update");
+            if ($connection->query($q_update)) {
                 $connection->close();
                 redirect("./");
             }
@@ -91,8 +92,8 @@ else {
             <?php } ?>
 
             <?php
-            if (!isset($_POST["update_admin"])) {
-                $query = "SELECT * FROM admin WHERE id_admin = " . $_GET['id_admin'];
+            if (!$is_post) {
+                $query = "SELECT * FROM admin WHERE id_admin = $id_admin_to_update";
                 $result = $connection->query($query);
                 while ($row = $result->fetch_row()) {
                     $data["nama"]       = $row[1];
@@ -112,12 +113,16 @@ else {
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors ? get_prev_field('email') : $data['email'] ?>">
 
             <label class="block" for="nomor_hp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<?= $errors ? get_prev_field('nomor_hp') : $data['no_telp'] ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nomor_hp" minlength="5" name="nomor_hp" required type="number" value="<?= $errors ? get_prev_field('nomor_hp') :  $data['no_telp'] ?>">
 
             <a class="block my-2" href="change_password?id_admin=<?= $id_admin_to_update ?>">Ganti sandi</a>
 
             <span class="block">Status</span>
-            <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= !$errors && $data['aktif'] == 1 ? "checked" : "" ?> id="status" name="status" type="checkbox">
+            <?php
+            if ($errors) $status_checked = get_prev_field("status") == "on";
+            else $status_checked = $data["aktif"] == 1;
+            ?>
+            <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= $status_checked ? "checked" : "" ?> id="status" name="status" type="checkbox">
             <label class="cursor-pointer inline-block w-11/12" for="status">Aktif</label>
 
             <div class="border-b border-solid my-2 w-full"></div>

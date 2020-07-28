@@ -49,7 +49,6 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
             $data["created_at"] = $row[7];
             $data["updated_at"] = $row[8];
         }
-        $connection->close();
         ?>
 
         <div class="bg-white my-2 p-2 rounded-md">

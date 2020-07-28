@@ -46,7 +46,6 @@ if ($is_post) {
         } else {
             $q_update = htmlspecialchars("UPDATE admin SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', aktif = $status WHERE tipe_admin != 'super_admin' AND id_admin = $id_admin_to_update");
             if ($connection->query($q_update)) {
-                $connection->close();
                 redirect("./");
             }
         }
@@ -102,7 +101,6 @@ else {
                     $data["aktif"]      = $row[5];
                     $data["tipe_admin"] = $row[6];
                 }
-                $connection->close();
             }
             ?>
 

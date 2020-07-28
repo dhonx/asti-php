@@ -41,7 +41,6 @@ if (isset($_POST["create_instansi"])) {
                         VALUES ('$nama', '$email', '$alamat', '$nomor_hp')"
             );
             if ($connection->query($q_insert)) {
-                $connection->close();
                 redirect("./");
             }
         }

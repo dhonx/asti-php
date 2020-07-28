@@ -47,7 +47,6 @@ if ($is_post) {
         } else {
             $q_update = htmlspecialchars("UPDATE instansi SET nama = '$nama', email = '$email', no_telp = '$nomor_hp', alamat = '$alamat' WHERE id_instansi != 1 AND id_instansi = $id_admin_to_update");
             if ($connection->query($q_update)) {
-                $connection->close();
                 redirect("./");
             }
         }
@@ -106,7 +105,6 @@ else {
                     $data["created_at"]     = $row[5];
                     $data["updated_at"]     = $row[6];
                 }
-                $connection->close();
             }
             ?>
 

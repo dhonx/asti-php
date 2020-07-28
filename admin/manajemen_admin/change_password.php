@@ -48,7 +48,6 @@ if (isset($_POST["update_admin_password"])) {
                 $new_password_hash = password_hash($sandi_baru, PASSWORD_BCRYPT);
                 $q_update_password = "UPDATE admin SET sandi = '$new_password_hash' WHERE tipe_admin = 'admin' AND id_admin = $id_admin_to_update";
                 if ($connection->query($q_update_password) == TRUE) {
-                    $connection->close();
                     redirect("./");
                 }
             }

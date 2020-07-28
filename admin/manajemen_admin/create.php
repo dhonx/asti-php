@@ -45,7 +45,6 @@ if (isset($_POST["create_admin"])) {
                     VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
             );
             if ($connection->query(mysqli_real_escape_string($connection, $q_insert))) {
-                $connection->close();
                 redirect("./");
             }
         }

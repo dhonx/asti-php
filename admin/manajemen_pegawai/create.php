@@ -35,9 +35,17 @@ if (isset($_POST["create_pegawai"])) {
         // Check if email is exist
         $q_check_email = "SELECT `email` FROM `pegawai` WHERE `email` = '$email'";
         $q_check_email = htmlspecialchars($q_check_email);
-        $result = $connection->query($q_check_email);
-        if ($result && $result->num_rows > 0) {
+        $r_check_email = $connection->query($q_check_email);
+
+        // Check if nomor pegawai is exist
+        $q_check_no_pegawai = "SELECT `no_pegawai` FROM `pegawai` WHERE `no_pegawai` = '$no_pegawai'";
+        $q_check_no_pegawai = htmlspecialchars($q_check_no_pegawai);
+        $r_check_no_pegawai = $connection->query($q_check_no_pegawai);
+
+        if ($r_check_email && $r_check_email->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
+        } else if ($r_check_no_pegawai && $r_check_no_pegawai->num_rows > 0) {
+            array_push($errors, "Nomor pegawai sudah ada");
         } else {
             $q_insert = "INSERT INTO `pegawai` (`no_pegawai`, `nama`, `email`, `sandi`) VALUES ('$no_pegawai', '$nama', '$email', '$encrypted_sandi')";
             $q_insert = htmlspecialchars($q_insert);
@@ -78,19 +86,19 @@ if (isset($_POST["create_pegawai"])) {
             <?php } ?>
 
             <label class="block" for="no_pegawai">No Pegawai <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="no_pegawai" maxlength="12" minlength="8" name="no_pegawai" required type="number" value="<?= $errors && get_prev_field('no_pegawai') ?>">
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="no_pegawai" maxlength="12" minlength="8" name="no_pegawai" required type="number" value="<?= $errors ? get_prev_field('no_pegawai') : '' ?>">
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors && get_prev_field('nama') ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('nama') : '' ?>">
 
             <label class="block" for="email">Email <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors && get_prev_field('email') ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors ? get_prev_field('email') : '' ?>">
 
             <label class="block" for="sandi">Sandi <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="sandi" minlength="8" name="sandi" required type="password" value="<?= $errors && get_prev_field('sandi') ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="sandi" minlength="8" name="sandi" required type="password" value="<?= $errors ? get_prev_field('sandi') : '' ?>">
 
             <label class="block" for="konfirmasi_sandi">Konfirmasi Sandi <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="konfirmasi_sandi" minlength="8" name="konfirmasi_sandi" required type="password" value="<?= $errors && get_prev_field('konfirmasi_sandi') ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="konfirmasi_sandi" minlength="8" name="konfirmasi_sandi" required type="password" value="<?= $errors ? get_prev_field('konfirmasi_sandi') : '' ?>">
 
             <div class="border-b border-solid my-2 w-full"></div>
 

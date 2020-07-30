@@ -5,11 +5,9 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: admin
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -18,17 +16,15 @@ CREATE TABLE `admin` (
   `no_telp` text NOT NULL,
   `sandi` text NOT NULL,
   `aktif` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `tipe_admin` enum('admin','super_admin') NOT NULL DEFAULT 'admin',
+  `tipe_admin` enum('admin', 'super_admin') NOT NULL DEFAULT 'admin',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `email` (`email`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 27 DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: barang
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `barang`;
 CREATE TABLE `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -36,7 +32,7 @@ CREATE TABLE `barang` (
   `harga_beli` int(11) NOT NULL,
   `aktif` tinyint(3) unsigned DEFAULT NULL,
   `keterangan` text DEFAULT NULL,
-  `kondisi` enum('baik','rusak_ringan','rusak_berat') NOT NULL,
+  `kondisi` enum('baik', 'rusak_ringan', 'rusak_berat') NOT NULL,
   `jumlah` int(10) unsigned NOT NULL,
   `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -45,14 +41,16 @@ CREATE TABLE `barang` (
   PRIMARY KEY (`id_barang`),
   KEY `id_komponen` (`id_komponen`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE,
+    CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: instansi
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -64,12 +62,10 @@ CREATE TABLE `instansi` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_instansi`),
   UNIQUE KEY `email` (`email`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 11 DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: kategori
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -77,12 +73,10 @@ CREATE TABLE `kategori` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id_kategori`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: komponen
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -97,13 +91,13 @@ CREATE TABLE `komponen` (
   `id_admin` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_komponen`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
+  CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pegawai
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE `pegawai` (
   `id_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -115,12 +109,10 @@ CREATE TABLE `pegawai` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_pegawai`),
   UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 15 DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pemasok
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE `pemasok` (
   `id_pemasok` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -136,35 +128,37 @@ CREATE TABLE `pemasok` (
   `id_admin` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_pemasok`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+  CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: peminjam
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
+  `jabatan` text NOT NULL DEFAULT '',
   `no_telp` text NOT NULL,
-  `jabatan` text NOT NULL,
   `sandi` text NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `id_kategori` int(10) unsigned DEFAULT NULL,
   `id_instansi` int(10) unsigned DEFAULT NULL,
+  `id_kategori` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_peminjam`),
   KEY `id_kategori` (`id_kategori`),
   KEY `id_instansi` (`id_instansi`),
-  CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
+  CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE,
+    CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE
+  SET
+    NULL ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 20 DEFAULT CHARSET = utf8;
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: admin
 # ------------------------------------------------------------
-
 INSERT INTO
   `admin` (
     `id_admin`,
@@ -597,16 +591,12 @@ VALUES
     '2020-07-25 23:46:44',
     '2020-07-28 23:36:28'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: barang
-# ------------------------------------------------------------
-
-
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: instansi
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: barang
+  # ------------------------------------------------------------
+  # ------------------------------------------------------------
+  # DATA DUMP FOR TABLE: instansi
+  # ------------------------------------------------------------
 INSERT INTO
   `instansi` (
     `id_instansi`,
@@ -767,13 +757,16 @@ VALUES
     '2020-07-28 22:49:14',
     '2020-07-28 22:49:14'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: kategori
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: kategori
+  # ------------------------------------------------------------
 INSERT INTO
-  `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`)
+  `kategori` (
+    `id_kategori`,
+    `nama`,
+    `created_at`,
+    `updated_at`
+  )
 VALUES
   (
     1,
@@ -782,7 +775,12 @@ VALUES
     '0000-00-00 00:00:00'
   );
 INSERT INTO
-  `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`)
+  `kategori` (
+    `id_kategori`,
+    `nama`,
+    `created_at`,
+    `updated_at`
+  )
 VALUES
   (
     2,
@@ -790,11 +788,9 @@ VALUES
     '0000-00-00 00:00:00',
     '0000-00-00 00:00:00'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: komponen
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: komponen
+  # ------------------------------------------------------------
 INSERT INTO
   `komponen` (
     `id_komponen`,
@@ -925,66 +921,192 @@ VALUES
     '2020-06-25 15:40:21',
     1
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: pegawai
+  # DATA DUMP FOR TABLE: pegawai
+  # ------------------------------------------------------------
+INSERT INTO
+  `pegawai` (
+    `id_pegawai`,
+    `no_pegawai`,
+    `nama`,
+    `email`,
+    `sandi`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    '1513001600',
+    'Bryan Adams',
+    'bryanadams@gmail.com',
+    '$2y$10$7WTRuelkRVRZK4IiVQmsmej7EDd4u6.l84xcblChs7u0Bdg.U.Jeu',
+    '2020-07-30 11:03:35',
+    '2020-07-30 11:03:35'
+  );
+INSERT INTO
+  `pegawai` (
+    `id_pegawai`,
+    `no_pegawai`,
+    `nama`,
+    `email`,
+    `sandi`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    13,
+    '1513001700',
+    'Billie Elishx',
+    'billie.elish@gmail.com',
+    '$2y$10$saCEAUvfimXviox4lycrLOywtAckXP8Bw7xxq2uKCSPsYuquxOJyy',
+    '2020-07-30 11:15:47',
+    '2020-07-30 11:58:02'
+  );
+INSERT INTO
+  `pegawai` (
+    `id_pegawai`,
+    `no_pegawai`,
+    `nama`,
+    `email`,
+    `sandi`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    14,
+    '1513001900',
+    'Scott Adkins',
+    'scottadkins@gmail.com',
+    '$2y$10$Bx89ShwYaCvVPzKmPS1J2er2y6vYfeD.RNqgBvPosrrl7thHqSUg6',
+    '2020-07-30 12:08:51',
+    '2020-07-30 12:08:51'
+  );
 # ------------------------------------------------------------
-
-
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: pemasok
-# ------------------------------------------------------------
-
-
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: peminjam
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: pemasok
+  # ------------------------------------------------------------
+  # ------------------------------------------------------------
+  # DATA DUMP FOR TABLE: peminjam
+  # ------------------------------------------------------------
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
-    `no_telp`,
     `jabatan`,
+    `no_telp`,
     `sandi`,
     `created_at`,
     `updated_at`,
-    `id_kategori`,
-    `id_instansi`
+    `id_instansi`,
+    `id_kategori`
   )
 VALUES
   (
-    1,
-    'Andi Smith',
-    '1111111111',
-    'Ketua Mahasiswa',
-    '111111111111',
-    NULL,
-    '2020-06-29 17:47:01',
-    1,
-    1
+    14,
+    'Gregorius Nahak',
+    'Mahasiswa',
+    '08136353421',
+    '$2b$10$igQPRch5PfQwlOKHwxB49O3sEDANOzp1XX2.FGlBXabpT8Q59L65q',
+    '2020-07-30 22:36:50',
+    '2020-07-30 22:36:57',
+    6,
+    2
   );
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
-    `no_telp`,
     `jabatan`,
+    `no_telp`,
     `sandi`,
     `created_at`,
     `updated_at`,
-    `id_kategori`,
-    `id_instansi`
+    `id_instansi`,
+    `id_kategori`
   )
 VALUES
   (
-    2,
-    'Dion Usu',
-    '1111111111111',
-    'Kepala Fakultas Hukum',
-    'aaaaaaaaaaaaaaa',
-    '0000-00-00 00:00:00',
-    '0000-00-00 00:00:00',
+    15,
+    'Linda Jordan',
+    'Ketua Mahasiswa',
+    '82753543421',
+    '$2b$10$P.W1E7qvtvWF.aebm6tr1.FOYCA1TX3Nqf2nzzirLLY2yF1zQj0Ay',
+    '2020-07-30 22:36:44',
+    '2020-07-30 22:37:02',
+    5,
+    2
+  );
+INSERT INTO
+  `peminjam` (
+    `id_peminjam`,
+    `nama`,
+    `jabatan`,
+    `no_telp`,
+    `sandi`,
+    `created_at`,
+    `updated_at`,
+    `id_instansi`,
+    `id_kategori`
+  )
+VALUES
+  (
+    16,
+    'Hendrik Rasyam',
+    'Mahasiswa',
+    '716253434323',
+    '$2b$10$HWQE/YsFwkQmH6mXWOjQEunKMLx4t54Zun3wH4HsPMYt.Kz7do8re',
+    '2020-07-30 13:25:53',
+    '2020-07-30 13:25:54',
+    6,
+    2
+  );
+INSERT INTO
+  `peminjam` (
+    `id_peminjam`,
+    `nama`,
+    `jabatan`,
+    `no_telp`,
+    `sandi`,
+    `created_at`,
+    `updated_at`,
+    `id_instansi`,
+    `id_kategori`
+  )
+VALUES
+  (
+    17,
+    'Lisa Kesz',
+    'Mahasiswa',
+    '816725635445',
+    '$2b$10$kB9BAAG583VMVbEeg3QYbuIEkLjGZnQYbRtqTC.dCrG7pf5Hp570m',
+    '2020-07-30 22:37:17',
+    '2020-07-30 23:31:14',
+    7,
+    2
+  );
+INSERT INTO
+  `peminjam` (
+    `id_peminjam`,
+    `nama`,
+    `jabatan`,
+    `no_telp`,
+    `sandi`,
+    `created_at`,
+    `updated_at`,
+    `id_instansi`,
+    `id_kategori`
+  )
+VALUES
+  (
+    18,
+    'Kevin Lassagna',
+    'Mahasiswa',
+    '012345678912',
+    '$2y$10$eMn3F9TJa08xOu0ftxbC1.MFyCLCM6Cri1FTdDX0tgJ3MW88Mz.7K',
+    '2020-07-30 22:20:52',
+    '2020-07-30 22:20:52',
     2,
     2
   );
@@ -992,102 +1114,29 @@ INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
-    `no_telp`,
     `jabatan`,
+    `no_telp`,
     `sandi`,
     `created_at`,
     `updated_at`,
-    `id_kategori`,
-    `id_instansi`
+    `id_instansi`,
+    `id_kategori`
   )
 VALUES
   (
-    14,
-    'Gregorius Nahak',
-    '08136353421',
+    19,
+    'Lissa Right',
     'Mahasiswa',
-    '$2b$10$igQPRch5PfQwlOKHwxB49O3sEDANOzp1XX2.FGlBXabpT8Q59L65q',
-    '0000-00-00 00:00:00',
-    '0000-00-00 00:00:00',
-    2,
-    6
+    '123456789012',
+    '$2y$10$6phinaLNETGbvnATDbJeD.hRaM/z2vRdL1zmyahOCOFfXIb68mMrO',
+    '2020-07-30 22:35:38',
+    '2020-07-30 22:35:38',
+    3,
+    2
   );
-INSERT INTO
-  `peminjam` (
-    `id_peminjam`,
-    `nama`,
-    `no_telp`,
-    `jabatan`,
-    `sandi`,
-    `created_at`,
-    `updated_at`,
-    `id_kategori`,
-    `id_instansi`
-  )
-VALUES
-  (
-    15,
-    'Linda Jordan',
-    '8275354342',
-    'Ketua Mahasiswa',
-    '$2b$10$P.W1E7qvtvWF.aebm6tr1.FOYCA1TX3Nqf2nzzirLLY2yF1zQj0Ay',
-    '0000-00-00 00:00:00',
-    '0000-00-00 00:00:00',
-    2,
-    5
-  );
-INSERT INTO
-  `peminjam` (
-    `id_peminjam`,
-    `nama`,
-    `no_telp`,
-    `jabatan`,
-    `sandi`,
-    `created_at`,
-    `updated_at`,
-    `id_kategori`,
-    `id_instansi`
-  )
-VALUES
-  (
-    16,
-    'Hendrik Rasyam',
-    '716253434323',
-    'Mahasiswa',
-    '$2b$10$HWQE/YsFwkQmH6mXWOjQEunKMLx4t54Zun3wH4HsPMYt.Kz7do8re',
-    NULL,
-    '2020-06-25 06:42:35',
-    2,
-    6
-  );
-INSERT INTO
-  `peminjam` (
-    `id_peminjam`,
-    `nama`,
-    `no_telp`,
-    `jabatan`,
-    `sandi`,
-    `created_at`,
-    `updated_at`,
-    `id_kategori`,
-    `id_instansi`
-  )
-VALUES
-  (
-    17,
-    'Lisa Kes',
-    '816725635445',
-    'Mahasiswa',
-    '$2b$10$kB9BAAG583VMVbEeg3QYbuIEkLjGZnQYbRtqTC.dCrG7pf5Hp570m',
-    '0000-00-00 00:00:00',
-    '0000-00-00 00:00:00',
-    2,
-    7
-  );
-
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

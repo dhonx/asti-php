@@ -10,7 +10,7 @@ if (!isset($_GET["id_pegawai"]) && !is_numeric($_GET["id_pegawai"])) {
     redirect("./");
 } else {
     $id_pegawai = $_GET["id_pegawai"];
-    $query = "SELECT `id_pegawai` FROM `pegawai` WHERE AND `id_pegawai` = $id_pegawai";
+    $query = "SELECT `id_pegawai` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
     $result = $connection->query($query);
     if ($result && $result->num_rows < 1) {
         redirect('./');

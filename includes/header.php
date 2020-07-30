@@ -50,7 +50,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </a>
         </li>
         <li>
-            <a href="#" role="menuitem" title="Manajemen Peminjam">
+            <a class="<?= check_active_url("/admin/manajemen_peminjam/", TRUE) ?>" href="<?= build_url("/admin/manajemen_peminjam") ?>" role="menuitem" title="Manajemen Peminjam">
                 <span class="mdi align-middle mdi-account-group text-lg"></span>
                 <span class="lg:hidden label">Manajemen Peminjam</span>
             </a>

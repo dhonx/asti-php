@@ -7,7 +7,7 @@ require_once "../../common/page.php";
 authenticate(["super_admin", "admin"]);
 
 $valid_columns  = ["nama", "no_telp", "jabatan", "nama_instansi", "nama_kategori"];
-$sort_columns   = ["peminjam.nama", "no_telp", "jabatan", "instansi.nama", "kategori.nama"];
+$sort_columns   = ["peminjam.nama", "peminjam.no_telp", "jabatan", "instansi.nama", "kategori.nama"];
 $common_data    = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];

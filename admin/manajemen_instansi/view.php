@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>Detail Instansi - <?= $data["nama"] ?> - ASTI</title>
+    <title>Detail Instansi <?= $data["nama"] ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -42,7 +42,7 @@ while ($row = $result->fetch_assoc()) {
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">Detail Data Instansi - <?= $data["nama"] ?></h3>
+        <h3 class="text-2xl font-bold py-2 page-header">Detail Instansi <?= $data["nama"] ?></h3>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>

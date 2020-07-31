@@ -25,12 +25,10 @@ $search_query = "SELECT
                     `instansi`.`nama` AS `nama_instansi`,
                     `kategori`.`nama` AS `nama_kategori`
                 FROM
-                    `peminjam`, `instansi`, `kategori`
-                WHERE 
-                     `peminjam`.`id_instansi` = `instansi`.`id_instansi`
-                AND
-                     `peminjam`.`id_kategori` = `kategori`.`id_kategori`
-                AND " . build_search_query($keyword, $sort_columns);
+                    `peminjam`
+                INNER JOIN `instansi` ON `peminjam`.`id_instansi` = `instansi`.`id_instansi`
+                INNER JOIN `kategori` ON `peminjam`.`id_kategori` = `kategori`.`id_kategori`
+                WHERE " . build_search_query($keyword, $sort_columns);
 
 if ($is_search_mode) {
     $query = "SELECT * FROM ($search_query) AS `peminjam`";
@@ -54,7 +52,7 @@ $limit        = $offset_limit["limit"];
 // If on search mode
 if ($is_search_mode) {
     // Search query
-    $search_query .= " LIMIT $limit OFFSET $offset";
+    $search_query .= " ORDER BY `peminjam`.`id_peminjam` LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($search_query) AS `peminjam` ORDER BY $sort_by $asc";
 } else {
     // Main query
@@ -66,11 +64,9 @@ if ($is_search_mode) {
                     `instansi`.`nama` AS `nama_instansi`,
                     `kategori`.`nama` AS `nama_kategori`
                 FROM
-                    `peminjam`, `instansi`, `kategori`
-                WHERE
-                    `peminjam`.`id_instansi` = `instansi`.`id_instansi`
-                AND 
-                    `peminjam`.`id_kategori` = `kategori`.`id_kategori`
+                    `peminjam`
+                INNER JOIN `instansi` ON `peminjam`.`id_instansi` = `instansi`.`id_instansi`
+                INNER JOIN `kategori` ON `peminjam`.`id_kategori` = `kategori`.`id_kategori`
                 LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `peminjam` ORDER BY $sort_by $asc";
 }

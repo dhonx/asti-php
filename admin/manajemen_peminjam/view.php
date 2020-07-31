@@ -11,9 +11,24 @@ if (!isset($_GET["id_peminjam"]) && !is_numeric($_GET["id_peminjam"])) {
 }
 
 $id_peminjam = $_GET["id_peminjam"];
-$q_check_id_peminjam = "SELECT `id_peminjam` FROM `pegawai` WHERE `id_peminjam` = $id_peminjam";
-$r_check_id_peminjam = $connection->query($q_check_id_peminjam);
-if ($r_check_id_peminjam && $r_check_id_peminjam->num_rows == 0) {
+$q_get_peminjam = "SELECT
+                        `peminjam`.`nama`,
+                        `peminjam`.`jabatan`,
+                        `peminjam`.`no_telp`,
+                        `instansi`.`nama` AS `nama_instansi`,
+                        `kategori`.`nama` AS `nama_kategori`,
+                        `peminjam`.`created_at`,
+                        `peminjam`.`updated_at`
+                    FROM
+                        `peminjam`, `instansi`, `kategori`
+                    WHERE
+                        `peminjam`.`id_instansi` = `instansi`.`id_instansi`
+                    AND
+                        `peminjam`.`id_kategori` = `kategori`.`id_kategori`
+                    AND
+                        `id_peminjam` = $id_peminjam";
+$r_get_peminjam = $connection->query($q_get_peminjam);
+if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
     redirect('./');
 }
 ?>
@@ -35,23 +50,6 @@ if ($r_check_id_peminjam && $r_check_id_peminjam->num_rows == 0) {
         <h3 class="text-2xl font-bold py-2 page-header">View Peminjam Data</h3>
 
         <?php
-        $q_get_peminjam = "SELECT
-                                `peminjam`.`nama`,
-                                `peminjam`.`jabatan`,
-                                `peminjam`.`no_telp`,
-                                `instansi`.`nama` AS `nama_instansi`,
-                                `kategori`.`nama` AS `nama_kategori`,
-                                `peminjam`.`created_at`,
-                                `peminjam`.`updated_at`
-                            FROM
-                                `peminjam`, `instansi`, `kategori`
-                            WHERE
-                                `peminjam`.`id_instansi` = `instansi`.`id_instansi`
-                            AND
-                                `peminjam`.`id_kategori` = `kategori`.`id_kategori`
-                            AND
-                                `id_peminjam` = $id_peminjam";
-        $r_get_peminjam = $connection->query($q_get_peminjam);
         while ($row = $r_get_peminjam->fetch_assoc()) {
             $data["nama"]          = $row["nama"];
             $data["jabatan"]       = $row["jabatan"];

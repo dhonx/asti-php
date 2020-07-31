@@ -16,6 +16,17 @@ $r_get_admin = $connection->query($q_get_admin);
 if ($r_get_admin && $r_get_admin->num_rows < 1) {
     redirect('./');
 }
+
+while ($row = $r_get_admin->fetch_assoc()) {
+    $data["id_admin"]   = $row["id_admin"];
+    $data["nama"]       = $row["nama"];
+    $data["email"]      = $row["email"];
+    $data["no_telp"]    = $row["no_telp"];
+    $data["aktif"]      = $row["aktif"];
+    $data["tipe_admin"] = $row["tipe_admin"];
+    $data["created_at"] = $row["created_at"];
+    $data["updated_at"] = $row["updated_at"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +35,7 @@ if ($r_get_admin && $r_get_admin->num_rows < 1) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>View Admin - ASTI</title>
+    <title>Detail Admin - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -32,18 +43,7 @@ if ($r_get_admin && $r_get_admin->num_rows < 1) {
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
-
-        <?php while ($row = $r_get_admin->fetch_assoc()) {
-            $data["id_admin"]   = $row["id_admin"];
-            $data["nama"]       = $row["nama"];
-            $data["email"]      = $row["email"];
-            $data["no_telp"]    = $row["no_telp"];
-            $data["aktif"]      = $row["aktif"];
-            $data["tipe_admin"] = $row["tipe_admin"];
-            $data["created_at"] = $row["created_at"];
-            $data["updated_at"] = $row["updated_at"];
-        } ?>
+        <h3 class="text-2xl font-bold py-2 page-header">Detail Admin</h3>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>

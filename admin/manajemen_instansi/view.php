@@ -16,6 +16,16 @@ $result = $connection->query($q_get_instansi);
 if ($result && $result->num_rows == 0) {
     redirect('./');
 }
+
+while ($row = $result->fetch_assoc()) {
+    $data["id_instansi"] = $row["id_instansi"];
+    $data["nama"]        = $row["nama"];
+    $data["email"]       = $row["email"];
+    $data["alamat"]      = $row["alamat"];
+    $data["no_telp"]     = (int)$row["no_telp"];
+    $data["created_at"]  = $row["created_at"];
+    $data["updated_at"]  = $row["updated_at"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +34,7 @@ if ($result && $result->num_rows == 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>View Admin - ASTI</title>
+    <title>Detail Instansi - <?= $data["nama"] ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -32,19 +42,7 @@ if ($result && $result->num_rows == 0) {
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
-
-        <?php
-        while ($row = $result->fetch_assoc()) {
-            $data["id_instansi"] = $row["id_instansi"];
-            $data["nama"]        = $row["nama"];
-            $data["email"]       = $row["email"];
-            $data["alamat"]      = $row["alamat"];
-            $data["no_telp"]     = (int)$row["no_telp"];
-            $data["created_at"]  = $row["created_at"];
-            $data["updated_at"]  = $row["updated_at"];
-        }
-        ?>
+        <h3 class="text-2xl font-bold py-2 page-header">Detail Data Instansi - <?= $data["nama"] ?></h3>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>

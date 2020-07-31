@@ -32,6 +32,17 @@ $r_get_peminjam = $connection->query($q_get_peminjam);
 if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
     redirect('./');
 }
+
+while ($row = $r_get_peminjam->fetch_assoc()) {
+    $data["nama"]          = $row["nama"];
+    $data["jabatan"]       = $row["jabatan"];
+    $data["no_telp"]       = $row["no_telp"];
+    $data["nama_instansi"] = $row["nama_instansi"];
+    $data["nama_kategori"] = $row["nama_kategori"];
+    $data["created_at"]    = $row["created_at"];
+    $data["updated_at"]    = $row["updated_at"];
+    $data["id_instansi"]   = $row["id_instansi"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +51,7 @@ if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>View Peminjam - ASTI</title>
+    <title>Detail Peminjam <?= $data["nama"] ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -48,20 +59,7 @@ if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">View Peminjam Data</h3>
-
-        <?php
-        while ($row = $r_get_peminjam->fetch_assoc()) {
-            $data["nama"]          = $row["nama"];
-            $data["jabatan"]       = $row["jabatan"];
-            $data["no_telp"]       = $row["no_telp"];
-            $data["nama_instansi"] = $row["nama_instansi"];
-            $data["nama_kategori"] = $row["nama_kategori"];
-            $data["created_at"]    = $row["created_at"];
-            $data["updated_at"]    = $row["updated_at"];
-            $data["id_instansi"]    = $row["id_instansi"];
-        }
-        ?>
+        <h3 class="text-2xl font-bold py-2 page-header">Detail Peminjam <?= $data["nama"] ?></h3>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>

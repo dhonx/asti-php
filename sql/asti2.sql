@@ -5,9 +5,11 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: admin
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -16,15 +18,17 @@ CREATE TABLE `admin` (
   `no_telp` text NOT NULL,
   `sandi` text NOT NULL,
   `aktif` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `tipe_admin` enum('admin', 'super_admin') NOT NULL DEFAULT 'admin',
+  `tipe_admin` enum('admin','super_admin') NOT NULL DEFAULT 'admin',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `email` (`email`) USING HASH
-) ENGINE = InnoDB AUTO_INCREMENT = 27 DEFAULT CHARSET = utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: barang
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `barang`;
 CREATE TABLE `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -32,7 +36,7 @@ CREATE TABLE `barang` (
   `harga_beli` int(11) NOT NULL,
   `aktif` tinyint(3) unsigned DEFAULT NULL,
   `keterangan` text DEFAULT NULL,
-  `kondisi` enum('baik', 'rusak_ringan', 'rusak_berat') NOT NULL,
+  `kondisi` enum('baik','rusak_ringan','rusak_berat') NOT NULL,
   `jumlah` int(10) unsigned NOT NULL,
   `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -41,16 +45,14 @@ CREATE TABLE `barang` (
   PRIMARY KEY (`id_barang`),
   KEY `id_komponen` (`id_komponen`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE
-  SET
-    NULL ON UPDATE CASCADE,
-    CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
-  SET
-    NULL ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: instansi
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -62,10 +64,12 @@ CREATE TABLE `instansi` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_instansi`),
   UNIQUE KEY `email` (`email`) USING HASH
-) ENGINE = InnoDB AUTO_INCREMENT = 11 DEFAULT CHARSET = utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: kategori
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -73,10 +77,12 @@ CREATE TABLE `kategori` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id_kategori`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: komponen
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -91,13 +97,13 @@ CREATE TABLE `komponen` (
   `id_admin` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_komponen`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
-  SET
-    NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8;
+  CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pegawai
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE `pegawai` (
   `id_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -109,10 +115,12 @@ CREATE TABLE `pegawai` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_pegawai`),
   UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
-) ENGINE = InnoDB AUTO_INCREMENT = 15 DEFAULT CHARSET = utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pemasok
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE `pemasok` (
   `id_pemasok` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -128,13 +136,13 @@ CREATE TABLE `pemasok` (
   `id_admin` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_pemasok`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
-  SET
-    NULL ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: peminjam
 # ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -149,16 +157,14 @@ CREATE TABLE `peminjam` (
   PRIMARY KEY (`id_peminjam`),
   KEY `id_kategori` (`id_kategori`),
   KEY `id_instansi` (`id_instansi`),
-  CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE
-  SET
-    NULL ON UPDATE CASCADE,
-    CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE
-  SET
-    NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 DEFAULT CHARSET = utf8;
+  CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: admin
 # ------------------------------------------------------------
+
 INSERT INTO
   `admin` (
     `id_admin`,
@@ -591,12 +597,16 @@ VALUES
     '2020-07-25 23:46:44',
     '2020-07-28 23:36:28'
   );
+
 # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: barang
-  # ------------------------------------------------------------
-  # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: instansi
-  # ------------------------------------------------------------
+# DATA DUMP FOR TABLE: barang
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+# DATA DUMP FOR TABLE: instansi
+# ------------------------------------------------------------
+
 INSERT INTO
   `instansi` (
     `id_instansi`,
@@ -757,16 +767,13 @@ VALUES
     '2020-07-28 22:49:14',
     '2020-07-28 22:49:14'
   );
+
 # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: kategori
-  # ------------------------------------------------------------
+# DATA DUMP FOR TABLE: kategori
+# ------------------------------------------------------------
+
 INSERT INTO
-  `kategori` (
-    `id_kategori`,
-    `nama`,
-    `created_at`,
-    `updated_at`
-  )
+  `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`)
 VALUES
   (
     1,
@@ -775,12 +782,7 @@ VALUES
     '0000-00-00 00:00:00'
   );
 INSERT INTO
-  `kategori` (
-    `id_kategori`,
-    `nama`,
-    `created_at`,
-    `updated_at`
-  )
+  `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`)
 VALUES
   (
     2,
@@ -788,9 +790,11 @@ VALUES
     '0000-00-00 00:00:00',
     '0000-00-00 00:00:00'
   );
+
 # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: komponen
-  # ------------------------------------------------------------
+# DATA DUMP FOR TABLE: komponen
+# ------------------------------------------------------------
+
 INSERT INTO
   `komponen` (
     `id_komponen`,
@@ -921,9 +925,11 @@ VALUES
     '2020-06-25 15:40:21',
     1
   );
+
 # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: pegawai
-  # ------------------------------------------------------------
+# DATA DUMP FOR TABLE: pegawai
+# ------------------------------------------------------------
+
 INSERT INTO
   `pegawai` (
     `id_pegawai`,
@@ -984,12 +990,16 @@ VALUES
     '2020-07-30 12:08:51',
     '2020-07-30 12:08:51'
   );
+
 # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: pemasok
-  # ------------------------------------------------------------
-  # ------------------------------------------------------------
-  # DATA DUMP FOR TABLE: peminjam
-  # ------------------------------------------------------------
+# DATA DUMP FOR TABLE: pemasok
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+# DATA DUMP FOR TABLE: peminjam
+# ------------------------------------------------------------
+
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
@@ -1076,30 +1086,6 @@ INSERT INTO
   )
 VALUES
   (
-    17,
-    'Lisa Kesz',
-    'Mahasiswa',
-    '816725635445',
-    '$2b$10$kB9BAAG583VMVbEeg3QYbuIEkLjGZnQYbRtqTC.dCrG7pf5Hp570m',
-    '2020-07-30 22:37:17',
-    '2020-07-30 23:31:14',
-    7,
-    2
-  );
-INSERT INTO
-  `peminjam` (
-    `id_peminjam`,
-    `nama`,
-    `jabatan`,
-    `no_telp`,
-    `sandi`,
-    `created_at`,
-    `updated_at`,
-    `id_instansi`,
-    `id_kategori`
-  )
-VALUES
-  (
     18,
     'Kevin Lassagna',
     'Mahasiswa',
@@ -1134,9 +1120,34 @@ VALUES
     3,
     2
   );
-  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO
+  `peminjam` (
+    `id_peminjam`,
+    `nama`,
+    `jabatan`,
+    `no_telp`,
+    `sandi`,
+    `created_at`,
+    `updated_at`,
+    `id_instansi`,
+    `id_kategori`
+  )
+VALUES
+  (
+    20,
+    'Zayn Malik',
+    'Mahasiswa',
+    '999999999999',
+    '$2y$10$tpva6aklYtWom53WDNUcJOIB29.9WjmCI91YqUZpY5mVp7Kiilq3y',
+    '2020-07-31 11:02:51',
+    '2020-07-31 11:02:51',
+    8,
+    2
+  );
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

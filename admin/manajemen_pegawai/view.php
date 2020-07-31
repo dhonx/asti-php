@@ -11,10 +11,19 @@ if (!isset($_GET["id_pegawai"]) && !is_numeric($_GET["id_pegawai"])) {
 }
 
 $id_pegawai = $_GET["id_pegawai"];
-$q_check_id_pegawai = "SELECT `id_pegawai` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
-$r_check_id_pegawai = $connection->query($q_check_id_pegawai);
-if ($r_check_id_pegawai && $r_check_id_pegawai->num_rows < 1) {
+$q_get_pegawai = "SELECT * FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
+$r_get_pegawai = $connection->query($q_get_pegawai);
+if ($r_get_pegawai && $r_get_pegawai->num_rows == 0) {
     redirect('./');
+}
+
+while ($row = $r_get_pegawai->fetch_assoc()) {
+    $data["id_pegawai"] = $row["id_pegawai"];
+    $data["no_pegawai"] = $row["no_pegawai"];
+    $data["nama"]       = $row["nama"];
+    $data["email"]      = $row["email"];
+    $data["created_at"] = $row["created_at"];
+    $data["updated_at"] = $row["updated_at"];
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +33,7 @@ if ($r_check_id_pegawai && $r_check_id_pegawai->num_rows < 1) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>View Pegawai - ASTI</title>
+    <title>Detail Pegawai <?= $data["nama"] ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -32,20 +41,7 @@ if ($r_check_id_pegawai && $r_check_id_pegawai->num_rows < 1) {
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">View Pegawai Data</h3>
-
-        <?php
-        $q_get_pegawai = "SELECT * FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
-        $r_get_pegawai = $connection->query($q_get_pegawai);
-        while ($row = $r_get_pegawai->fetch_assoc()) {
-            $data["id_pegawai"] = $row["id_pegawai"];
-            $data["no_pegawai"] = $row["no_pegawai"];
-            $data["nama"]       = $row["nama"];
-            $data["email"]      = $row["email"];
-            $data["created_at"] = $row["created_at"];
-            $data["updated_at"] = $row["updated_at"];
-        }
-        ?>
+        <h3 class="text-2xl font-bold py-2 page-header">Detail Pegawai <?= $data["nama"] ?></h3>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>

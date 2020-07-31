@@ -156,7 +156,7 @@ $result = $connection->query($query);
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Kategori
+                                    Instansi
                                 </span>
                                 <?= $nama_instansi ?>
                             </td>

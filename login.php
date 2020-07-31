@@ -2,8 +2,7 @@
 require_once "connection/connection.php";
 require_once "config.php";
 require_once "utils.php";
-
-require("vendor/autoload.php");
+require_once "vendor/autoload.php";
 
 use Rakit\Validation\Validator;
 
@@ -22,15 +21,12 @@ $errors = [];
 
 if (isset($_POST["login"])) {
 	$validator = new Validator(VALIDATION_MESSAGES);
-
 	$valid_login_as_values = ["admin", "super_admin", "pegawai"];
-
 	$validation = $validator->make($_POST, [
 		"email"		=> "required|email",
 		"sandi"     => "required|min:8",
 		"login_as"	=> ["required", $validator("in", $valid_login_as_values)]
 	]);
-
 	$validation->validate();
 
 	if (!$validation->fails()) {
@@ -43,7 +39,7 @@ if (isset($_POST["login"])) {
 			$q_get_admin = "SELECT email, sandi, nama FROM admin WHERE email = '$email' AND tipe_admin = '$login_as'";
 			$result = $connection->query($q_get_admin);
 			if ($result && $result->num_rows == 1) {
-				$result_array = $result->fetch_array(1);
+				$result_array = $result->fetch_assoc();
 				$sandi_from_db = $result_array["sandi"];
 				$nama = $result_array["nama"];
 				if (password_verify($sandi, $sandi_from_db)) {
@@ -71,7 +67,6 @@ if (isset($_POST["login"])) {
 		$errors = $validation->errors()->firstOfAll();
 	}
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,16 +85,14 @@ if (isset($_POST["login"])) {
 
 		<?php if ($errors != null) { ?>
 			<div class="bg-red-400 p-2 mb-2 text-white">
-				<?php
-				foreach ($errors as $error) {
-					echo "<div>" .  $error . "</div>";
-				}
-				?>
+				<?php foreach ($errors as $error) { ?>
+					<div><?= $error ?></div>
+				<?php } ?>
 			</div>
 		<?php } ?>
 
 		<label class="mx-1" for="email">Email</label>
-		<input autocomplete="off" autofocus id="email" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="6" name="email" required spellcheck="false" type="email" value="donnisnoni.tid3@gmail.com">
+		<input autofocus id="email" class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="6" name="email" required spellcheck="false" type="email" value="donnisnoni.tid3@gmail.com">
 
 		<label class="mx-1" for="sandi">Sandi</label>
 		<input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="sandi" minlength="8" name="sandi" required type="password" value="donnisnoni@1234">

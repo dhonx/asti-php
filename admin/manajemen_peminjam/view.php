@@ -72,7 +72,7 @@ if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">No HP/Telp:</span>
-                <span><?= $data["no_telp"] ?></span>
+                <a href="telp:<?= $data["no_telp"] ?>"><?= $data["no_telp"] ?></a>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Instansi:</span>

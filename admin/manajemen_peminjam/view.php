@@ -18,7 +18,8 @@ $q_get_peminjam = "SELECT
                         `instansi`.`nama` AS `nama_instansi`,
                         `kategori`.`nama` AS `nama_kategori`,
                         `peminjam`.`created_at`,
-                        `peminjam`.`updated_at`
+                        `peminjam`.`updated_at`,
+                        `peminjam`.`id_instansi`
                     FROM
                         `peminjam`, `instansi`, `kategori`
                     WHERE
@@ -58,6 +59,7 @@ if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
             $data["nama_kategori"] = $row["nama_kategori"];
             $data["created_at"]    = $row["created_at"];
             $data["updated_at"]    = $row["updated_at"];
+            $data["id_instansi"]    = $row["id_instansi"];
         }
         ?>
 
@@ -76,7 +78,10 @@ if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Instansi:</span>
-                <span><?= $data["nama_instansi"] ?></span>
+                <span>
+                    <?= $data["nama_instansi"] ?>
+                    <a class="mdi mdi-link" href="<?= build_url("/admin/manajemen_instansi/view?id_instansi={$data["id_instansi"]}") ?>" title="Lihat detail instansi ini"></a>
+                </span>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Kategori:</span>

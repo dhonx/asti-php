@@ -11,20 +11,34 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
 }
 
 $id_instansi = $_GET["id_instansi"];
-$q_get_instansi = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_instansi";
+$q_count_peminjam = "SELECT
+                        COUNT(*)
+                    FROM
+                        `peminjam`
+                    WHERE
+                        `peminjam`.`id_instansi` = `instansi`.`id_instansi`";
+
+$q_get_instansi = "SELECT
+                        `instansi`.*,
+                        ($q_count_peminjam) AS `jumlah_peminjam`
+                    FROM
+                        `instansi`
+                    WHERE
+                        `id_instansi` = $id_instansi";
 $r_get_instansi = $connection->query($q_get_instansi);
 if ($r_get_instansi && $r_get_instansi->num_rows == 0) {
     redirect('./');
 }
 
 while ($row = $r_get_instansi->fetch_assoc()) {
-    $data["id_instansi"] = $row["id_instansi"];
-    $data["nama"]        = $row["nama"];
-    $data["email"]       = $row["email"];
-    $data["alamat"]      = $row["alamat"];
-    $data["no_telp"]     = (int)$row["no_telp"];
-    $data["created_at"]  = $row["created_at"];
-    $data["updated_at"]  = $row["updated_at"];
+    $data["id_instansi"]     = $row["id_instansi"];
+    $data["nama"]            = $row["nama"];
+    $data["email"]           = $row["email"];
+    $data["alamat"]          = $row["alamat"];
+    $data["no_telp"]         = (int)$row["no_telp"];
+    $data["jumlah_peminjam"] = $row["jumlah_peminjam"];
+    $data["created_at"]      = $row["created_at"];
+    $data["updated_at"]      = $row["updated_at"];
 }
 ?>
 <!DOCTYPE html>
@@ -60,6 +74,12 @@ while ($row = $r_get_instansi->fetch_assoc()) {
             <div class="mt-2">
                 <span class="font-bold">Alamat:</span>
                 <span><?= $data["alamat"] ?></span>
+            </div>
+            <div class="mt-2">
+                <span class="font-bold">Jumlah Peminjam:</span>
+                <a href="<?= build_url("/admin/manajemen_peminjam/?id_instansi=$id_instansi") ?>" title="Lihat peminjam dari instansi ini">
+                    <?= $data["jumlah_peminjam"] ?>
+                </a>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Tanggal dibuat:</span>

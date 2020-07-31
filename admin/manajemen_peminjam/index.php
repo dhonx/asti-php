@@ -6,6 +6,8 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
+$id_instansi = isset($_GET["id_instansi"]) && is_numeric($_GET["id_instansi"]) ? $_GET["id_instansi"] : 0;
+
 $valid_columns  = ["nama", "no_telp", "jabatan", "nama_instansi", "nama_kategori"];
 $sort_columns   = ["peminjam.nama", "peminjam.no_telp", "jabatan", "instansi.nama", "kategori.nama"];
 $common_data    = processs_common_input($_GET, $valid_columns);
@@ -31,10 +33,14 @@ $search_query = "SELECT
                 WHERE " . build_search_query($keyword, $sort_columns);
 
 if ($is_search_mode) {
-    $query = "SELECT * FROM ($search_query) AS `peminjam`";
-    $count_all_result  = $connection->query($query);
+    $q_count = "SELECT * FROM ($search_query) AS `peminjam`";
+    $count_all_result  = $connection->query($q_count);
 } else {
-    $count_all_result  = $connection->query("SELECT * FROM `peminjam`");
+    $q_count = "SELECT * FROM `peminjam`";
+    if ($id_instansi) {
+        $q_count .= " WHERE `id_instansi` = $id_instansi";
+    }
+    $count_all_result  = $connection->query($q_count);
 }
 
 $total_items = $count_all_result->num_rows;
@@ -66,8 +72,11 @@ if ($is_search_mode) {
                 FROM
                     `peminjam`
                 INNER JOIN `instansi` ON `peminjam`.`id_instansi` = `instansi`.`id_instansi`
-                INNER JOIN `kategori` ON `peminjam`.`id_kategori` = `kategori`.`id_kategori`
-                LIMIT $limit OFFSET $offset";
+                INNER JOIN `kategori` ON `peminjam`.`id_kategori` = `kategori`.`id_kategori`";
+    if ($id_instansi) {
+        $query .= " WHERE `peminjam`.`id_instansi` = $id_instansi";
+    }
+    $query .= " LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `peminjam` ORDER BY $sort_by $asc";
 }
 

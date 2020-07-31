@@ -39,8 +39,8 @@ if (isset($_POST["update_admin_password"])) {
 
         // Get admin password from db
         $result = $connection->query("SELECT `sandi` FROM `admin` WHERE `tipe_admin` = 'admin' AND `id_admin` = $id_admin_to_update");
-        if ($result->num_rows == 1) {
-            $result_array   = $result->fetch_array(1);
+        if ($result->num_rows != 0) {
+            $result_array   = $result->fetch_assoc();
             $sandi_from_db  = $result_array["sandi"];
 
             // Check if sandi lama is valid
@@ -50,14 +50,10 @@ if (isset($_POST["update_admin_password"])) {
                 if ($connection->query($q_update_password) == TRUE) {
                     redirect("./");
                 }
-            }
-
-            // Sandi lama is invalid
-            else {
+            } else {
                 array_push($errors, "Sandi salah");
             }
         }
-
         // Cannot find data with specified id
         else {
             redirect($_SERVER["HTTP_REFERER"]);
@@ -77,7 +73,7 @@ if (isset($_POST["update_admin_password"])) {
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
     <?php require_once "../../includes/loading.php" ?>
-    <?php require_once "../../includes/header.php"; ?>
+    <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
         <h3 class="text-2xl font-bold py-2 page-header">Ubah Sandi Admin</h3>
@@ -86,10 +82,9 @@ if (isset($_POST["update_admin_password"])) {
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 rounded-md text-white">
-                    <?php foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    }
-                    ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
 

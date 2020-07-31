@@ -133,7 +133,7 @@ $result = $connection->query($query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                    <?php while ($row = $result->fetch_assoc()) {
                         $id_peminjam    = $row["id_peminjam"];
                         $nama           = $row["nama"];
                         $jabatan        = $row["jabatan"];

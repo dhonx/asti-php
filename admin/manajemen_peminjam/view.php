@@ -52,7 +52,7 @@ if ($r_check_id_peminjam && $r_check_id_peminjam->num_rows == 0) {
                             AND
                                 `id_peminjam` = $id_peminjam";
         $r_get_peminjam = $connection->query($q_get_peminjam);
-        while ($row = $r_get_peminjam->fetch_array(MYSQLI_ASSOC)) {
+        while ($row = $r_get_peminjam->fetch_assoc()) {
             $data["nama"]          = $row["nama"];
             $data["jabatan"]       = $row["jabatan"];
             $data["no_telp"]       = $row["no_telp"];

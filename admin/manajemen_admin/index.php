@@ -15,11 +15,10 @@ $keyword        = $connection->real_escape_string($common_data["keyword"]);
 $ipp            = $common_data["ipp"];
 $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
+$search_query   = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' AND " . build_search_query($keyword, ["nama", "email", "no_telp"]);
 
 if ($is_search_mode) {
-    $query  = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' AND ";
-    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
-    $count_all_result  = $connection->query("SELECT * FROM ($query) AS `admin_` ORDER BY $sort_by $asc");
+    $count_all_result  = $connection->query("SELECT * FROM ($search_query) AS `admin_` ORDER BY $sort_by $asc");
 } else {
     $count_all_result  = $connection->query("SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin'");
 }
@@ -32,17 +31,15 @@ if ($page > $page_count) {
     $page = $page_count;
 }
 
-$offset_limit   = get_offset_limit($page, $ipp);
-$offset         = $offset_limit["offset"];
-$limit          = $offset_limit["limit"];
+$offset_limit  = get_offset_limit($page, $ipp);
+$offset        = $offset_limit["offset"];
+$limit         = $offset_limit["limit"];
 
 // If on search mode
 if ($is_search_mode) {
     // Search query
-    $query  = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' AND ";
-    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
-    $query .= " LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS `admin_` ORDER BY $sort_by $asc";
+    $search_query .= " LIMIT $limit OFFSET $offset";
+    $query = "SELECT * FROM ($search_query) AS `admin_` ORDER BY $sort_by $asc";
 } else {
     // Main query
     $query  = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' LIMIT $limit OFFSET $offset";
@@ -103,15 +100,13 @@ $result = $connection->query($query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $result->fetch_row()) {
-                        $id_admin   = $row[0];
-                        $nama       = $row[1];
-                        $email      = $row[2];
-                        $no_telp    = $row[3];
-                        $aktif      = $row[5];
-                        $tipe_admin = $row[6];
-                        // $created_at = $row[7];
-                        // $updated_at = $row[8];
+                    <?php while ($row = $result->fetch_assoc()) {
+                        $id_admin   = $row["id_admin"];
+                        $nama       = $row["nama"];
+                        $email      = $row["email"];
+                        $no_telp    = $row["no_telp"];
+                        $aktif      = $row["aktif"];
+                        $tipe_admin = $row["tipe_admin"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">

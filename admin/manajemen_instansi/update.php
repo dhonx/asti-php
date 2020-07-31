@@ -18,17 +18,20 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
 $id_admin_to_update = $_GET["id_instansi"];
 $is_post            = isset($_POST["update_instansi"]);
 
-// It's a update mode
+$q_get_instansi = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_admin_to_update";
+$r_get_instansi = $connection->query($q_get_instansi);
+if ($r_get_instansi && $r_get_instansi->num_rows == 0) {
+    redirect('./');
+}
+
 if ($is_post) {
     $validator = new Validator(VALIDATION_MESSAGES);
-
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:6",
         "email"    => "required|email",
         "nomor_hp" => "required|numeric|min:8|max:12",
         "alamat"   => "required|min:8|max:100",
     ]);
-
     $validation->validate();
 
     if ($validation->fails()) {
@@ -50,16 +53,6 @@ if ($is_post) {
                 redirect("./");
             }
         }
-    }
-}
-
-// It's GET mode
-else {
-    // Check if id_instansi is valid
-    $query = "SELECT `id_instansi` FROM `instansi` WHERE `id_instansi` = $id_admin_to_update";
-    $result = $connection->query($query);
-    if ($result && $result->num_rows < 1) {
-        redirect('./');
     }
 }
 ?>
@@ -94,16 +87,12 @@ else {
 
             <?php
             if (!$is_post) {
-                $query = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_admin_to_update";
-                $result = $connection->query($query);
-                while ($row = $result->fetch_row()) {
-                    $data["id_instansi"]    = $row[0];
-                    $data["nama"]           = $row[1];
-                    $data["email"]          = $row[2];
-                    $data["alamat"]         = $row[3];
-                    $data["no_telp"]        = (int)$row[4];
-                    // $data["created_at"]     = $row[5];
-                    // $data["updated_at"]     = $row[6];
+                while ($row = $r_get_instansi->fetch_assoc()) {
+                    $data["id_instansi"] = $row["id_instansi"];
+                    $data["nama"]        = $row["nama"];
+                    $data["email"]       = $row["email"];
+                    $data["alamat"]      = $row["alamat"];
+                    $data["no_telp"]     = (int)$row["no_telp"];
                 }
             }
             ?>

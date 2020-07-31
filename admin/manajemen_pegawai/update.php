@@ -18,7 +18,12 @@ if (!isset($_GET["id_pegawai"]) && !is_numeric($_GET["id_pegawai"])) {
 $id_pegawai_to_update = $_GET["id_pegawai"];
 $is_post              = isset($_POST["update_pegawai"]);
 
-// It's a update mode
+$q_check_id_pegawai = "SELECT `id_pegawai` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai_to_update";
+$r_check_id_pegawai = $connection->query($q_check_id_pegawai);
+if ($r_check_id_pegawai && $r_check_id_pegawai->num_rows == 0) {
+    redirect('./');
+}
+
 if ($is_post) {
     $validator = new Validator(VALIDATION_MESSAGES);
 
@@ -53,14 +58,6 @@ if ($is_post) {
     }
 }
 
-// It's GET mode
-else {
-    $query = "SELECT `id_pegawai` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai_to_update";
-    $result = $connection->query($query);
-    if ($result && $result->num_rows < 1) {
-        redirect('./');
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,10 +92,10 @@ else {
             if (!$is_post) {
                 $query = "SELECT * FROM `pegawai` WHERE `id_pegawai` = $id_pegawai_to_update";
                 $result = $connection->query($query);
-                while ($row = $result->fetch_row()) {
-                    $data["no_pegawai"] = $row[1];
-                    $data["nama"]       = $row[2];
-                    $data["email"]      = $row[3];
+                while ($row = $result->fetch_assoc()) {
+                    $data["no_pegawai"] = $row["no_pegawai"];
+                    $data["nama"]       = $row["nama"];
+                    $data["email"]      = $row["email"];
                 }
             }
             ?>

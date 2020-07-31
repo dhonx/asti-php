@@ -6,17 +6,15 @@ require_once "../../vendor/autoload.php";
 
 authenticate(["super_admin", "admin"]);
 
-$id_instansi = 0;
-
 if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
     redirect("./");
-} else {
-    $id_instansi = $_GET["id_instansi"];
-    $query = "SELECT `id_instansi` FROM `admin` WHERE `id_instansi` = $id_instansi";
-    $result = $connection->query($query);
-    if ($result && $result->num_rows < 1) {
-        redirect('./');
-    }
+}
+
+$id_instansi = $_GET["id_instansi"];
+$q_get_instansi = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_instansi";
+$result = $connection->query($q_get_instansi);
+if ($result && $result->num_rows == 0) {
+    redirect('./');
 }
 ?>
 <!DOCTYPE html>
@@ -37,16 +35,14 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
         <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
 
         <?php
-        $query = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_instansi";
-        $result = $connection->query($query);
-        while ($row = $result->fetch_row()) {
-            $data["id_instansi"]    = $row[0];
-            $data["nama"]           = $row[1];
-            $data["email"]          = $row[2];
-            $data["alamat"]         = $row[3];
-            $data["no_telp"]        = (int)$row[4];
-            $data["created_at"]     = $row[5];
-            $data["updated_at"]     = $row[6];
+        while ($row = $result->fetch_assoc()) {
+            $data["id_instansi"] = $row["id_instansi"];
+            $data["nama"]        = $row["nama"];
+            $data["email"]       = $row["email"];
+            $data["alamat"]      = $row["alamat"];
+            $data["no_telp"]     = (int)$row["no_telp"];
+            $data["created_at"]  = $row["created_at"];
+            $data["updated_at"]  = $row["updated_at"];
         }
         ?>
 

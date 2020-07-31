@@ -6,17 +6,15 @@ require_once "../../vendor/autoload.php";
 
 authenticate(["super_admin"]);
 
-$id_admin = 0;
-
 if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     redirect("./");
-} else {
-    $id_admin = $_GET["id_admin"];
-    $query = "SELECT `id_admin` FROM `admin` WHERE `tipe_admin` != 'super_admin' AND `id_admin` = $id_admin";
-    $result = $connection->query($query);
-    if ($result && $result->num_rows < 1) {
-        redirect('./');
-    }
+}
+
+$id_admin = $_GET["id_admin"];
+$q_get_admin = "SELECT * FROM `admin` WHERE `tipe_admin` != 'super_admin' AND `id_admin` = $id_admin";
+$r_get_admin = $connection->query($q_get_admin);
+if ($r_get_admin && $r_get_admin->num_rows < 1) {
+    redirect('./');
 }
 ?>
 <!DOCTYPE html>
@@ -36,20 +34,16 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
     <main class="flex flex-auto flex-col main">
         <h3 class="text-2xl font-bold py-2 page-header">View Admin Data</h3>
 
-        <?php
-        $query = "SELECT * FROM `admin` WHERE `id_admin` = $id_admin";
-        $result = $connection->query($query);
-        while ($row = $result->fetch_row()) {
-            $data["id_admin"]   = $row[0];
-            $data["nama"]       = $row[1];
-            $data["email"]      = $row[2];
-            $data["no_telp"]    = $row[3];
-            $data["aktif"]      = $row[5];
-            $data["tipe_admin"] = $row[6];
-            $data["created_at"] = $row[7];
-            $data["updated_at"] = $row[8];
-        }
-        ?>
+        <?php while ($row = $r_get_admin->fetch_assoc()) {
+            $data["id_admin"]   = $row["id_admin"];
+            $data["nama"]       = $row["nama"];
+            $data["email"]      = $row["email"];
+            $data["no_telp"]    = $row["no_telp"];
+            $data["aktif"]      = $row["aktif"];
+            $data["tipe_admin"] = $row["tipe_admin"];
+            $data["created_at"] = $row["created_at"];
+            $data["updated_at"] = $row["updated_at"];
+        } ?>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>

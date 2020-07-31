@@ -12,7 +12,6 @@ $errors = [];
 
 if (isset($_POST["create_admin"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
-
     $validation = $validator->make($_POST, [
         "nama"                  => "required|min:6",
         "email"                 => "required|email",
@@ -20,23 +19,22 @@ if (isset($_POST["create_admin"])) {
         "sandi"                 => "required|min:8",
         "konfirmasi_sandi"      => "required|min:8|same:sandi",
     ]);
-
     $validation->validate();
 
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama              = $connection->real_escape_string($_POST["nama"]);
-        $email             = $connection->real_escape_string($_POST["email"]);
-        $nomor_hp          = $connection->real_escape_string($_POST["nomor_hp"]);
-        $sandi             = $_POST["sandi"];
-        $status            = isset($_POST["status"]) ? 1 : 0;
-        $tipe_admin        = "admin";
-        $encrypted_sandi   = password_hash($sandi, PASSWORD_BCRYPT);
+        $nama            = $connection->real_escape_string($_POST["nama"]);
+        $email           = $connection->real_escape_string($_POST["email"]);
+        $nomor_hp        = $connection->real_escape_string($_POST["nomor_hp"]);
+        $sandi           = $_POST["sandi"];
+        $status          = isset($_POST["status"]) ? 1 : 0;
+        $tipe_admin      = "admin";
+        $encrypted_sandi = password_hash($sandi, PASSWORD_BCRYPT);
 
         // Check if email is exist
         $q_check_email = htmlspecialchars("SELECT `email` FROM `admin` WHERE `email` = '$email'");
-        $result = $connection->query(mysqli_real_escape_string($connection, $q_check_email));
+        $result = $connection->query($q_check_email);
         if ($result && $result->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
@@ -44,7 +42,7 @@ if (isset($_POST["create_admin"])) {
                 "INSERT INTO `admin` (`nama`, `email`, `no_telp`, `sandi`, `aktif`, `tipe_admin`) 
                     VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
             );
-            if ($connection->query(mysqli_real_escape_string($connection, $q_insert))) {
+            if ($connection->query($q_insert)) {
                 redirect("./");
             }
         }
@@ -72,11 +70,9 @@ if (isset($_POST["create_admin"])) {
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">
-                    <?php
-                    foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    }
-                    ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
 

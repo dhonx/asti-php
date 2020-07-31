@@ -97,13 +97,11 @@ $result = $connection->query($query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $result->fetch_row()) {
-                        $id_pegawai        = $row[0];
-                        $no_pegawai        = $row[1];
-                        $nama              = $row[2];
-                        $email             = $row[3];
-                        // $created_at     = $row[5];
-                        // $updated_at     = $row[6];
+                    <?php while ($row = $result->fetch_assoc()) {
+                        $id_pegawai = $row["id_pegawai"];
+                        $no_pegawai = $row["no_pegawai"];
+                        $nama       = $row["nama"];
+                        $email      = $row["email"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">

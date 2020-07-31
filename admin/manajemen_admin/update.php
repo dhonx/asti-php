@@ -18,6 +18,12 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 $id_admin_to_update = $_GET["id_admin"];
 $is_post            = isset($_POST["update_admin"]);
 
+$q_get_admin = "SELECT * FROM `admin` WHERE `id_admin` = $id_admin_to_update";
+$r_get_admin = $connection->query($q_get_admin);
+if ($r_get_admin && $r_get_admin->num_rows == 0) {
+    redirect('./');
+}
+
 // It's a update mode
 if ($is_post) {
     $validator = new Validator(VALIDATION_MESSAGES);
@@ -49,15 +55,6 @@ if ($is_post) {
                 redirect("./");
             }
         }
-    }
-}
-
-// It's GET mode
-else {
-    $query = "SELECT `id_admin` FROM `admin` WHERE `id_admin` = $id_admin_to_update";
-    $result = $connection->query($query);
-    if ($result && $result->num_rows < 1) {
-        redirect('./');
     }
 }
 ?>
@@ -92,14 +89,12 @@ else {
 
             <?php
             if (!$is_post) {
-                $query = "SELECT * FROM `admin` WHERE `id_admin` = $id_admin_to_update";
-                $result = $connection->query($query);
-                while ($row = $result->fetch_row()) {
-                    $data["nama"]       = $row[1];
-                    $data["email"]      = $row[2];
-                    $data["no_telp"]    = $row[3];
-                    $data["aktif"]      = $row[5];
-                    $data["tipe_admin"] = $row[6];
+                while ($row = $r_get_admin->fetch_assoc()) {
+                    $data["nama"]       = $row["nama"];
+                    $data["email"]      = $row["email"];
+                    $data["no_telp"]    = $row["no_telp"];
+                    $data["aktif"]      = $row["aktif"];
+                    $data["tipe_admin"] = $row["tipe_admin"];
                 }
             }
             ?>

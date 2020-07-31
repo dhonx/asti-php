@@ -105,7 +105,7 @@ $r_get_kategori = $connection->query($q_get_kategori);
             <label class="block" for="instansi">Instansi <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="instansi" name="instansi">
                 <?php $prev_value = $errors ? get_prev_field("instansi") : "" ?>
-                <?php while ($row_instansi = $r_get_instansi->fetch_array(MYSQLI_ASSOC)) {
+                <?php while ($row_instansi = $r_get_instansi->fetch_assoc()) {
                     $v_id_instansi = $row_instansi["id_instansi"];
                     $v_nama_instansi = $row_instansi["nama"];
                 ?>
@@ -118,7 +118,7 @@ $r_get_kategori = $connection->query($q_get_kategori);
             <label class="block" for="kategori">Kategori <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kategori" name="kategori">
                 <?php $prev_value = $errors ? get_prev_field("kategori") : "" ?>
-                <?php while ($row_kategori = $r_get_kategori->fetch_array(MYSQLI_ASSOC)) {
+                <?php while ($row_kategori = $r_get_kategori->fetch_assoc()) {
                     $v_id_kategori = $row_kategori["id_kategori"];
                     $v_nama_kategori = $row_kategori["nama"];
                 ?>

@@ -8,13 +8,13 @@ authenticate(["super_admin", "admin"]);
 
 if (!isset($_GET["id_pegawai"]) && !is_numeric($_GET["id_pegawai"])) {
     redirect("./");
-} else {
-    $id_pegawai = $_GET["id_pegawai"];
-    $query = "SELECT `id_pegawai` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
-    $result = $connection->query($query);
-    if ($result && $result->num_rows < 1) {
-        redirect('./');
-    }
+}
+
+$id_pegawai = $_GET["id_pegawai"];
+$q_check_id_pegawai = "SELECT `id_pegawai` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
+$r_check_id_pegawai = $connection->query($q_check_id_pegawai);
+if ($r_check_id_pegawai && $r_check_id_pegawai->num_rows < 1) {
+    redirect('./');
 }
 ?>
 <!DOCTYPE html>
@@ -35,15 +35,15 @@ if (!isset($_GET["id_pegawai"]) && !is_numeric($_GET["id_pegawai"])) {
         <h3 class="text-2xl font-bold py-2 page-header">View Pegawai Data</h3>
 
         <?php
-        $query = "SELECT * FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
-        $result = $connection->query($query);
-        while ($row = $result->fetch_row()) {
-            $data["id_pegawai"] = $row[0];
-            $data["no_pegawai"] = $row[1];
-            $data["nama"]       = $row[2];
-            $data["email"]      = $row[3];
-            $data["created_at"] = $row[5];
-            $data["updated_at"] = $row[6];
+        $q_get_pegawai = "SELECT * FROM `pegawai` WHERE `id_pegawai` = $id_pegawai";
+        $r_get_pegawai = $connection->query($q_get_pegawai);
+        while ($row = $r_get_pegawai->fetch_assoc()) {
+            $data["id_pegawai"] = $row["id_pegawai"];
+            $data["no_pegawai"] = $row["no_pegawai"];
+            $data["nama"]       = $row["nama"];
+            $data["email"]      = $row["email"];
+            $data["created_at"] = $row["created_at"];
+            $data["updated_at"] = $row["updated_at"];
         }
         ?>
 

@@ -12,12 +12,12 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
 
 $id_instansi = $_GET["id_instansi"];
 $q_get_instansi = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_instansi";
-$result = $connection->query($q_get_instansi);
-if ($result && $result->num_rows == 0) {
+$r_get_instansi = $connection->query($q_get_instansi);
+if ($r_get_instansi && $r_get_instansi->num_rows == 0) {
     redirect('./');
 }
 
-while ($row = $result->fetch_assoc()) {
+while ($row = $r_get_instansi->fetch_assoc()) {
     $data["id_instansi"] = $row["id_instansi"];
     $data["nama"]        = $row["nama"];
     $data["email"]       = $row["email"];

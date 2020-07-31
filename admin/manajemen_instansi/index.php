@@ -6,7 +6,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["id_instansi", "nama", "email", "alamat", "no_telp"];
+$valid_columns  = ["id_instansi", "nama", "email", "alamat", "no_telp", "jumlah_peminjam"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -16,10 +16,24 @@ $ipp            = $common_data["ipp"];
 $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
 
+$q_count_peminjam = "SELECT
+                        COUNT(*)
+                    FROM
+                        `peminjam`
+                    WHERE
+                        `peminjam`.`id_instansi` = `instansi`.`id_instansi`";
+
+$search_query = "SELECT 
+                    `instansi`.*,
+                    ($q_count_peminjam) AS `jumlah_peminjam`
+                FROM
+                    `instansi` 
+                WHERE
+                    `id_instansi` != 1
+                AND " . build_search_query($keyword, ["nama", "email", "alamat", "no_telp"]);
+
 if ($is_search_mode) {
-    $query  = "SELECT * FROM `instansi` WHERE `id_instansi` != 1 AND ";
-    $query .= build_search_query($keyword, ["nama", "email", "alamat", "no_telp"]);
-    $count_all_result  = $connection->query("SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc");
+    $count_all_result  = $connection->query("SELECT * FROM ($search_query) AS `instansi_` ORDER BY $sort_by $asc");
 } else {
     $count_all_result  = $connection->query("SELECT * FROM `instansi` WHERE `id_instansi` != 1");
 }
@@ -27,7 +41,6 @@ if ($is_search_mode) {
 $total_items = $count_all_result->num_rows;
 $page_count  = get_page_count($total_items, $ipp);
 
-// If the requested page larger than counted page, goto the last page
 if ($page > $page_count) {
     $page = $page_count;
 }
@@ -36,18 +49,12 @@ $offset_limit   = get_offset_limit($page, $ipp);
 $offset         = $offset_limit["offset"];
 $limit          = $offset_limit["limit"];
 
-// If on search mode
 if ($is_search_mode) {
-    // Search query
-    $query  = "SELECT * FROM `instansi` WHERE `id_instansi` != 1 AND ";
-    $query .= build_search_query($keyword, ["nama", "email", "no_telp"]);
-    $query .= " LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc";
+    $search_query .= " LIMIT $limit OFFSET $offset";
+    $query = "SELECT * FROM ($search_query) AS `instansi_` ORDER BY $sort_by $asc";
 } else {
-    // Main query
-    $query  = "SELECT * FROM instansi WHERE id_instansi != 1 LIMIT $limit OFFSET $offset";
-    $query  = "SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc";
-    $query = mysqli_escape_string($connection, $query);
+    $query = "SELECT `instansi`.*, ($q_count_peminjam) AS `jumlah_peminjam` FROM `instansi` WHERE `id_instansi` != 1 LIMIT $limit OFFSET $offset";
+    $query = "SELECT * FROM ($query) AS `instansi_` ORDER BY $sort_by $asc";
 }
 
 $result = $connection->query($query);
@@ -96,20 +103,25 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "alamat", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Alamat</a>
                         </th>
-                        <th class="hidden lg:table-cell p-2">
+                        <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">No Telp</a>
+                        </th>
+                        <th class="hidden lg:table-cell p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "jumlah_peminjam", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Jmlh Peminjam</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()) {
-                        $id_instansi = $row["id_instansi"];
-                        $nama        = $row["nama"];
-                        $email       = $row["email"];
-                        $alamat      = $row["alamat"];
-                        $no_telp     = $row["no_telp"];
+                        $id_instansi     = $row["id_instansi"];
+                        $nama            = $row["nama"];
+                        $email           = $row["email"];
+                        $alamat          = $row["alamat"];
+                        $no_telp         = $row["no_telp"];
+                        $jumlah_peminjam = $row["jumlah_peminjam"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
@@ -135,6 +147,12 @@ $result = $connection->query($query);
                                     No HP
                                 </span>
                                 <?= $no_telp ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute text-center top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Jumlah Peminjam
+                                </span>
+                                <?= $jumlah_peminjam ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <a href="view?id_instansi=<?= $id_instansi ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">

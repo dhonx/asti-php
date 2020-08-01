@@ -78,7 +78,9 @@ while ($row = $r_get_peminjam->fetch_assoc()) {
                 <span class="font-bold">Instansi:</span>
                 <span>
                     <?= $data["nama_instansi"] ?>
-                    <a class="mdi mdi-link" href="<?= build_url("/admin/manajemen_instansi/view?id_instansi={$data["id_instansi"]}") ?>" title="Lihat detail instansi ini"></a>
+                    <?php if ($data["id_instansi"] != 1) { ?>
+                        <a class="mdi mdi-link" href="<?= build_url("/admin/manajemen_instansi/view?id_instansi={$data["id_instansi"]}") ?>" title="Lihat detail instansi ini"></a>
+                    <?php  } ?>
                 </span>
             </div>
             <div class="mt-2">

@@ -15,30 +15,25 @@ if (!isset($_GET["id_pegawai"]) && !is_numeric($_GET["id_pegawai"])) {
     redirect($_SERVER["HTTP_REFERER"]);
 }
 
-$id_admin_to_update = $_GET["id_pegawai"];
+$id_pegawai_to_update = $_GET["id_pegawai"];
 
 if (isset($_POST["update_pegawai_password"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
-
     $validation = $validator->make($_POST, [
         "sandi_lama"            => "required|min:8",
         "sandi_baru"            => "required|min:8",
         "konfirmasi_sandi_baru" => "required|min:8|same:sandi_baru"
     ]);
-
     $validation->validate();
 
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
-    }
-
-    // Validation passed
-    else {
+    } else {
         $sandi_lama  = $_POST["sandi_lama"];
         $sandi_baru  = $_POST["sandi_baru"];
 
         // Get pegawai password from db
-        $result = $connection->query("SELECT `sandi` FROM `pegawai` WHERE `id_pegawai` = $id_admin_to_update");
+        $result = $connection->query("SELECT `sandi` FROM `pegawai` WHERE `id_pegawai` = $id_pegawai_to_update");
         if ($result->num_rows == 1) {
             $result_array   = $result->fetch_array(1);
             $sandi_from_db  = $result_array["sandi"];
@@ -46,20 +41,14 @@ if (isset($_POST["update_pegawai_password"])) {
             // Check if sandi lama is valid
             if (password_verify($sandi_lama, $sandi_from_db)) {
                 $new_password_hash = password_hash($sandi_baru, PASSWORD_BCRYPT);
-                $q_update_password = "UPDATE `pegawai` SET `sandi` = '$new_password_hash' WHERE `id_pegawai` = $id_admin_to_update";
+                $q_update_password = "UPDATE `pegawai` SET `sandi` = '$new_password_hash' WHERE `id_pegawai` = $id_pegawai_to_update";
                 if ($connection->query($q_update_password) == TRUE) {
                     redirect("./");
                 }
-            }
-
-            // Sandi lama is invalid
-            else {
+            } else {
                 array_push($errors, "Sandi salah");
             }
-        }
-
-        // Cannot find data with specified id
-        else {
+        } else {
             redirect($_SERVER["HTTP_REFERER"]);
         }
     }
@@ -82,14 +71,13 @@ if (isset($_POST["update_pegawai_password"])) {
     <main class="flex flex-auto flex-col main">
         <h3 class="text-2xl font-bold py-2 page-header">Ubah Sandi Pegawai</h3>
 
-        <form action="?id_pegawai=<?php echo $id_admin_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
+        <form action="?id_pegawai=<?= $id_pegawai_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
 
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 rounded-md text-white">
-                    <?php foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    }
-                    ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
 

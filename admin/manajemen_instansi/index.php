@@ -6,7 +6,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["id_instansi", "nama", "email", "alamat", "no_telp", "jumlah_peminjam"];
+$valid_columns  = ["id_instansi", "nama", "email", "alamat", /* "no_telp", */ "jumlah_peminjam"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -103,13 +103,13 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "alamat", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Alamat</a>
                         </th>
-                        <th class="hidden lg:table-cell lg:text-left p-2">
+                        <!-- <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">No Telp</a>
-                        </th>
+                        </th> -->
                         <th class="hidden lg:table-cell p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "jumlah_peminjam", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Jmlh Peminjam</a>
+                            <a class="block" href="?<?= $url_query ?>">Jumlah Peminjam</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
@@ -120,7 +120,7 @@ $result = $connection->query($query);
                         $nama            = $row["nama"];
                         $email           = $row["email"];
                         $alamat          = $row["alamat"];
-                        $no_telp         = $row["no_telp"];
+                        // $no_telp         = $row["no_telp"];
                         $jumlah_peminjam = $row["jumlah_peminjam"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
@@ -142,12 +142,12 @@ $result = $connection->query($query);
                                 </span>
                                 <?= $alamat  ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
+                            <!-- <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     No HP
                                 </span>
                                 <?= $no_telp ?>
-                            </td>
+                            </td> -->
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute text-center top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Jumlah Peminjam

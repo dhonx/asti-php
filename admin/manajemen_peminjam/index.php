@@ -22,6 +22,7 @@ $is_search_mode = $common_data["is_search_mode"];
 $search_query = "SELECT
                     `peminjam`.`id_peminjam`,
                     `peminjam`.`nama`,
+                    `peminjam`.`email`,
                     `peminjam`.`jabatan`,
                     `peminjam`.`no_telp`,
                     `instansi`.`nama` AS `nama_instansi`,
@@ -65,6 +66,7 @@ if ($is_search_mode) {
     $query =    "SELECT
                     `peminjam`.`id_peminjam`,
                     `peminjam`.`nama`,
+                    `peminjam`.`email`,
                     `peminjam`.`jabatan`,
                     `peminjam`.`no_telp`,
                     `instansi`.`nama` AS `nama_instansi`,
@@ -118,9 +120,13 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Nama</a>
                         </th>
-                        <th class="hidden lg:table-cell lg:text-left p-2">
+                        <!-- <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">No Telp</a>
+                        </th> -->
+                        <th class="hidden lg:table-cell lg:text-left p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Email</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_instansi", "asc" => $asc_toggle])) ?>
@@ -141,6 +147,7 @@ $result = $connection->query($query);
                     <?php while ($row = $result->fetch_assoc()) {
                         $id_peminjam    = $row["id_peminjam"];
                         $nama           = $row["nama"];
+                        $email          = $row["email"];
                         $jabatan        = $row["jabatan"];
                         $no_telp        = $row["no_telp"];
                         $nama_instansi  = $row["nama_instansi"];
@@ -153,11 +160,17 @@ $result = $connection->query($query);
                                 </span>
                                 <?= $nama ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
+                            <!-- <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     No Telp
                                 </span>
                                 <?= $no_telp ?>
+                            </td> -->
+                            <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Email
+                                </span>
+                                <?= $email ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">

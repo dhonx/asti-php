@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "postcss-import": "^12.0.1",
-    "tailwindcss": "^1.5.2"
+    "tailwindcss": "^1.6.0"
   },
   "devDependencies": {
     "tailwindcss-dark-mode": "^1.1.5"

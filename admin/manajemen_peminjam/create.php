@@ -15,6 +15,7 @@ if (isset($_POST["create_peminjam"])) {
 
     $validation = $validator->make($_POST, [
         "nama"             => "required|min:6",
+        "email"            => "required|email",
         "jabatan"          => "required|min:3",
         "no_telp"          => "required|min:8|max:12",
         "sandi"            => "required|min:8",
@@ -29,6 +30,7 @@ if (isset($_POST["create_peminjam"])) {
         $errors = $validation->errors()->firstOfAll();
     } else {
         $nama            = $connection->real_escape_string($_POST["nama"]);
+        $email           = $connection->real_escape_string($_POST["email"]);
         $jabatan         = $connection->real_escape_string($_POST["jabatan"]);
         $no_telp         = $connection->real_escape_string($_POST["no_telp"]);
         $sandi           = $_POST["sandi"];
@@ -49,8 +51,8 @@ if (isset($_POST["create_peminjam"])) {
         } else if ($r_check_instansi && $r_check_instansi->num_rows == 0) {
             array_push($errors, "Instansi tidak valid");
         } else {
-            $q_insert = "INSERT INTO `peminjam` (`nama`, `jabatan`, `no_telp`, `sandi`, `id_kategori`, `id_instansi`)
-                        VALUES ('$nama', '$jabatan', '$no_telp', '$encrypted_sandi', $kategori, $instansi)";
+            $q_insert = "INSERT INTO `peminjam` (`nama`, `email`, `jabatan`, `no_telp`, `sandi`, `id_kategori`, `id_instansi`)
+                        VALUES ('$nama', '$jabatan', '$email', '$no_telp', '$encrypted_sandi', $kategori, $instansi)";
             $q_insert = htmlspecialchars($q_insert);
             if ($connection->query($q_insert)) {
                 redirect("./");
@@ -96,8 +98,8 @@ $r_get_kategori = $connection->query($q_get_kategori);
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
             <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('nama') : '' ?>">
 
-            <label class="block" for="jabatan">Jabatan <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jabatan" minlength="5" name="jabatan" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('jabatan') : '' ?>">
+            <label class="block" for="email">Email <span class="text-red-500" title="Harus diisi">*</span></label>
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors ? get_prev_field('email') : '' ?>">
 
             <label class="block" for="no_telp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="no_telp" maxlength="12" minlength="8" name="no_telp" required type="number" value="<?= $errors ? get_prev_field('no_telp') : '' ?>">
@@ -114,6 +116,9 @@ $r_get_kategori = $connection->query($q_get_kategori);
                     </option>
                 <?php } ?>
             </select>
+
+            <label class="block" for="jabatan">Jabatan <span class="text-red-500" title="Harus diisi">*</span></label>
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jabatan" minlength="5" name="jabatan" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('jabatan') : '' ?>">
 
             <label class="block" for="kategori">Kategori <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kategori" name="kategori">

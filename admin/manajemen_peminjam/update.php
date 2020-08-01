@@ -24,16 +24,16 @@ if ($r_check_id_peminjam && $r_check_id_peminjam->num_rows < 1) {
     redirect('./');
 }
 
-// It's a update mode
 if ($is_post) {
     $validator = new Validator(VALIDATION_MESSAGES);
 
     $validation = $validator->make($_POST, [
-        "nama"             => "required|min:6",
-        "jabatan"          => "required|min:3",
-        "no_telp"          => "required|min:8|max:12",
-        "kategori"         => "required",
-        "instansi"         => "required",
+        "nama"     => "required|min:6",
+        "email"    => "required|email",
+        "jabatan"  => "required|min:3",
+        "no_telp"  => "required|min:8|max:12",
+        "kategori" => "required",
+        "instansi" => "required",
     ]);
 
     $validation->validate();
@@ -42,6 +42,7 @@ if ($is_post) {
         $errors   = $validation->errors()->firstOfAll();
     } else {
         $nama            = $connection->real_escape_string($_POST["nama"]);
+        $email           = $connection->real_escape_string($_POST["email"]);
         $jabatan         = $connection->real_escape_string($_POST["jabatan"]);
         $no_telp         = $connection->real_escape_string($_POST["no_telp"]);
         $kategori        = $connection->real_escape_string($_POST["kategori"]);
@@ -64,6 +65,7 @@ if ($is_post) {
                             `peminjam`
                         SET
                             `nama` = '$nama',
+                            `email`= '$email',
                             `jabatan` = '$jabatan', 
                             `no_telp` = '$no_telp',
                             `id_instansi` = $instansi,
@@ -111,28 +113,30 @@ $r_get_kategori = $connection->query($q_get_kategori);
                 </div>
             <?php } ?>
 
-            <?php
-            if (!$is_post) {
-                $query = "SELECT * FROM `peminjam` WHERE `id_peminjam` = $id_peminjam_to_update";
-                $result = $connection->query($query);
-                while ($row = $result->fetch_assoc()) {
+            <?php if (!$is_post) {
+                $q_get_peminjam = "SELECT * FROM `peminjam` WHERE `id_peminjam` = $id_peminjam_to_update";
+                $r_get_peminjam = $connection->query($q_get_peminjam);
+                while ($row = $r_get_peminjam->fetch_assoc()) {
                     $data["nama"]        = $row["nama"];
+                    $data["email"]       = $row["email"];
                     $data["jabatan"]     = $row["jabatan"];
                     $data["no_telp"]     = $row["no_telp"];
                     $data["id_instansi"] = $row["id_instansi"];
                     $data["id_kategori"] = $row["id_kategori"];
                 }
-            }
-            ?>
+            } ?>
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('nama') : $data["nama"] ?>">
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("nama") : $data["nama"] ?>">
+
+            <label class="block" for="email">Email <span class="text-red-500" title="Harus diisi">*</span></label>
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="email" minlength="5" name="email" required spellcheck="false" type="email" value="<?= $errors ? get_prev_field("email") : $data["email"] ?>">
 
             <label class="block" for="jabatan">Jabatan <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jabatan" minlength="5" name="jabatan" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('jabatan') : $data["jabatan"] ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jabatan" minlength="5" name="jabatan" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("jabatan") : $data["jabatan"] ?>">
 
             <label class="block" for="no_telp">No HP/Telp <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="no_telp" maxlength="12" minlength="8" name="no_telp" required type="number" value="<?= $errors ? get_prev_field('no_telp') : $data["no_telp"] ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="no_telp" maxlength="12" minlength="8" name="no_telp" required type="number" value="<?= $errors ? get_prev_field("no_telp") : $data["no_telp"] ?>">
 
             <label class="block" for="instansi">Instansi <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="instansi" name="instansi">

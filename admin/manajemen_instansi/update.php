@@ -29,7 +29,7 @@ if ($is_post) {
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:6",
         "email"    => "required|email",
-        "nomor_hp" => "required|numeric|min:8|max:12",
+        "nomor_hp" => "required|min:8|max:12",
         "alamat"   => "required|min:8|max:100",
     ]);
     $validation->validate();

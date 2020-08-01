@@ -77,9 +77,13 @@ while ($row = $r_get_instansi->fetch_assoc()) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Jumlah Peminjam:</span>
-                <a href="<?= build_url("/admin/manajemen_peminjam/?id_instansi=$id_instansi") ?>" title="Lihat peminjam dari instansi ini">
-                    <?= $data["jumlah_peminjam"] ?>
-                </a>
+                <?php if ($data["jumlah_peminjam"] > 0) { ?>
+                    <a href="<?= build_url("/admin/manajemen_peminjam/?id_instansi=$id_instansi") ?>" title="Lihat peminjam dari instansi ini">
+                        <?= $data["jumlah_peminjam"] ?>
+                    </a>
+                <?php } else { ?>
+                    <span><?= $data["jumlah_peminjam"] ?></span>
+                <?php } ?>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Tanggal dibuat:</span>

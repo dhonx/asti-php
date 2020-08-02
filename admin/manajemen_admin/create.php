@@ -15,7 +15,7 @@ if (isset($_POST["create_admin"])) {
     $validation = $validator->make($_POST, [
         "nama"                  => "required|min:6",
         "email"                 => "required|email",
-        "nomor_hp"              => "required|numeric|min:8|max:12",
+        "nomor_hp"              => "required|min:8|max:12",
         "sandi"                 => "required|min:8",
         "konfirmasi_sandi"      => "required|min:8|same:sandi",
     ]);

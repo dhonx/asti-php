@@ -89,16 +89,16 @@ CREATE TABLE `komponen` (
   `nama` text NOT NULL,
   `tipe` text NOT NULL,
   `merek` text NOT NULL,
-  `spesifikasi` text NOT NULL,
+  `spesifikasi` text DEFAULT NULL,
   `keterangan` text DEFAULT NULL,
   `aktif` tinyint(3) unsigned DEFAULT 0,
+  `id_admin` int(10) unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `id_admin` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_komponen`),
   KEY `id_admin` (`id_admin`),
   CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pegawai
@@ -147,13 +147,14 @@ DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
+  `email` mediumtext DEFAULT NULL,
   `jabatan` text NOT NULL DEFAULT '',
   `no_telp` text NOT NULL,
   `sandi` text NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_instansi` int(10) unsigned DEFAULT NULL,
   `id_kategori` int(10) unsigned DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_peminjam`),
   KEY `id_kategori` (`id_kategori`),
   KEY `id_instansi` (`id_instansi`),
@@ -206,12 +207,12 @@ VALUES
     3,
     'Donna Nisnoni',
     'donna@gmail.com',
-    '90909090907',
+    '90909090888',
     '$2b$10$SqN0Mr5pO8ZwZiWRn.T5O.b1jWh.Q672P7V1JC5QO0eVnOOw57.nK',
     1,
     'admin',
     '2020-07-21 00:26:02',
-    '2020-07-21 00:26:02'
+    '2020-08-02 15:28:09'
   );
 INSERT INTO
   `admin` (
@@ -723,9 +724,9 @@ VALUES
     'STIKES Nusantara Kupang',
     'stikesnskupang@gmail.com',
     'Jl. Nibaki 99 -  Liliba',
-    '380828233',
-    '2020-07-29 00:43:12',
-    '2020-07-29 00:43:12'
+    '38082825',
+    '2020-08-02 03:34:33',
+    '2020-08-02 03:34:33'
   );
 INSERT INTO
   `instansi` (
@@ -804,9 +805,9 @@ INSERT INTO
     `spesifikasi`,
     `keterangan`,
     `aktif`,
+    `id_admin`,
     `created_at`,
-    `updated_at`,
-    `id_admin`
+    `updated_at`
   )
 VALUES
   (
@@ -817,9 +818,9 @@ VALUES
     'Operating System:  Linpus™ Linux®\nProcessor Manufacturer: Intel®\nProcessor Type: Core™ i3\nProcessor Model: i3-4030U\nProcessor Speed: 1.80 GHz\nGraphics Controller Manufacturer: Intel®\nGraphics Memory Technology: DDR3 SDRAM\nGraphics Memory Accessibility: Shared\nScreen Size: 35.6 cm (14\")\nDisplay Screen Type: LCD\nDisplay Screen Technology: CineCrystal\nScreen Mode: HD\nBacklight Technology: LED\nScreen Resolution: 1366 x 768\nStandard Memory: 4 GB\nMemory Technology: DDR3L SDRAM\nNumber of Total Memory Slots: 2\nMemory Card Reader: Yes\nMemory Card Supported: Secure Digital (SD) Card\nTotal Hard Drive Capacity: 500 GB\nOptical Drive Type: DVD-Writer\nWireless LAN Standard: IEEE 802.11b/g/n\nEthernet Technology: Gigabit Ethernet\nMicrophone: Yes\nFinger Print Reader: No\nHDMI: Yes\nVGA: Yes\nTotal Number of USB Ports: 3\nNetwork (RJ-45): Yes\nOperating System: Linpus™ Linux®\nPointing Device Type: TouchPad\nKeyboard: Yes\nNumber of Cells: 6-cell\nBattery Chemistry: Lithium Ion (Li-Ion)\nBattery Capacity: 2500 mAh\nMaximum Power Supply Wattage: 40 W\nHeight: 30.30 mm\nHeight (Front): 25.30 mm\nHeight (Rear): 30.30 mm\nWidth: 346 mm\nDepth: 248 mm\nWeight (Approximate): 2.30 kg\nColour: Red\nWireless LAN: Acer Nplify 802.11b/g/nxxxx',
     '-',
     1,
+    1,
     '2020-06-25 15:30:36',
-    '2020-06-25 15:30:36',
-    1
+    '2020-06-25 15:30:36'
   );
 INSERT INTO
   `komponen` (
@@ -830,9 +831,9 @@ INSERT INTO
     `spesifikasi`,
     `keterangan`,
     `aktif`,
+    `id_admin`,
     `created_at`,
-    `updated_at`,
-    `id_admin`
+    `updated_at`
   )
 VALUES
   (
@@ -843,9 +844,9 @@ VALUES
     'sefeaswfasw',
     'e',
     1,
-    '0000-00-00 00:00:00',
-    '0000-00-00 00:00:00',
-    1
+    1,
+    '2020-08-02 22:29:41',
+    '2020-08-02 22:29:39'
   );
 INSERT INTO
   `komponen` (
@@ -856,9 +857,9 @@ INSERT INTO
     `spesifikasi`,
     `keterangan`,
     `aktif`,
+    `id_admin`,
     `created_at`,
-    `updated_at`,
-    `id_admin`
+    `updated_at`
   )
 VALUES
   (
@@ -869,9 +870,9 @@ VALUES
     'gxgxg',
     'hxgxgx',
     1,
+    1,
     '0000-00-00 00:00:00',
-    '0000-00-00 00:00:00',
-    1
+    '0000-00-00 00:00:00'
   );
 INSERT INTO
   `komponen` (
@@ -882,9 +883,9 @@ INSERT INTO
     `spesifikasi`,
     `keterangan`,
     `aktif`,
+    `id_admin`,
     `created_at`,
-    `updated_at`,
-    `id_admin`
+    `updated_at`
   )
 VALUES
   (
@@ -895,9 +896,9 @@ VALUES
     '-----',
     '----',
     1,
-    NULL,
-    '2020-06-25 15:41:54',
-    1
+    1,
+    '2020-08-02 22:29:20',
+    '2020-08-02 22:29:18'
   );
 INSERT INTO
   `komponen` (
@@ -908,9 +909,9 @@ INSERT INTO
     `spesifikasi`,
     `keterangan`,
     `aktif`,
+    `id_admin`,
     `created_at`,
-    `updated_at`,
-    `id_admin`
+    `updated_at`
   )
 VALUES
   (
@@ -920,10 +921,62 @@ VALUES
     'Apple Inc',
     'RAM: 2GB',
     'hcukcuawk',
+    0,
     1,
-    NULL,
-    '2020-06-25 15:40:21',
-    1
+    '2020-08-02 23:08:36',
+    '2020-08-02 23:08:36'
+  );
+INSERT INTO
+  `komponen` (
+    `id_komponen`,
+    `nama`,
+    `tipe`,
+    `merek`,
+    `spesifikasi`,
+    `keterangan`,
+    `aktif`,
+    `id_admin`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    7,
+    'Laptop ASUS E203MAH',
+    'E203MAH',
+    'ASUS',
+    '- Model : Asus E203MAH \r\n- Microprocessor : Dual Core, IntelÂ® CeleronÂ® N4000 Processor, 2.60 GHz\r\n- Memory RAM : 2 GB DDR4 (On board, tidak bisa diupgrade)\r\n- Video Graphic :Integrated Intel UHD Graphics 600 (Integrated)\r\n- HDD : 500GB 5400RPM SATA HDD\r\n- Slot SSD : No\r\n- Optical Drive / DVD-RW : No\r\n- Display : 11.6&quot;&quot; (16:9) LED backlit HD (1366x768) 60Hz Glossy Panel with 45% NTSC \r\n- Support ASUS Splendid Technology\r\n- Keyboard : Chiclet keyboard\r\n- Wireless connectivity : Wi-Fi Integrated 802.11b/g/n , Integrated 802.11 AC \r\n- External ports : 1 x COMBO audio jack; 2 x Type A USB3.0 (USB3.1 GEN1) ; 1 x Type C USB3.0 (USB3.1 GEN1) ; 1 x HDMI; 1 x micro SD card\r\n- Power supply type : Output : 19 V DC, 19 V DC, 1.75 A, 33 W; 1100 -240 V AC, 50/60 Hz universal\r\n- Battery type : 3 Cells 42 Whrs Polymer Battery\r\n- Webcam : VGA Web Camera\r\n- Audio : Built-in Stereo 2 W Speakers And Digital Array Microphone',
+    '-',
+    1,
+    1,
+    '2020-08-02 22:30:22',
+    '2020-08-02 22:30:22'
+  );
+INSERT INTO
+  `komponen` (
+    `id_komponen`,
+    `nama`,
+    `tipe`,
+    `merek`,
+    `spesifikasi`,
+    `keterangan`,
+    `aktif`,
+    `id_admin`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    9,
+    'Laptop HP 14-BS007TU',
+    '14-BS007TU',
+    'HP',
+    '500 GB 5400 rpm SATA\r\nIntel Pentium N3710 (1.6 GHz, up to 2.56 GHz, 2 MB cache, 4 cores)\r\nIntel HD Graphics 405\r\n14&quot;&quot; diagonal HD SVA BrightView WLED-backlit',
+    '',
+    1,
+    1,
+    '2020-08-02 22:40:51',
+    '2020-08-02 22:40:51'
   );
 
 # ------------------------------------------------------------
@@ -1004,145 +1057,157 @@ INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
+    `email`,
     `jabatan`,
     `no_telp`,
     `sandi`,
-    `created_at`,
-    `updated_at`,
     `id_instansi`,
-    `id_kategori`
+    `id_kategori`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
     14,
     'Gregorius Nahak',
+    'gregoriusnahak@gmail.com',
     'Mahasiswa',
     '08136353421',
     '$2b$10$igQPRch5PfQwlOKHwxB49O3sEDANOzp1XX2.FGlBXabpT8Q59L65q',
-    '2020-07-30 22:36:50',
-    '2020-07-30 22:36:57',
     6,
-    2
+    2,
+    '2020-07-30 22:36:50',
+    '2020-08-02 03:46:24'
   );
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
+    `email`,
     `jabatan`,
     `no_telp`,
     `sandi`,
-    `created_at`,
-    `updated_at`,
     `id_instansi`,
-    `id_kategori`
+    `id_kategori`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
     15,
     'Linda Jordan',
+    'lindajordan@gmail.com',
     'Ketua Mahasiswa',
     '82753543421',
     '$2b$10$P.W1E7qvtvWF.aebm6tr1.FOYCA1TX3Nqf2nzzirLLY2yF1zQj0Ay',
-    '2020-07-30 22:36:44',
-    '2020-07-30 22:37:02',
     5,
-    2
+    2,
+    '2020-07-30 22:36:44',
+    '2020-08-02 00:42:02'
   );
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
+    `email`,
     `jabatan`,
     `no_telp`,
     `sandi`,
-    `created_at`,
-    `updated_at`,
     `id_instansi`,
-    `id_kategori`
+    `id_kategori`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
     16,
     'Hendrik Rasyam',
+    'hendrikrasyam@gmail.com',
     'Mahasiswa',
     '716253434323',
     '$2b$10$HWQE/YsFwkQmH6mXWOjQEunKMLx4t54Zun3wH4HsPMYt.Kz7do8re',
-    '2020-07-30 13:25:53',
-    '2020-07-30 13:25:54',
     6,
-    2
+    2,
+    '2020-07-30 13:25:53',
+    '2020-08-02 00:42:11'
   );
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
+    `email`,
     `jabatan`,
     `no_telp`,
     `sandi`,
-    `created_at`,
-    `updated_at`,
     `id_instansi`,
-    `id_kategori`
+    `id_kategori`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
     18,
     'Kevin Lassagna',
+    'kevinlassagna@gmail.com',
     'Mahasiswa',
     '012345678912',
     '$2y$10$eMn3F9TJa08xOu0ftxbC1.MFyCLCM6Cri1FTdDX0tgJ3MW88Mz.7K',
-    '2020-07-30 22:20:52',
-    '2020-07-30 22:20:52',
     2,
-    2
+    2,
+    '2020-07-30 22:20:52',
+    '2020-08-02 00:42:22'
   );
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
+    `email`,
     `jabatan`,
     `no_telp`,
     `sandi`,
-    `created_at`,
-    `updated_at`,
     `id_instansi`,
-    `id_kategori`
+    `id_kategori`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
     19,
     'Lissa Right',
+    'lissaright@gmail.com',
     'Mahasiswa',
     '123456789012',
     '$2y$10$6phinaLNETGbvnATDbJeD.hRaM/z2vRdL1zmyahOCOFfXIb68mMrO',
-    '2020-07-30 22:35:38',
-    '2020-07-30 22:35:38',
     3,
-    2
+    2,
+    '2020-07-30 22:35:38',
+    '2020-08-02 00:42:30'
   );
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
     `nama`,
+    `email`,
     `jabatan`,
     `no_telp`,
     `sandi`,
-    `created_at`,
-    `updated_at`,
     `id_instansi`,
-    `id_kategori`
+    `id_kategori`,
+    `created_at`,
+    `updated_at`
   )
 VALUES
   (
     20,
     'Zayn Malik',
+    'zaynmalik@gmail.com',
     'Mahasiswa',
     '999999999999',
     '$2y$10$tpva6aklYtWom53WDNUcJOIB29.9WjmCI91YqUZpY5mVp7Kiilq3y',
-    '2020-07-31 11:02:51',
-    '2020-07-31 11:02:51',
     8,
-    2
+    2,
+    '2020-07-31 11:02:51',
+    '2020-08-02 00:42:36'
   );
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

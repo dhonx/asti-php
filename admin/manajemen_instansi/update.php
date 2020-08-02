@@ -15,16 +15,15 @@ if (!isset($_GET["id_instansi"]) && !is_numeric($_GET["id_instansi"])) {
     redirect($_SERVER['HTTP_REFERER']);
 }
 
-$id_admin_to_update = $_GET["id_instansi"];
-$is_post            = isset($_POST["update_instansi"]);
+$id_instansi_to_update = $_GET["id_instansi"];
 
-$q_get_instansi = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_admin_to_update";
+$q_get_instansi = "SELECT * FROM `instansi` WHERE `id_instansi` = $id_instansi_to_update";
 $r_get_instansi = $connection->query($q_get_instansi);
 if ($r_get_instansi && $r_get_instansi->num_rows == 0) {
     redirect('./');
 }
 
-if ($is_post) {
+if (isset($_POST["update_instansi"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:6",
@@ -37,23 +36,50 @@ if ($is_post) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama     = $connection->real_escape_string($_POST["nama"]);
-        $email    = $connection->real_escape_string($_POST["email"]);
-        $nomor_hp = $connection->real_escape_string($_POST["nomor_hp"]);
-        $alamat   = $connection->real_escape_string($_POST["alamat"]);
+        $nama     = $connection->real_escape_string(clean($_POST["nama"]));
+        $email    = $connection->real_escape_string(clean($_POST["email"]));
+        $nomor_hp = $connection->real_escape_string(clean($_POST["nomor_hp"]));
+        $alamat   = $connection->real_escape_string(clean($_POST["alamat"]));
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT `email` FROM `instansi` WHERE `email` = '$email' AND `id_instansi` != 1 AND `id_instansi` != $id_admin_to_update");
-        $result = $connection->query($q_check_email);
-        if ($result && $result->num_rows > 0) {
+        $q_check_email =    "SELECT
+                                `email`
+                            FROM
+                                `instansi`
+                            WHERE
+                                `email` = '$email'
+                            AND
+                                `id_instansi` != 1
+                            AND
+                                `id_instansi` != $id_instansi_to_update";
+        $r_check_email = $connection->query($q_check_email);
+        if ($r_check_email && $r_check_email->num_rows > 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update = htmlspecialchars("UPDATE `instansi` SET `nama` = '$nama', `email` = '$email', `no_telp` = '$nomor_hp', `alamat` = '$alamat' WHERE `id_instansi` != 1 AND `id_instansi` = $id_admin_to_update");
+            $q_update = "UPDATE
+                            `instansi`
+                        SET
+                            `nama` = '$nama',
+                            `email` = '$email',
+                            `no_telp` = '$nomor_hp',
+                            `alamat` = '$alamat'
+                        WHERE
+                            `id_instansi` != 1
+                        AND
+                            `id_instansi` = $id_instansi_to_update";
             if ($connection->query($q_update)) {
                 redirect("./");
             }
         }
     }
+}
+
+while ($row = $r_get_instansi->fetch_assoc()) {
+    $data["id_instansi"] = $row["id_instansi"];
+    $data["nama"]        = $row["nama"];
+    $data["email"]       = $row["email"];
+    $data["alamat"]      = $row["alamat"];
+    $data["no_telp"]     = (int)$row["no_telp"];
 }
 ?>
 <!DOCTYPE html>
@@ -63,7 +89,7 @@ if ($is_post) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>Ubah Instansi - ASTI</title>
+    <title>Ubah Instansi <?= $data["nama"] ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -71,31 +97,16 @@ if ($is_post) {
     <?php require_once "../../includes/header.php"; ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">Update Instansi</h3>
+        <h3 class="text-2xl font-bold py-2 page-header">Ubah Instansi <?= $data["nama"] ?></h3>
 
-        <form action="?id_instansi=<?= $id_admin_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
-
+        <form action="?id_instansi=<?= $id_instansi_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 rounded-md text-white">
-                    <?php
-                    foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    }
-                    ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
-
-            <?php
-            if (!$is_post) {
-                while ($row = $r_get_instansi->fetch_assoc()) {
-                    $data["id_instansi"] = $row["id_instansi"];
-                    $data["nama"]        = $row["nama"];
-                    $data["email"]       = $row["email"];
-                    $data["alamat"]      = $row["alamat"];
-                    $data["no_telp"]     = (int)$row["no_telp"];
-                }
-            }
-            ?>
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
             <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field('nama') : $data['nama'] ?>">

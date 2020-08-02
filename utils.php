@@ -89,3 +89,8 @@ function build_url($url = "")
 {
     return BASE_PATH . $url;
 }
+
+function clean($input)
+{
+    return htmlspecialchars($input);
+}

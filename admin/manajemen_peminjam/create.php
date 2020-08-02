@@ -12,7 +12,6 @@ $errors = [];
 
 if (isset($_POST["create_peminjam"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
-
     $validation = $validator->make($_POST, [
         "nama"             => "required|min:6",
         "email"            => "required|email",
@@ -23,19 +22,18 @@ if (isset($_POST["create_peminjam"])) {
         "kategori"         => "required",
         "instansi"         => "required",
     ]);
-
     $validation->validate();
 
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama            = $connection->real_escape_string($_POST["nama"]);
-        $email           = $connection->real_escape_string($_POST["email"]);
-        $jabatan         = $connection->real_escape_string($_POST["jabatan"]);
-        $no_telp         = $connection->real_escape_string($_POST["no_telp"]);
+        $nama            = $connection->real_escape_string(clean($_POST["nama"]));
+        $email           = $connection->real_escape_string(clean($_POST["email"]));
+        $jabatan         = $connection->real_escape_string(clean($_POST["jabatan"]));
+        $no_telp         = $connection->real_escape_string(clean($_POST["no_telp"]));
         $sandi           = $_POST["sandi"];
-        $kategori        = $connection->real_escape_string($_POST["kategori"]);
-        $instansi        = $connection->real_escape_string($_POST["instansi"]);
+        $kategori        = $connection->real_escape_string(clean($_POST["kategori"]));
+        $instansi        = $connection->real_escape_string(clean($_POST["instansi"]));
         $encrypted_sandi = password_hash($sandi, PASSWORD_BCRYPT);
 
         // Check is kategori is valid
@@ -53,7 +51,6 @@ if (isset($_POST["create_peminjam"])) {
         } else {
             $q_insert = "INSERT INTO `peminjam` (`nama`, `email`, `jabatan`, `no_telp`, `sandi`, `id_kategori`, `id_instansi`)
                         VALUES ('$nama', '$jabatan', '$email', '$no_telp', '$encrypted_sandi', $kategori, $instansi)";
-            $q_insert = htmlspecialchars($q_insert);
             if ($connection->query($q_insert)) {
                 redirect("./");
             }

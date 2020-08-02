@@ -16,7 +16,6 @@ if (!isset($_GET["id_admin"]) && !is_numeric($_GET["id_admin"])) {
 }
 
 $id_admin_to_update = $_GET["id_admin"];
-$is_post            = isset($_POST["update_admin"]);
 
 $q_get_admin = "SELECT * FROM `admin` WHERE `id_admin` = $id_admin_to_update";
 $r_get_admin = $connection->query($q_get_admin);
@@ -24,7 +23,7 @@ if ($r_get_admin && $r_get_admin->num_rows == 0) {
     redirect('./');
 }
 
-if ($is_post) {
+if (isset($_POST["update_admin"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
 
     $validation = $validator->make($_POST, [
@@ -38,18 +37,38 @@ if ($is_post) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama     = $connection->real_escape_string($_POST["nama"]);
-        $email    = $connection->real_escape_string($_POST["email"]);
-        $nomor_hp = $connection->real_escape_string($_POST["nomor_hp"]);
+        $nama     = $connection->real_escape_string(clean($_POST["nama"]));
+        $email    = $connection->real_escape_string(clean($_POST["email"]));
+        $nomor_hp = $connection->real_escape_string(clean($_POST["nomor_hp"]));
         $status   = isset($_POST["status"]) ? 1 : 0;
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT email FROM `admin` WHERE `email` = '$email' AND `tipe_admin` != 'super_admin' AND `id_admin` != $id_admin_to_update");
-        $result = $connection->query($q_check_email);
-        if ($result && $result->num_rows > 0) {
+        $q_check_email =    "SELECT
+                                `email`
+                            FROM
+                                `admin`
+                            WHERE
+                                `email` = '$email'
+                            AND
+                                `tipe_admin` != 'super_admin'
+                            AND
+                                `id_admin` != $id_admin_to_update";
+        $r_check_email = $connection->query($q_check_email);
+
+        if ($r_check_email && $r_check_email->num_rows != 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_update = htmlspecialchars("UPDATE `admin` SET `nama` = '$nama', `email` = '$email', `no_telp` = '$nomor_hp', `aktif` = $status WHERE `tipe_admin` != 'super_admin' AND `id_admin` = $id_admin_to_update");
+            $q_update = "UPDATE
+                            `admin`
+                        SET
+                            `nama` = '$nama',
+                            `email` = '$email',
+                            `no_telp` = '$nomor_hp',
+                            `aktif` = $status
+                        WHERE
+                            `tipe_admin` != 'super_admin'
+                        AND
+                            `id_admin` = $id_admin_to_update";
             if ($connection->query($q_update)) {
                 redirect("./");
             }

@@ -12,7 +12,6 @@ $errors = [];
 
 if (isset($_POST["create_pegawai"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
-
     $validation = $validator->make($_POST, [
         "no_pegawai"       => "required|min:8",
         "nama"             => "required|min:6",
@@ -20,35 +19,42 @@ if (isset($_POST["create_pegawai"])) {
         "sandi"            => "required|min:8",
         "konfirmasi_sandi" => "required|min:8|same:sandi",
     ]);
-
     $validation->validate();
 
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $no_pegawai      = $connection->real_escape_string($_POST["no_pegawai"]);
-        $nama            = $connection->real_escape_string($_POST["nama"]);
-        $email           = $connection->real_escape_string($_POST["email"]);
+        $no_pegawai      = $connection->real_escape_string(clean($_POST["no_pegawai"]));
+        $nama            = $connection->real_escape_string(clean($_POST["nama"]));
+        $email           = $connection->real_escape_string(clean($_POST["email"]));
         $sandi           = $_POST["sandi"];
         $encrypted_sandi = password_hash($sandi, PASSWORD_BCRYPT);
 
-        // Check if email is exist
-        $q_check_email = "SELECT `email` FROM `pegawai` WHERE `email` = '$email'";
-        $q_check_email = htmlspecialchars($q_check_email);
-        $r_check_email = $connection->query($q_check_email);
-
         // Check if nomor pegawai is exist
-        $q_check_no_pegawai = "SELECT `no_pegawai` FROM `pegawai` WHERE `no_pegawai` = '$no_pegawai'";
-        $q_check_no_pegawai = htmlspecialchars($q_check_no_pegawai);
+        $q_check_no_pegawai =   "SELECT
+                                    `no_pegawai`
+                                FROM
+                                    `pegawai`
+                                WHERE
+                                    `no_pegawai` = '$no_pegawai'";
         $r_check_no_pegawai = $connection->query($q_check_no_pegawai);
 
-        if ($r_check_email && $r_check_email->num_rows > 0) {
-            array_push($errors, "Email $email sudah ada");
-        } else if ($r_check_no_pegawai && $r_check_no_pegawai->num_rows > 0) {
+        // Check if email is exist
+        $q_check_email =    "SELECT
+                                `email`
+                            FROM
+                                `pegawai`
+                            WHERE
+                                `email` = '$email'";
+        $r_check_email = $connection->query($q_check_email);
+
+        if ($r_check_no_pegawai && $r_check_no_pegawai->num_rows != 0) {
             array_push($errors, "Nomor pegawai sudah ada");
+        } else if ($r_check_email && $r_check_email->num_rows != 0) {
+            array_push($errors, "Email $email sudah ada");
         } else {
-            $q_insert = "INSERT INTO `pegawai` (`no_pegawai`, `nama`, `email`, `sandi`) VALUES ('$no_pegawai', '$nama', '$email', '$encrypted_sandi')";
-            $q_insert = htmlspecialchars($q_insert);
+            $q_insert = "INSERT INTO `pegawai` (`no_pegawai`, `nama`, `email`, `sandi`)
+                        VALUES ('$no_pegawai', '$nama', '$email', '$encrypted_sandi')";
             if ($connection->query($q_insert)) {
                 redirect("./");
             }
@@ -74,14 +80,11 @@ if (isset($_POST["create_pegawai"])) {
         <h3 class="text-2xl font-bold py-2 page-header">Tambah Pegawai</h3>
 
         <form class="my-5 p-5 pb-2 rounded-md" method="post">
-
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">
-                    <?php
-                    foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    }
-                    ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
 

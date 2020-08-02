@@ -23,21 +23,20 @@ if (isset($_POST["create_instansi"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama     = $connection->real_escape_string($_POST["nama"]);
-        $email    = $connection->real_escape_string($_POST["email"]);
-        $nomor_hp = $connection->real_escape_string($_POST["nomor_hp"]);
-        $alamat   = $connection->real_escape_string($_POST["alamat"]);
+        $nama     = $connection->real_escape_string(clean($_POST["nama"]));
+        $email    = $connection->real_escape_string(clean($_POST["email"]));
+        $nomor_hp = $connection->real_escape_string(clean($_POST["nomor_hp"]));
+        $alamat   = $connection->real_escape_string(clean($_POST["alamat"]));
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT `email` FROM `instansi` WHERE `id_instansi` != 1 AND `email` = '$email'");
-        $result = $connection->query($q_check_email);
-        if ($result && $result->num_rows > 0) {
+        $q_check_email = "SELECT `email` FROM `instansi` WHERE `id_instansi` != 1 AND `email` = '$email'";
+        $r_check_email = $connection->query($q_check_email);
+
+        if ($r_check_email && $r_check_email->num_rows != 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_insert = htmlspecialchars(
-                "INSERT INTO `instansi` (`nama`, `email`, `alamat`, `no_telp`) 
-                        VALUES ('$nama', '$email', '$alamat', '$nomor_hp')"
-            );
+            $q_insert = "INSERT INTO `instansi` (`nama`, `email`, `alamat`, `no_telp`) 
+                        VALUES ('$nama', '$email', '$alamat', '$nomor_hp')";
             if ($connection->query($q_insert)) {
                 redirect("./");
             }
@@ -64,13 +63,11 @@ if (isset($_POST["create_instansi"])) {
 
         <form class="my-5 p-5 pb-2 rounded-md" method="post">
 
-            <?php if ($errors != null) { ?>
+            <?php if ($errors) { ?>
                 <div class="bg-red-400 p-2 mb-2 text-white">
-                    <?php
-                    foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    }
-                    ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
 

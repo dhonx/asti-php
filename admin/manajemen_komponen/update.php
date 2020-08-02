@@ -16,7 +16,6 @@ if (!isset($_GET["id_komponen"]) && !is_numeric($_GET["id_komponen"])) {
 }
 
 $id_komponen_to_update = $_GET["id_komponen"];
-$is_post               = isset($_POST["update_komponen"]);
 
 $q_get_komponen =   "SELECT
                             `nama`,
@@ -34,7 +33,7 @@ if ($r_get_komponen && $r_get_komponen->num_rows == 0) {
     redirect('./');
 }
 
-if ($is_post) {
+if (isset($_POST["update_komponen"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
     $validation = $validator->make($_POST, [
         "nama"        => "required|min:6",

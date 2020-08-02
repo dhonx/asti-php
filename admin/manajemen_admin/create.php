@@ -24,24 +24,23 @@ if (isset($_POST["create_admin"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $nama            = $connection->real_escape_string($_POST["nama"]);
-        $email           = $connection->real_escape_string($_POST["email"]);
-        $nomor_hp        = $connection->real_escape_string($_POST["nomor_hp"]);
+        $nama            = $connection->real_escape_string(clean($_POST["nama"]));
+        $email           = $connection->real_escape_string(clean($_POST["email"]));
+        $nomor_hp        = $connection->real_escape_string(clean($_POST["nomor_hp"]));
         $sandi           = $_POST["sandi"];
         $status          = isset($_POST["status"]) ? 1 : 0;
         $tipe_admin      = "admin";
         $encrypted_sandi = password_hash($sandi, PASSWORD_BCRYPT);
 
         // Check if email is exist
-        $q_check_email = htmlspecialchars("SELECT `email` FROM `admin` WHERE `email` = '$email'");
-        $result = $connection->query($q_check_email);
-        if ($result && $result->num_rows > 0) {
+        $q_check_email = "SELECT `email` FROM `admin` WHERE `email` = '$email'";
+        $r_check_email = $connection->query($q_check_email);
+
+        if ($result && $r_check_email->num_rows != 0) {
             array_push($errors, "Email $email sudah ada");
         } else {
-            $q_insert = htmlspecialchars(
-                "INSERT INTO `admin` (`nama`, `email`, `no_telp`, `sandi`, `aktif`, `tipe_admin`) 
-                    VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')"
-            );
+            $q_insert = "INSERT INTO `admin` (`nama`, `email`, `no_telp`, `sandi`, `aktif`, `tipe_admin`) 
+                    VALUES ('$nama', '$email', '$nomor_hp', '$encrypted_sandi', $status, '$tipe_admin')";
             if ($connection->query($q_insert)) {
                 redirect("./");
             }

@@ -16,17 +16,15 @@ if (!isset($_GET["id_peminjam"]) && !is_numeric($_GET["id_peminjam"])) {
 }
 
 $id_peminjam_to_update = $_GET["id_peminjam"];
-$is_post               = isset($_POST["update_pegawai"]);
 
-$q_check_id_peminjam = "SELECT `id_peminjam` FROM `peminjam` WHERE `id_peminjam` = $id_peminjam_to_update";
-$r_check_id_peminjam = $connection->query($q_check_id_peminjam);
-if ($r_check_id_peminjam && $r_check_id_peminjam->num_rows < 1) {
+$q_get_peminjam = "SELECT * FROM `peminjam` WHERE `id_peminjam` = $id_peminjam_to_update";
+$r_get_peminjam = $connection->query($q_get_peminjam);
+if ($r_get_peminjam && $r_get_peminjam->num_rows == 0) {
     redirect('./');
 }
 
-if ($is_post) {
+if (isset($_POST["update_pegawai"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
-
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:6",
         "email"    => "required|email",
@@ -35,18 +33,17 @@ if ($is_post) {
         "kategori" => "required",
         "instansi" => "required",
     ]);
-
     $validation->validate();
 
     if ($validation->fails()) {
         $errors   = $validation->errors()->firstOfAll();
     } else {
-        $nama            = $connection->real_escape_string($_POST["nama"]);
-        $email           = $connection->real_escape_string($_POST["email"]);
-        $jabatan         = $connection->real_escape_string($_POST["jabatan"]);
-        $no_telp         = $connection->real_escape_string($_POST["no_telp"]);
-        $kategori        = $connection->real_escape_string($_POST["kategori"]);
-        $instansi        = $connection->real_escape_string($_POST["instansi"]);
+        $nama     = $connection->real_escape_string(clean($_POST["nama"]));
+        $email    = $connection->real_escape_string(clean($_POST["email"]));
+        $jabatan  = $connection->real_escape_string(clean($_POST["jabatan"]));
+        $no_telp  = $connection->real_escape_string(clean($_POST["no_telp"]));
+        $kategori = $connection->real_escape_string(clean($_POST["kategori"]));
+        $instansi = $connection->real_escape_string(clean($_POST["instansi"]));
 
         // Check is kategori is valid
         $q_check_kategori = "SELECT `id_kategori` FROM `kategori` WHERE `id_kategori` = '$kategori'";
@@ -72,12 +69,20 @@ if ($is_post) {
                             `id_kategori` = $kategori
                         WHERE
                             `id_peminjam` = $id_peminjam_to_update";
-            $q_update = htmlspecialchars($q_update);
             if ($connection->query($q_update)) {
                 redirect("./");
             }
         }
     }
+}
+
+while ($row = $r_get_peminjam->fetch_assoc()) {
+    $data["nama"]        = $row["nama"];
+    $data["email"]       = $row["email"];
+    $data["jabatan"]     = $row["jabatan"];
+    $data["no_telp"]     = $row["no_telp"];
+    $data["id_instansi"] = $row["id_instansi"];
+    $data["id_kategori"] = $row["id_kategori"];
 }
 
 $q_get_instansi = "SELECT `id_instansi`, `nama` FROM `instansi`";
@@ -93,7 +98,7 @@ $r_get_kategori = $connection->query($q_get_kategori);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>Ubah Peminjam - ASTI</title>
+    <title>Ubah Peminjam <?= $data["nama"] ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -101,30 +106,16 @@ $r_get_kategori = $connection->query($q_get_kategori);
     <?php require_once "../../includes/header.php"; ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">Update Peminjam</h3>
+        <h3 class="text-2xl font-bold py-2 page-header">Ubah Peminjam <?= $data["nama"] ?></h3>
 
         <form action="?id_peminjam=<?= $id_peminjam_to_update ?>" class="my-5 p-5 pb-2 rounded-md" method="post">
-
             <?php if ($errors != null) { ?>
                 <div class="bg-red-400 p-2 mb-2 rounded-md text-white">
-                    <?php foreach ($errors as $error) {
-                        echo "<div>" .  $error . "</div>";
-                    } ?>
+                    <?php foreach ($errors as $error) { ?>
+                        <div><?= $error ?></div>
+                    <?php } ?>
                 </div>
             <?php } ?>
-
-            <?php if (!$is_post) {
-                $q_get_peminjam = "SELECT * FROM `peminjam` WHERE `id_peminjam` = $id_peminjam_to_update";
-                $r_get_peminjam = $connection->query($q_get_peminjam);
-                while ($row = $r_get_peminjam->fetch_assoc()) {
-                    $data["nama"]        = $row["nama"];
-                    $data["email"]       = $row["email"];
-                    $data["jabatan"]     = $row["jabatan"];
-                    $data["no_telp"]     = $row["no_telp"];
-                    $data["id_instansi"] = $row["id_instansi"];
-                    $data["id_kategori"] = $row["id_kategori"];
-                }
-            } ?>
 
             <label class="block" for="nama">Nama <span class="text-red-500" title="Harus diisi">*</span></label>
             <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="nama" minlength="5" name="nama" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("nama") : $data["nama"] ?>">

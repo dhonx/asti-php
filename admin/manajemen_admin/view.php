@@ -60,7 +60,9 @@ while ($row = $r_get_admin->fetch_assoc()) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Status:</span>
-                <span class="rounded bg-blue-400 text-white py-1 px-3 text-xs font-bold"><?= $data["aktif"] == 1 ? "aktif" : "tidak aktif" ?></span>
+                <span class="rounded bg-<?= $data["aktif"] == 1 ? "blue" : "red" ?>-500 text-white py-1 px-3 text-xs font-bold">
+                    <?= $data["aktif"] == 1 ? "aktif" : "tidak aktif" ?>
+                </span>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Tanggal dibuat:</span>

@@ -7,7 +7,7 @@ require_once "../../common/page.php";
 authenticate(["super_admin", "admin"]);
 
 $valid_columns  = ["id_komponen", "nama", "tipe", "merek", "aktif"];
-$search_columns = ["nama", "tipe", "merek"];
+$search_columns = ["komponen.nama", "tipe", "merek"];
 $common_data    = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];

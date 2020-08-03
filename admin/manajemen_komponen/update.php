@@ -116,10 +116,10 @@ while ($row = $r_get_komponen->fetch_assoc()) {
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="merek" name="merek" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("merek") : $data["merek"] ?>">
 
             <label class="block" for="spesifikasi">Spesifikasi</label>
-            <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="spesifikasi" name="spesifikasi"><?= $errors ? get_prev_field("spesifikasi") : $data["spesifikasi"] ?></textarea>
+            <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="spesifikasi" name="spesifikasi" style="min-height: 200px;"><?= $errors ? get_prev_field("spesifikasi") : $data["spesifikasi"] ?></textarea>
 
             <label class="block" for="keterangan">Keterangan</label>
-            <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan"><?= $errors ? get_prev_field("keterangan") : $data["keterangan"] ?></textarea>
+            <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan" style="min-height: 200px;"><?= $errors ? get_prev_field("keterangan") : $data["keterangan"] ?></textarea>
 
             <span class="block">Status</span>
             <?php if ($errors) {

@@ -17,7 +17,7 @@ if (isset($_POST["create_barang"])) {
         "id_komponen"     => "required|numeric",
         "jumlah"          => "required|numeric",
         "harga_beli"      => "required|numeric",
-        "kondisi"         => ["required", $validator("in", ["baik", "rusak ringan", "rusak berat"])]
+        "kondisi"         => ["required", $validator("in", ["baik", "rusak ringan", "rusak berat"])],
     ]);
     $validation->validate();
 

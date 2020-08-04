@@ -5,11 +5,9 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: admin
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -23,12 +21,10 @@ CREATE TABLE `admin` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `email` (`email`) USING HASH
-) AUTO_INCREMENT = 27;
-
+) AUTO_INCREMENT = 29;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: barang
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `barang`;
 CREATE TABLE `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -43,20 +39,19 @@ CREATE TABLE `barang` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_barang`),
+  UNIQUE KEY `kode_inventaris` (`kode_inventaris`) USING HASH,
   KEY `id_komponen` (`id_komponen`),
   KEY `id_admin` (`id_admin`),
   CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE
   SET
-  NULL ON UPDATE CASCADE,
-  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+    NULL ON UPDATE CASCADE,
+    CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
   SET
-  NULL ON UPDATE CASCADE
-) AUTO_INCREMENT = 2;
-
+    NULL ON UPDATE CASCADE
+) AUTO_INCREMENT = 5;
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: instansi
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -69,11 +64,9 @@ CREATE TABLE `instansi` (
   PRIMARY KEY (`id_instansi`),
   UNIQUE KEY `email` (`email`) USING HASH
 ) AUTO_INCREMENT = 11;
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: kategori
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -82,11 +75,9 @@ CREATE TABLE `kategori` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id_kategori`)
 ) AUTO_INCREMENT = 3;
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: komponen
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -103,13 +94,11 @@ CREATE TABLE `komponen` (
   KEY `id_admin` (`id_admin`),
   CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
   SET
-  NULL ON UPDATE CASCADE
+    NULL ON UPDATE CASCADE
 ) AUTO_INCREMENT = 10;
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pegawai
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE `pegawai` (
   `id_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -122,11 +111,9 @@ CREATE TABLE `pegawai` (
   PRIMARY KEY (`id_pegawai`),
   UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
 ) AUTO_INCREMENT = 15;
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pemasok
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE `pemasok` (
   `id_pemasok` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -144,13 +131,11 @@ CREATE TABLE `pemasok` (
   KEY `id_admin` (`id_admin`),
   CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
   SET
-  NULL ON UPDATE CASCADE
+    NULL ON UPDATE CASCADE
 );
-
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: peminjam
 # ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -168,16 +153,14 @@ CREATE TABLE `peminjam` (
   KEY `id_instansi` (`id_instansi`),
   CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE
   SET
-  NULL ON UPDATE CASCADE,
-  CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE
+    NULL ON UPDATE CASCADE,
+    CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE
   SET
-  NULL ON UPDATE CASCADE
+    NULL ON UPDATE CASCADE
 ) AUTO_INCREMENT = 22;
-
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: admin
 # ------------------------------------------------------------
-
 INSERT INTO
   `admin` (
     `id_admin`,
@@ -610,11 +593,9 @@ VALUES
     '2020-07-25 23:46:44',
     '2020-07-28 23:36:28'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: barang
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: barang
+  # ------------------------------------------------------------
 INSERT INTO
   `barang` (
     `id_barang`,
@@ -643,11 +624,93 @@ VALUES
     '2020-08-03 15:25:28',
     '2020-08-03 15:38:51'
   );
-
+INSERT INTO
+  `barang` (
+    `id_barang`,
+    `kode_inventaris`,
+    `id_komponen`,
+    `jumlah`,
+    `harga_beli`,
+    `aktif`,
+    `kondisi`,
+    `keterangan`,
+    `id_admin`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    'e26354dsdcdscx',
+    1,
+    2,
+    10000000,
+    1,
+    'baik',
+    '-',
+    1,
+    '2020-08-04 10:53:05',
+    '2020-08-04 12:00:29'
+  );
+INSERT INTO
+  `barang` (
+    `id_barang`,
+    `kode_inventaris`,
+    `id_komponen`,
+    `jumlah`,
+    `harga_beli`,
+    `aktif`,
+    `kondisi`,
+    `keterangan`,
+    `id_admin`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    'e26354dsdcdsc',
+    5,
+    10,
+    80000,
+    0,
+    'baik',
+    '-',
+    1,
+    '2020-08-04 11:52:56',
+    '2020-08-04 11:53:58'
+  );
+INSERT INTO
+  `barang` (
+    `id_barang`,
+    `kode_inventaris`,
+    `id_komponen`,
+    `jumlah`,
+    `harga_beli`,
+    `aktif`,
+    `kondisi`,
+    `keterangan`,
+    `id_admin`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    4,
+    'e26354dsdcdscs',
+    9,
+    2,
+    20000,
+    0,
+    'baik',
+    '-',
+    1,
+    '2020-08-04 12:14:00',
+    '2020-08-04 12:14:00'
+  );
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: instansi
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: instansi
+  # ------------------------------------------------------------
 INSERT INTO
   `instansi` (
     `id_instansi`,
@@ -808,13 +871,16 @@ VALUES
     '2020-07-28 22:49:14',
     '2020-07-28 22:49:14'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: kategori
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: kategori
+  # ------------------------------------------------------------
 INSERT INTO
-  `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`)
+  `kategori` (
+    `id_kategori`,
+    `nama`,
+    `created_at`,
+    `updated_at`
+  )
 VALUES
   (
     1,
@@ -823,7 +889,12 @@ VALUES
     '0000-00-00 00:00:00'
   );
 INSERT INTO
-  `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`)
+  `kategori` (
+    `id_kategori`,
+    `nama`,
+    `created_at`,
+    `updated_at`
+  )
 VALUES
   (
     2,
@@ -831,11 +902,9 @@ VALUES
     '0000-00-00 00:00:00',
     '0000-00-00 00:00:00'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: komponen
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: komponen
+  # ------------------------------------------------------------
 INSERT INTO
   `komponen` (
     `id_komponen`,
@@ -966,11 +1035,9 @@ VALUES
     '2020-08-02 22:40:51',
     '2020-08-02 22:40:51'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: pegawai
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: pegawai
+  # ------------------------------------------------------------
 INSERT INTO
   `pegawai` (
     `id_pegawai`,
@@ -1031,16 +1098,12 @@ VALUES
     '2020-07-30 12:08:51',
     '2020-07-30 12:08:51'
   );
-
 # ------------------------------------------------------------
-# DATA DUMP FOR TABLE: pemasok
-# ------------------------------------------------------------
-
-
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: peminjam
-# ------------------------------------------------------------
-
+  # DATA DUMP FOR TABLE: pemasok
+  # ------------------------------------------------------------
+  # ------------------------------------------------------------
+  # DATA DUMP FOR TABLE: peminjam
+  # ------------------------------------------------------------
 INSERT INTO
   `peminjam` (
     `id_peminjam`,
@@ -1197,10 +1260,9 @@ VALUES
     '2020-07-31 11:02:51',
     '2020-08-02 00:42:36'
   );
-
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+  /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+  /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+  /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+  /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

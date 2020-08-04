@@ -60,9 +60,9 @@ if ($page > $page_count) {
     $page = $page_count;
 }
 
-$offset_limit   = get_offset_limit($page, $ipp);
-$offset         = $offset_limit["offset"];
-$limit          = $offset_limit["limit"];
+$offset_limit = get_offset_limit($page, $ipp);
+$offset       = $offset_limit["offset"];
+$limit        = $offset_limit["limit"];
 
 if ($is_search_mode) {
     $search_query .= " LIMIT $limit OFFSET $offset";

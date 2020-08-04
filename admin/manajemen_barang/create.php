@@ -32,19 +32,26 @@ if (isset($_POST["create_barang"])) {
         $status = isset($_POST["status"]) ? 1 : 0;
         $keterangan = $connection->real_escape_string(clean($_POST["keterangan"]));
 
-        $admin_email = $_SESSION["email"];
-        $q_get_id_admin = "SELECT `id_admin` FROM `admin` WHERE `email` = '$admin_email'";
-        $r_get_id_admin = $connection->query($q_get_id_admin);
-        $first_row = $r_get_id_admin->fetch_assoc();
-        $id_admin = $first_row["id_admin"];
+        $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris'";
+        $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
 
-        $q_insert = "INSERT INTO `barang`
+        if ($r_check_kode_inventaris && $r_check_kode_inventaris->num_rows != 0) {
+            array_push($errors, "Kode inventaris $kode_inventaris sudah ada");
+        } else {
+            $admin_email = $_SESSION["email"];
+            $q_get_id_admin = "SELECT `id_admin` FROM `admin` WHERE `email` = '$admin_email'";
+            $r_get_id_admin = $connection->query($q_get_id_admin);
+            $first_row = $r_get_id_admin->fetch_assoc();
+            $id_admin = $first_row["id_admin"];
+
+            $q_insert = "INSERT INTO `barang`
                         (`kode_inventaris`, `id_komponen`, `jumlah`, `harga_beli`, `kondisi`, `aktif`, `keterangan`, `id_admin`) 
                     VALUES
                         ('$kode_inventaris', $id_komponen, $jumlah, $harga_beli, '$kondisi', '$status', '$keterangan', $id_admin)";
 
-        if ($connection->query($q_insert)) {
-            redirect("./");
+            if ($connection->query($q_insert)) {
+                redirect("./");
+            }
         }
     }
 }
@@ -112,7 +119,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
 
             <span class="block">Status</span>
             <?php $status = $errors ? get_prev_field("status") : "" ?>
-            <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= $status == "" ? "checked" : "" ?> id="status" name="status" type="checkbox">
+            <input class="bg-gray-200 inline-block ml-2 px-3 py-2" <?= $status == "on" ? "checked" : "" ?> id="status" name="status" type="checkbox">
             <label class="cursor-pointer inline-block w-11/12" for="status">Aktif</label>
 
             <label class="block" for="keterangan">Keterangan</label>

@@ -25,12 +25,12 @@ if (isset($_POST["create_barang"])) {
         $errors = $validation->errors()->firstOfAll();
     } else {
         $kode_inventaris = $connection->real_escape_string(clean($_POST["kode_inventaris"]));
-        $id_komponen = $_POST["id_komponen"];
-        $jumlah = $_POST["jumlah"];
-        $harga_beli = $_POST["harga_beli"];
-        $kondisi = $connection->real_escape_string($_POST["kondisi"]);
-        $status = isset($_POST["status"]) ? 1 : 0;
-        $keterangan = $connection->real_escape_string(clean($_POST["keterangan"]));
+        $id_komponen     = $_POST["id_komponen"];
+        $jumlah          = $_POST["jumlah"];
+        $harga_beli      = $_POST["harga_beli"];
+        $kondisi         = $connection->real_escape_string($_POST["kondisi"]);
+        $status          = isset($_POST["status"]) ? 1 : 0;
+        $keterangan      = $connection->real_escape_string(clean($_POST["keterangan"]));
 
         $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris'";
         $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
@@ -47,7 +47,7 @@ if (isset($_POST["create_barang"])) {
             $q_insert = "INSERT INTO `barang`
                         (`kode_inventaris`, `id_komponen`, `jumlah`, `harga_beli`, `kondisi`, `aktif`, `keterangan`, `id_admin`) 
                     VALUES
-                        ('$kode_inventaris', $id_komponen, $jumlah, $harga_beli, '$kondisi', '$status', '$keterangan', $id_admin)";
+                        ('$kode_inventaris', $id_komponen, $jumlah, $harga_beli, '$kondisi', $status, '$keterangan', $id_admin)";
 
             if ($connection->query($q_insert)) {
                 redirect("./");

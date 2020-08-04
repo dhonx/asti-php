@@ -7,4 +7,5 @@ define("VALIDATION_MESSAGES", [
     "min"       => ":attribute minimal berisi :min karakter/digit",
     "max"       => ":attribute maximal berisi :max karakter/digit",
     "same"      => "Konfirmasi sandi harus sama dengan sandi",
+    "in"        => ":attribute hanya memperbolehkan :allowed_values",
 ]);

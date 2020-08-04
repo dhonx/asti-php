@@ -6,7 +6,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["nama_komponen", "kode_inventaris", "harga_beli", "aktif", "kondisi", "jumlah", "nama_admin"];
+$valid_columns  = ["nama_komponen", "kode_inventaris", "harga_beli", "aktif", "kondisi", "jumlah", "total", "nama_admin"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -23,6 +23,7 @@ $search_query = "SELECT
                     `barang`.`aktif`,
                     `barang`.`kondisi`,
                     `barang`.`jumlah`,
+                    SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
                     `admin`.`nama` AS `nama_admin`,
                     `komponen`.`nama` AS `nama_komponen`
                 INNER JOIN
@@ -42,6 +43,7 @@ if ($is_search_mode) {
             `barang`.`aktif`,
             `barang`.`kondisi`,
             `barang`.`jumlah`,
+            SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
             `admin`.`nama` AS `nama_admin`,
             `komponen`.`nama` AS `nama_komponen`
         FROM
@@ -75,6 +77,7 @@ if ($is_search_mode) {
                     `barang`.`aktif`,
                     `barang`.`kondisi`,
                     `barang`.`jumlah`,
+                    SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
                     `admin`.`nama` AS `nama_admin`,
                     `komponen`.`nama` AS `nama_komponen`
                 FROM
@@ -141,6 +144,10 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "jumlah", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Jumlah</a>
                         </th>
+                        <th class="hidden lg:table-cell text-center p-2">
+                            <!-- <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "total", "asc" => $asc_toggle])) ?> -->
+                            <a class="block" href="?<?= $url_query ?>">Total</a>
+                        </th>
                         <th class="hidden lg:table-cell p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Status</a>
@@ -160,6 +167,7 @@ $result = $connection->query($query);
                         $aktif           = $row["aktif"];
                         $kondisi         = $row["kondisi"];
                         $jumlah          = $row["jumlah"];
+                        $total           = $row["total"];
                         $nama_admin      = $row["nama_admin"];
                         $nama_komponen   = $row["nama_komponen"];
                     ?>
@@ -193,6 +201,12 @@ $result = $connection->query($query);
                                     Jumlah
                                 </span>
                                 <?= $jumlah ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Total
+                                </span>
+                                <?= $total ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute text-center top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">

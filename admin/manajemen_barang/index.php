@@ -6,7 +6,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["nama_komponen", "kode_inventaris", "harga_beli", "aktif", "kondisi", "jumlah", "total", "nama_admin"];
+$valid_columns  = ["id_barang", "nama_komponen", "kode_inventaris", "harga_beli", "aktif", "kondisi", "jumlah", "total", "nama_admin"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -26,11 +26,16 @@ $search_query = "SELECT
                     SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
                     `admin`.`nama` AS `nama_admin`,
                     `komponen`.`nama` AS `nama_komponen`
+                FROM
+                    `barang` 
                 INNER JOIN
                     `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
                 INNER JOIN
                     `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
-                WHERE " . build_search_query($keyword, ["nama", "email", "alamat", "no_telp"]);
+                WHERE ";
+
+$search_query .= build_search_query($keyword, ["`barang`.`kode_inventaris`", "`komponen`.`nama`", "`no_telp`"]);
+$search_query .= "GROUP BY `barang`.`id_barang`";
 
 if ($is_search_mode) {
     $count_all_result  = $connection->query("SELECT * FROM ($search_query) AS `barang_` ORDER BY $sort_by $asc");
@@ -51,7 +56,8 @@ if ($is_search_mode) {
         INNER JOIN
             `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
         INNER JOIN
-            `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`"
+            `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
+         GROUP BY `id_barang`"
     );
 }
 
@@ -86,6 +92,7 @@ if ($is_search_mode) {
                     `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
                 INNER JOIN
                     `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
+                GROUP BY `id_barang`
                 LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `barang_` ORDER BY $sort_by $asc";
 }

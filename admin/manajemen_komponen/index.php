@@ -117,10 +117,10 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Status</a>
                         </th>
-                        <th class="hidden lg:table-cell lg:text-left p-2">
+                        <!-- <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "merek", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Dibuat Oleh</a>
-                        </th>
+                        </th> -->
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
@@ -160,12 +160,12 @@ $result = $connection->query($query);
                                     <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
                                 </span>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
+                            <!-- <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Dibuat oleh
                                 </span>
                                 <?= $nama_admin  ?>
-                            </td>
+                            </td> -->
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <a href="view?id_komponen=<?= $id_komponen ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
                                     <span class="mdi mdi-eye"></span>

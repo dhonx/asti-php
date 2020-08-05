@@ -38,12 +38,6 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_komponen/", TRUE) ?>" href="<?= build_url("/admin/manajemen_komponen") ?>" role="menuitem" title="Manajemen Komponen">
-                <span class="mdi align-middle mdi-package text-lg"></span>
-                <span class="lg:hidden label">Manajemen Komponen</span>
-            </a>
-        </li>
-        <li>
             <a class="<?= check_active_url("/admin/manajemen_pegawai/", TRUE) ?>" href="<?= build_url("/admin/manajemen_pegawai") ?>" role="menuitem" title="Manajemen Pegawai">
                 <span class="mdi align-middle mdi-account-supervisor text-lg"></span>
                 <span class="lg:hidden label">Manajemen Pegawai</span>
@@ -56,9 +50,21 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </a>
         </li>
         <li>
+            <a class="<?= check_active_url("/admin/manajemen_komponen/", TRUE) ?>" href="<?= build_url("/admin/manajemen_komponen") ?>" role="menuitem" title="Manajemen Komponen">
+                <span class="mdi align-middle mdi-package text-lg"></span>
+                <span class="lg:hidden label">Manajemen Komponen</span>
+            </a>
+        </li>
+        <li>
             <a class="<?= check_active_url("/admin/manajemen_barang/", TRUE) ?>" href="<?= build_url("/admin/manajemen_barang") ?>" role="menuitem" title="Manajemen Barang">
                 <span class="mdi align-middle mdi-package text-lg"></span>
                 <span class="lg:hidden label">Manajemen Barang</span>
+            </a>
+        </li>
+        <li>
+            <a class="<?= check_active_url("/admin/pemesanan/", TRUE) ?>" href="<?= build_url("/admin/pemesanan") ?>" role="menuitem" title="Manajemen Barang">
+                <span class="mdi align-middle mdi-cart-arrow-down text-lg"></span>
+                <span class="lg:hidden label">Pemesanan</span>
             </a>
         </li>
         <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">

@@ -42,7 +42,7 @@
             }
         }
 
-        // handle_sidenav();
+        handle_sidenav();
 
         /** @param {HTMLSelectElement} el */
         window.submitItemsPerPage = function(el) {

@@ -17,7 +17,7 @@ if (isset($_POST["create_pemesanan"])) {
         "id_pegawai"    => "required|numeric|min:1",
         "id_komponen"   => "required|numeric|min:1",
         "jumlah"        => "required|numeric|min:1",
-        "tanggal_pesan" => "required|date",
+        "tanggal_pesan" => "required|date:Y-m-d",
         "status"        => ["required", $validator("in", $valid_status)],
     ]);
     $validation->validate();

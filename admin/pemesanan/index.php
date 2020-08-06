@@ -4,6 +4,29 @@ require_once "../../config.php";
 require_once "../../connection/connection.php";
 require_once "../../common/page.php";
 
+function get_status_bg_color($status)
+{
+    switch ($status) {
+        case "usulan":
+            return "bg-blue-700";
+            break;
+        case "diterima":
+            return "bg-blue-500";
+            break;
+        case "dalam proses pemesanan":
+            return "bg-green-500";
+            break;
+        case "ditunda":
+            return "bg-purple-500";
+            break;
+        case "ditolak":
+            return "bg-red-500";
+            break;
+        default:
+            return "bg-red";
+    }
+}
+
 authenticate(["super_admin", "admin"]);
 
 $valid_columns  = ["id_pemesanan", "tanggal_pesan", "nama", "email", "sandi"];
@@ -15,12 +38,27 @@ $keyword        = $connection->real_escape_string($common_data["keyword"]);
 $ipp            = $common_data["ipp"];
 $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
-$search_query   = "SELECT * FROM `pegawai` WHERE " . build_search_query($keyword, ["no_pegawai", "nama", "email"]);
+$search_query   = "SELECT
+                        `pemesanan`.`id_pemesanan`,
+                        `pemesanan`.`tanggal_pesan`,
+                        `pemesanan`.`status`,
+                        `pegawai`.`nama` AS nama_pegawai,
+                        `komponen`.`nama` AS nama_komponen,
+                        `detail_pemesanan`.`jumlah`
+                    FROM
+                        `detail_pemesanan`
+                    INNER JOIN `pemesanan`
+                        ON `detail_pemesanan`.`id_pemesanan` = `pemesanan`.`id_pemesanan`
+                    INNER JOIN `pegawai`
+                        ON `pemesanan`.`id_pegawai` = `pegawai`.`id_pegawai`
+                    INNER JOIN `komponen`
+                        ON `detail_pemesanan`.`id_komponen` = `komponen`.`id_komponen`
+                    WHERE " . build_search_query($keyword, ["id_pemesanan", "`pegawai`.`nama_pegawai`", "email"]);
 
 if ($is_search_mode) {
-    $count_all_result = $connection->query("SELECT * FROM ($search_query) AS `pegawai_` ORDER BY $sort_by $asc");
+    $count_all_result = $connection->query("SELECT * FROM ($search_query) AS `pemesanan_` ORDER BY $sort_by $asc");
 } else {
-    $count_all_result = $connection->query("SELECT * FROM `pegawai`");
+    $count_all_result = $connection->query("SELECT * FROM `pemesanan`");
 }
 
 $total_items = $count_all_result->num_rows;
@@ -39,12 +77,27 @@ $limit        = $offset_limit["limit"];
 if ($is_search_mode) {
     // Search query
     $query = "$search_query LIMIT $limit OFFSET $offset";
-    $query = "SELECT * FROM ($query) AS `pegawai_` ORDER BY $sort_by $asc";
+    $query = "SELECT * FROM ($query) AS `pemesanan_` ORDER BY $sort_by $asc";
 } else {
     // Main query
-    $query = "SELECT * FROM `pegawai` LIMIT $limit OFFSET $offset";
-    $query = "SELECT * FROM ($query) AS `pegawai_` ORDER BY $sort_by $asc";
-    $query = mysqli_escape_string($connection, $query);
+    $query = "SELECT
+                `pemesanan`.`id_pemesanan`,
+                `pemesanan`.`tanggal_pesan`,
+                `pemesanan`.`status`,
+                `pegawai`.`nama` AS nama_pegawai,
+                `komponen`.`nama` AS nama_komponen,
+                `detail_pemesanan`.`jumlah`
+            FROM
+                `detail_pemesanan`
+            INNER JOIN `pemesanan`
+                ON `detail_pemesanan`.`id_pemesanan` = `pemesanan`.`id_pemesanan`
+            INNER JOIN `pegawai`
+                ON `pemesanan`.`id_pegawai` = `pegawai`.`id_pegawai`
+            INNER JOIN `komponen`
+                ON `detail_pemesanan`.`id_komponen` = `komponen`.`id_komponen`
+            LIMIT $limit OFFSET $offset";
+    $query = "SELECT * FROM ($query) AS `pemesanan_` ORDER BY $sort_by $asc";
+    // $query = mysqli_escape_string($connection, $query);
 }
 
 $result = $connection->query($query);
@@ -82,54 +135,67 @@ $result = $connection->query($query);
                     <tr class="bg-gray-200 font-bold">
                         <?php $asc_toggle = $asc == "asc" ? "desc" : "asc"  ?>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_pegawai", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">No Pegawai</a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_pegawai", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Pegawai</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Nama</a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_komponen", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Komponen</a>
                         </th>
-                        <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Email</a>
+                        <th class="hidden lg:table-cell p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "status", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Status</a>
+                        </th>
+                        <th class="hidden lg:table-cell lg:text-center p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "jumlah", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Jumlah</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()) {
-                        $id_pegawai = $row["id_pegawai"];
-                        $no_pegawai = $row["no_pegawai"];
-                        $nama       = $row["nama"];
-                        $email      = $row["email"];
+                        $id_pemesanan   = $row["id_pemesanan"];
+                        $nama_pegawai   = $row["nama_pegawai"];
+                        $nama_komponen  = $row["nama_komponen"];
+                        $jumlah         = $row["jumlah"];
+                        $status         = $row["status"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    No Pegawai
+                                    Pegawai
                                 </span>
-                                <?= $no_pegawai ?>
+                                <?= $nama_pegawai ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Nama
+                                    Komponen
                                 </span>
-                                <?= $nama ?>
-                            </td>
-                            <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Email
-                                </span>
-                                <?= $email  ?>
+                                <?= $nama_komponen ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
-                                <a href="view?id_pegawai=<?= $id_pegawai ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Status
+                                </span>
+                                <span class="rounded <?= get_status_bg_color($status) ?> text-white py-1 px-3 text-xs font-bold">
+                                    <?= $status ?>
+                                </span>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Jumlah
+                                </span>
+                                <?= $jumlah ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                                <a href="view?id_pemesanan=<?= $id_pemesanan ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
                                     <span class="mdi mdi-eye"></span>
                                 </a>
-                                <a href="update?id_pegawai=<?= $id_pegawai ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
+                                <a href="update?id_pemesanan=<?= $id_pemesanan ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
                                     <span class="mdi mdi-pencil"></span>
                                 </a>
-                                <a data-nama="<?= $nama ?>" href="delete?id_pegawai=<?= $id_pegawai ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
+                                <a data-nama="<?= $nama_komponen ?>" href="delete?id_pemesanan=<?= $id_pemesanan ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
                                     <span class="mdi mdi-trash-can"></span>
                                 </a>
                             </td>

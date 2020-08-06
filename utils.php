@@ -94,3 +94,9 @@ function clean($input)
 {
     return htmlspecialchars($input);
 }
+
+function convert_date($date_str)
+{
+    $date = date_create($date_str);
+    return date_format($date, "Y-m-d");
+}

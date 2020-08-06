@@ -25,7 +25,7 @@ if (isset($_POST["create_pemesanan"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $tanggal_pesan  = $_POST["tanggal_pesan"];
+        $tanggal_pesan  = convert_date($_POST["tanggal_pesan"]);
         $id_pegawai     = $_POST["id_pegawai"];
         $status         = $_POST["status"];
         $keterangan     = $connection->real_escape_string(clean($_POST["keterangan"]));
@@ -37,7 +37,7 @@ if (isset($_POST["create_pemesanan"])) {
         $r_check_pegawai = $connection->query($q_check_pegawai);
 
         // Check is komponen is valid
-        $q_check_komponen = "SELECT `id_komponen` FROM `komponen` WHERE `id_komponen` = '$komponen'";
+        $q_check_komponen = "SELECT `id_komponen` FROM `komponen` WHERE `id_komponen` = $id_komponen";
         $r_check_komponen = $connection->query($q_check_komponen);
 
         if ($r_check_pegawai && $r_check_pegawai->num_rows == 0) {
@@ -48,7 +48,7 @@ if (isset($_POST["create_pemesanan"])) {
             $q_insert_pemesanan = "INSERT INTO `pemesanan` 
                                         (`tanggal_pesan`, `id_pegawai`, `status`, `keterangan`)
                                     VALUES 
-                                        ($tanggal_pesan, $id_pegawai, '$status', '$keterangan')";
+                                        ('$tanggal_pesan', $id_pegawai, '$status', '$keterangan')";
             if ($connection->query($q_insert_pemesanan)) {
                 $last_insert_id = $connection->insert_id;
                 $q_insert_detail_pemesanan = "INSERT INTO `detail_pemesanan`
@@ -58,7 +58,15 @@ if (isset($_POST["create_pemesanan"])) {
                 if ($connection->query($q_insert_detail_pemesanan)) {
                     redirect("./");
                 }
+                // insert detail pemesanan failed
+                // else {
+                // echo $connection->error;
+                // }
             }
+            // insert pemesanan failed
+            // else {
+            // echo $connection->error;
+            // }
         }
     }
 }
@@ -145,7 +153,6 @@ $r_get_komponen = $connection->query($q_get_komponen);
 
             <label class="block" for="keterangan">Keterangan</label>
             <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan" style="min-height: 200px;"><?= $errors ? get_prev_field("keterangan") : "-" ?></textarea>
-
 
             <div class="border-b border-solid my-2 w-full"></div>
 

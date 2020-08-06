@@ -53,7 +53,7 @@ $search_query   = "SELECT
                         ON `pemesanan`.`id_pegawai` = `pegawai`.`id_pegawai`
                     INNER JOIN `komponen`
                         ON `detail_pemesanan`.`id_komponen` = `komponen`.`id_komponen`
-                    WHERE " . build_search_query($keyword, ["id_pemesanan", "`pegawai`.`nama_pegawai`", "email"]);
+                    WHERE " . build_search_query($keyword, ["`komponen`.`nama`", "`pegawai`.`nama`"]);
 
 if ($is_search_mode) {
     $count_all_result = $connection->query("SELECT * FROM ($search_query) AS `pemesanan_` ORDER BY $sort_by $asc");
@@ -136,7 +136,7 @@ $result = $connection->query($query);
                         <?php $asc_toggle = $asc == "asc" ? "desc" : "asc"  ?>
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_pegawai", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Pemesanan Barang</a>
+                            <a class="block" href="?<?= $url_query ?>">Pegawai</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_komponen", "asc" => $asc_toggle])) ?>

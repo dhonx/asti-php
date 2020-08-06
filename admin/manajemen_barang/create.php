@@ -88,7 +88,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <label class="block" for="kode_inventaris">Kode Inventaris <span class="text-red-500" title="Harus diisi">*</span></label>
             <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kode_inventaris" name="kode_inventaris" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("kode_inventaris") : "" ?>">
 
-            <label class="block" for="id_komponen">Barang <span class="text-red-500" title="Harus diisi">*</span></label>
+            <label class="block" for="id_komponen">Komponen <span class="text-red-500" title="Harus dipilih">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_komponen" name="id_komponen">
                 <?php $prev_value = $errors ? get_prev_field("id_komponen") : "" ?>
                 <?php while ($row = $r_get_komponen->fetch_assoc()) {

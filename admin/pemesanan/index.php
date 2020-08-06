@@ -109,7 +109,7 @@ $result = $connection->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Pegawai - ASTI</title>
+    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Pemesanan Barang - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -117,14 +117,14 @@ $result = $connection->query($query);
     <?php require_once "../../includes/loading.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Pegawai</h3>
+        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Pemesanan Barang</h3>
         <div class="flex my-4">
-            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Pegawai">
+            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Pemesanan Barang">
                 <span class="mdi align-middle mdi-plus"></span>
                 Tambah
             </a>
             <form class="flex ml-auto relative" method="get">
-                <input class="bg-gray-200 px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data pegawai" type="text" value="<?= $keyword ?>">
+                <input class="bg-gray-200 px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data pemesanan barang" type="text" value="<?= $keyword ?>">
                 <span class="absolute mdi mdi-magnify self-center" style="right:15px"></span>
             </form>
         </div>
@@ -136,7 +136,7 @@ $result = $connection->query($query);
                         <?php $asc_toggle = $asc == "asc" ? "desc" : "asc"  ?>
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_pegawai", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Pegawai</a>
+                            <a class="block" href="?<?= $url_query ?>">Pemesanan Barang</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_komponen", "asc" => $asc_toggle])) ?>
@@ -164,7 +164,7 @@ $result = $connection->query($query);
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Pegawai
+                                    Pemesanan Barang
                                 </span>
                                 <?= $nama_pegawai ?>
                             </td>

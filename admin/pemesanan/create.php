@@ -131,7 +131,17 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" min="1" minlength="1" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : "1" ?>">
 
             <label class="block" for="tanggal_pesan">Tanggal Pesan <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="tanggal_pesan" name="jumlah" required type="date" value="20-12-2011">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="tanggal_pesan" name="tanggal_pesan" required type="date" value="<?= $errors ? get_prev_field("tanggal_pesan") : "10" ?>">
+
+            <label class="block" for="status">Status <span class="text-red-500" title="Harus dipilih">*</span></label>
+            <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="status" name="status">
+                <?php $prev_value = $errors ? get_prev_field("status") : "" ?>
+                <option <?= $prev_value == "usulan" ? "selected" : "" ?> value="usulan">Usulan</option>
+                <option <?= $prev_value == "ditolak" ? "selected" : "" ?> value="ditolak">Ditolak</option>
+                <option <?= $prev_value == "ditunda" ? "selected" : "" ?> value="ditunda">Ditunda</option>
+                <option <?= $prev_value == "diterima" ? "selected" : "" ?> value="diterima">Diterima</option>
+                <option <?= $prev_value == "dalam proses pemesanan" ? "selected" : "" ?> value="dalam proses pemesanan">Dalam proses pemesanan</option>
+            </select>
 
             <label class="block" for="keterangan">Keterangan</label>
             <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan" style="min-height: 200px;"><?= $errors ? get_prev_field("keterangan") : "-" ?></textarea>

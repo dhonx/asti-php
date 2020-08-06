@@ -62,7 +62,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/pemesanan/", TRUE) ?>" href="<?= build_url("/admin/pemesanan") ?>" role="menuitem" title="Manajemen Barang">
+            <a class="<?= check_active_url("/admin/pemesanan/", TRUE) ?>" href="<?= build_url("/admin/pemesanan") ?>" role="menuitem" title="Pemesanan Barang">
                 <span class="mdi align-middle mdi-cart-arrow-down text-lg"></span>
                 <span class="lg:hidden label">Pemesanan</span>
             </a>

@@ -2,6 +2,7 @@
 require_once "../../utils.php";
 require_once "../../connection/connection.php";
 require_once "../../config.php";
+require_once "shared.php";
 require_once "../../vendor/autoload.php";
 
 authenticate(["super_admin", "admin"]);
@@ -15,6 +16,8 @@ $q_get_pemesanan = "SELECT
                 `pemesanan`.`id_pemesanan`,
                 `pemesanan`.`tanggal_pesan`,
                 `pemesanan`.`status`,
+                `pemesanan`.`tanggal_pesan`,
+                `pemesanan`.`keterangan`,
                 `pegawai`.`nama` AS nama_pegawai,
                 `komponen`.`nama` AS nama_komponen,
                 `detail_pemesanan`.`jumlah`
@@ -40,6 +43,8 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
     $nama_komponen  = $row["nama_komponen"];
     $jumlah         = $row["jumlah"];
     $status         = $row["status"];
+    $tanggal_pesan  = $row["tanggal_pesan"];
+    $keterangan     = $row["keterangan"];
 }
 ?>
 <!DOCTYPE html>
@@ -49,7 +54,7 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title>Detail Pegawai <?= $data["nama"] ?> - ASTI</title>
+    <title>Detail Pemesanan Barang <?= $nama_komponen ?> oleh <?= $nama_pegawai ?> - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -57,36 +62,42 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
     <?php require_once "../../includes/header.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="text-2xl font-bold py-2 page-header">Detail Pegawai <?= $data["nama"] ?></h3>
+        <h3 class="text-2xl font-bold py-2 page-header">Detail Pemesanan Barang <?= $nama_komponen ?> oleh <?= $nama_pegawai ?></h3>
 
         <div class="bg-white my-2 p-2 rounded-md">
             <div>
-                <span class="font-bold">Nama Pegawai:</span>
-                <span><?= $data["nama_pegawai"] ?></span>
+                <span class="font-bold">Barang:</span>
+                <span><?= $nama_komponen ?></span>
             </div>
             <div>
-                <span class="font-bold">Nama:</span>
-                <span><?= $data["nama"] ?></span>
+                <span class="font-bold">Dipesan oleh:</span>
+                <span><?= $nama_pegawai ?></span>
             </div>
-            <div class="mt-2">
-                <span class="font-bold">Email:</span>
-                <a href="mailto:<?= $data["email"] ?>"><?= $data["email"] ?></a>
+            <div>
+                <span class="font-bold">Jumlah:</span>
+                <span><?= $jumlah ?></span>
             </div>
-            <div class="mt-2">
-                <span class="font-bold">Tanggal dibuat:</span>
-                <span><?= $data["created_at"] ?></span>
+            <div>
+                <span class="font-bold">Tanggal Pesan:</span>
+                <span><?= $tanggal_pesan ?></span>
             </div>
-            <div class="mt-2">
-                <span class="font-bold">Tanggal terakhir diupdate:</span>
-                <span><?= $data["updated_at"] ?></span>
+            <div>
+                <span class="font-bold">Status:</span>
+                <span class="rounded <?= get_status_bg_color($status) ?> text-white py-1 px-3 text-xs font-bold">
+                    <?= $status ?>
+                </span>
+            </div>
+            <div>
+                <span class="font-bold">Keterangan:</span>
+                <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan" style="min-height: 200px;" readonly><?= $keterangan ?></textarea>
             </div>
             <div class="border border-b mt-2"></div>
             <div class="flex">
-                <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_pemesanan=<?= $data["id_pemesanan"] ?>" title="Ubah data ini">
+                <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_pemesanan=<?= $id_pemesanan ?>" title="Ubah data ini">
                     <span class="mdi align-middle mdi-pencil"></span>
                     Ubah
                 </a>
-                <a data-nama="<?= $data["nama"] ?>" class="active-scale bg-red-500 delete-link block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_pemesanan=<?= $data["id_pemesanan"] ?>" title="Hapus data ini">
+                <a data-nama="<?= $nama_komponen ?> oleh <?= $nama_pegawai ?>" class="active-scale bg-red-500 delete-link block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_pemesanan=<?= $id_pemesanan ?>" title="Hapus data ini">
                     <span class="mdi align-middle mdi-trash-can"></span>
                     Hapus
                 </a>

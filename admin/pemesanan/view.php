@@ -21,7 +21,8 @@ $q_get_pemesanan = "SELECT
                 `pegawai`.`nama` AS nama_pegawai,
                 `komponen`.`nama` AS nama_komponen,
                 `detail_pemesanan`.`jumlah`,
-                `detail_pemesanan`.`id_komponen`
+                `detail_pemesanan`.`id_komponen`,
+                `pemesanan`.`id_pegawai`
             FROM
                 `detail_pemesanan`
             INNER JOIN `pemesanan`
@@ -41,6 +42,7 @@ if ($r_get_pemesanan && $r_get_pemesanan->num_rows == 0) {
 while ($row = $r_get_pemesanan->fetch_assoc()) {
     $id_pemesanan   = $row["id_pemesanan"];
     $id_komponen    = $row["id_komponen"];
+    $id_pegawai     = $row["id_pegawai"];
     $nama_pegawai   = $row["nama_pegawai"];
     $nama_komponen  = $row["nama_komponen"];
     $jumlah         = $row["jumlah"];
@@ -75,6 +77,7 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
             <div>
                 <span class="font-bold">Dipesan oleh:</span>
                 <span><?= $nama_pegawai ?></span>
+                <a class="mdi mdi-open-in-new" href="../manajemen_pegawai/view?id_pegawai=<?= $id_pegawai ?>" title="Lihat detail pegawai ini"></a>
             </div>
             <div>
                 <span class="font-bold">Jumlah:</span>

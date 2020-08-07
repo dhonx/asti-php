@@ -7,7 +7,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["id_pemesanan", "tanggal_pesan", "nama", "email", "sandi"];
+$valid_columns  = ["nama_pegawai", "nama_komponen", "status", "jumlah"];
 $common_data    = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -42,7 +42,6 @@ if ($is_search_mode) {
 $total_items = $count_all_result->num_rows;
 $page_count  = get_page_count($total_items, $ipp);
 
-// If the requested page larger than counted page, goto the last page
 if ($page > $page_count) {
     $page = $page_count;
 }
@@ -51,13 +50,10 @@ $offset_limit = get_offset_limit($page, $ipp);
 $offset       = $offset_limit["offset"];
 $limit        = $offset_limit["limit"];
 
-// If on search mode
 if ($is_search_mode) {
-    // Search query
     $query = "$search_query LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `pemesanan_` ORDER BY $sort_by $asc";
 } else {
-    // Main query
     $query = "SELECT
                 `pemesanan`.`id_pemesanan`,
                 `pemesanan`.`tanggal_pesan`,
@@ -75,7 +71,6 @@ if ($is_search_mode) {
                 ON `detail_pemesanan`.`id_komponen` = `komponen`.`id_komponen`
             LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `pemesanan_` ORDER BY $sort_by $asc";
-    // $query = mysqli_escape_string($connection, $query);
 }
 
 $result = $connection->query($query);

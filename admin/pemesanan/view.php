@@ -20,7 +20,8 @@ $q_get_pemesanan = "SELECT
                 `pemesanan`.`keterangan`,
                 `pegawai`.`nama` AS nama_pegawai,
                 `komponen`.`nama` AS nama_komponen,
-                `detail_pemesanan`.`jumlah`
+                `detail_pemesanan`.`jumlah`,
+                `detail_pemesanan`.`id_komponen`
             FROM
                 `detail_pemesanan`
             INNER JOIN `pemesanan`
@@ -39,6 +40,7 @@ if ($r_get_pemesanan && $r_get_pemesanan->num_rows == 0) {
 
 while ($row = $r_get_pemesanan->fetch_assoc()) {
     $id_pemesanan   = $row["id_pemesanan"];
+    $id_komponen    = $row["id_komponen"];
     $nama_pegawai   = $row["nama_pegawai"];
     $nama_komponen  = $row["nama_komponen"];
     $jumlah         = $row["jumlah"];
@@ -68,6 +70,7 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
             <div>
                 <span class="font-bold">Barang:</span>
                 <span><?= $nama_komponen ?></span>
+                <a class="mdi mdi-open-in-new" href="../manajemen_komponen/view?id_komponen=<?= $id_komponen ?>" title="Lihat detail komponen ini"></a>
             </div>
             <div>
                 <span class="font-bold">Dipesan oleh:</span>

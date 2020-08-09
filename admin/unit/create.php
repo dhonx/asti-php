@@ -10,7 +10,7 @@ authenticate(["super_admin", "admin"]);
 
 $errors = [];
 
-if (isset($_POST["create_instansi"])) {
+if (isset($_POST["create_unit"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
     $validation = $validator->make($_POST, [
         "nama"     => "required|min:3",
@@ -70,7 +70,7 @@ if (isset($_POST["create_instansi"])) {
                     <span class="mdi align-middle mdi-notification-clear-all"></span>
                     Reset
                 </button>
-                <button class="active-scale bg-blue-900 font-bold block px-3 py-2 mx-1 my-2 text-white rounded-md" name="create_instansi" title="Tambah Unit" type="submit">
+                <button class="active-scale bg-blue-900 font-bold block px-3 py-2 mx-1 my-2 text-white rounded-md" name="create_unit" title="Tambah Unit" type="submit">
                     <span class="mdi align-middle mdi-plus"></span>
                     Tambah
                 </button>

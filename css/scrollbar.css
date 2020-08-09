@@ -1,0 +1,20 @@
+* ::-webkit-scrollbar {
+  width: 5px;
+}
+/* .theme--dark * ::-webkit-scrollbar-track {
+  background-color: #2c2727b6;
+} */
+/* .theme--light */
+* ::-webkit-scrollbar-track {
+  background-color: #d6c8c8b6;
+}
+* ::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+}
+/* .theme--dark * ::-webkit-scrollbar-thumb {
+  background-color: #8888888a;
+} */
+/* .theme--light */
+* ::-webkit-scrollbar-thumb {
+  background-color: #aaaaaa;
+}

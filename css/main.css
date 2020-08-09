@@ -1,4 +1,5 @@
 @import "animations.css";
+@import "scrollbar.css";
 
 @tailwind base;
 @tailwind components;

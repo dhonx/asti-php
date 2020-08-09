@@ -1,6 +1,7 @@
 (function () {
   "use strict";
   var baseLocation = [-10.1749491, 123.5796987],
+    mapEl = document.body.querySelector("#map"),
     fieldLatitude = document.body.querySelector("#latitude"),
     fieldLongitude = document.body.querySelector("#longitude");
 
@@ -19,4 +20,9 @@
     fieldLongitude.value = e.latlng.lng;
     marker.addTo(mymap);
   });
+
+  if (mapEl.dataset.latitude && mapEl.dataset.longitude) {
+    marker = L.marker([mapEl.dataset.latitude, mapEl.dataset.longitude]);
+    marker.addTo(mymap);
+  }
 })();

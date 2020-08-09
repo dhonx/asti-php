@@ -3,7 +3,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php [NC,L]
 IndexIgnore *.png *.zip *.jpg *.gif *.doc *.json
-<FilesMatch "\.(lock|json|js)$">
+<FilesMatch "\.(lock|json)$">
   Order allow,deny
   Deny from all
 </FilesMatch>

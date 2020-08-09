@@ -1,0 +1,22 @@
+(function () {
+  "use strict";
+  var baseLocation = [-10.1749491, 123.5796987],
+    fieldLatitude = document.body.querySelector("#latitude"),
+    fieldLongitude = document.body.querySelector("#longitude");
+
+  var mymap = L.map("map").setView(baseLocation, 13);
+  var layer = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '<a href="https://www.openstreetmap.org/copyright">@OpenStreetMap</a>',
+  });
+  layer.addTo(mymap);
+
+  var marker;
+  mymap.on("click", function (e) {
+    if (marker) mymap.removeLayer(marker);
+    marker = L.marker(e.latlng);
+    fieldLatitude.value = e.latlng.lat;
+    fieldLongitude.value = e.latlng.lng;
+    marker.addTo(mymap);
+  });
+})();

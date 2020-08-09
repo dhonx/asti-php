@@ -73,6 +73,12 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
                 <span class="lg:hidden label">Manajemen Unit</span>
             </a>
         </li>
+        <li>
+            <a class="<?= check_active_url("/admin/ruang/", TRUE) ?>" href="<?= build_url("/admin/ruang") ?>" role="menuitem" title="Pemesanan Barang">
+                <span class="mdi align-middle mdi-door text-lg"></span>
+                <span class="lg:hidden label">Ruang</span>
+            </a>
+        </li>
         <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">
             <a class="w-full" href="#" role="menuitem" title="Perluas">
                 <?php if ($sidenav_active) { ?>

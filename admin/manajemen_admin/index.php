@@ -135,16 +135,18 @@ $result = $connection->query($query);
                                     <?= $aktif == 1 ? "aktif" : "tidak aktif" ?>
                                 </span>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
-                                <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
-                                    <span class="mdi mdi-eye"></span>
-                                </a>
-                                <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
-                                    <span class="mdi mdi-pencil"></span>
-                                </a>
-                                <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
-                                    <span class="mdi mdi-trash-can"></span>
-                                </a>
+                            <td class="w-full lg:w-auto p-1 flex relative lg:static">
+                                <div class="ml-auto">
+                                    <a href="view?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
+                                        <span class="mdi mdi-eye"></span>
+                                    </a>
+                                    <a href="update?id_admin=<?= $id_admin ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
+                                        <span class="mdi mdi-pencil"></span>
+                                    </a>
+                                    <a data-nama="<?= $nama ?>" href="delete?id_admin=<?= $id_admin ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
+                                        <span class="mdi mdi-trash-can"></span>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php } ?>

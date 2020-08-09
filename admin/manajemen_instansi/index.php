@@ -142,28 +142,24 @@ $result = $connection->query($query);
                                 </span>
                                 <?= $alamat  ?>
                             </td>
-                            <!-- <td class="w-full lg:w-auto p-1 text-center lg:text-left block lg:table-cell relative lg:static">
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    No HP
-                                </span>
-                                <?= $no_telp ?>
-                            </td> -->
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute text-center top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Jumlah Peminjam
                                 </span>
                                 <?= $jumlah_peminjam ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
-                                <a href="view?id_instansi=<?= $id_instansi ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
-                                    <span class="mdi mdi-eye"></span>
-                                </a>
-                                <a href="update?id_instansi=<?= $id_instansi ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
-                                    <span class="mdi mdi-pencil"></span>
-                                </a>
-                                <a data-nama="<?= $nama ?>" href="delete?id_instansi=<?= $id_instansi ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
-                                    <span class="mdi mdi-trash-can"></span>
-                                </a>
+                            <td class="w-full lg:w-auto p-1 flex relative lg:static">
+                                <div class="ml-auto">
+                                    <a href="view?id_instansi=<?= $id_instansi ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
+                                        <span class="mdi mdi-eye"></span>
+                                    </a>
+                                    <a href="update?id_instansi=<?= $id_instansi ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
+                                        <span class="mdi mdi-pencil"></span>
+                                    </a>
+                                    <a data-nama="<?= $nama ?>" href="delete?id_instansi=<?= $id_instansi ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
+                                        <span class="mdi mdi-trash-can"></span>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php } ?>

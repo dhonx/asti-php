@@ -18,12 +18,12 @@ CREATE TABLE `admin` (
   `no_telp` text NOT NULL,
   `sandi` text NOT NULL,
   `aktif` tinyint(3) unsigned NOT NULL DEFAULT 0,
-  `tipe_admin` enum('admin','super_admin') NOT NULL DEFAULT 'admin',
+  `tipe_admin` enum('admin', 'super_admin') NOT NULL DEFAULT 'admin',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `email` (`email`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 29;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: barang
@@ -37,7 +37,7 @@ CREATE TABLE `barang` (
   `jumlah` int(10) unsigned NOT NULL,
   `harga_beli` int(11) NOT NULL,
   `aktif` tinyint(3) unsigned DEFAULT 1,
-  `kondisi` enum('baik','rusak_ringan','rusak_berat') NOT NULL DEFAULT 'baik',
+  `kondisi` enum('baik', 'rusak_ringan', 'rusak_berat') NOT NULL DEFAULT 'baik',
   `keterangan` text DEFAULT '-',
   `id_admin` int(10) unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
@@ -46,9 +46,13 @@ CREATE TABLE `barang` (
   UNIQUE KEY `kode_inventaris` (`kode_inventaris`) USING HASH,
   KEY `id_komponen` (`id_komponen`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE
+  SET
+  NULL ON UPDATE CASCADE,
+  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+  SET
+  NULL ON UPDATE CASCADE
+) AUTO_INCREMENT = 5;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: detail_pemesanan
@@ -63,7 +67,7 @@ CREATE TABLE `detail_pemesanan` (
   KEY `FK_KOMPONEN2` (`id_komponen`) USING BTREE,
   CONSTRAINT `FK_detail_pemesanan_komponen` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE CASCADE,
   CONSTRAINT `FK_detail_pemesanan_pemesanan` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: instansi
@@ -80,7 +84,7 @@ CREATE TABLE `instansi` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_instansi`),
   UNIQUE KEY `email` (`email`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 11;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: kategori
@@ -93,7 +97,7 @@ CREATE TABLE `kategori` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id_kategori`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 3;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: komponen
@@ -113,8 +117,10 @@ CREATE TABLE `komponen` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_komponen`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+  SET
+  NULL ON UPDATE CASCADE
+) AUTO_INCREMENT = 10;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pegawai
@@ -131,7 +137,7 @@ CREATE TABLE `pegawai` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_pegawai`),
   UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 15;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pemasok
@@ -145,15 +151,17 @@ CREATE TABLE `pemasok` (
   `alamat` text NOT NULL,
   `email` text NOT NULL,
   `nama_pemilik` text NOT NULL,
-  `aktif` tinyint(3) unsigned DEFAULT NULL,
-  `keterangan` text DEFAULT NULL,
+  `aktif` tinyint(3) unsigned DEFAULT 1,
+  `keterangan` text DEFAULT '-',
   `id_admin` int(10) unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_pemasok`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE
+  SET
+  NULL ON UPDATE CASCADE
+);
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pemesanan
@@ -164,12 +172,18 @@ CREATE TABLE `pemesanan` (
   `id_pemesanan` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_pegawai` int(10) unsigned NOT NULL,
   `tanggal_pesan` date NOT NULL DEFAULT curdate(),
-  `status` enum('usulan','diterima','dalam proses pemesanan','ditunda','ditolak') NOT NULL DEFAULT 'usulan',
+  `status` enum(
+  'usulan',
+  'diterima',
+  'dalam proses pemesanan',
+  'ditunda',
+  'ditolak'
+  ) NOT NULL DEFAULT 'usulan',
   `keterangan` text DEFAULT '-',
   PRIMARY KEY (`id_pemesanan`) USING BTREE,
   KEY `FK_PEGAWAI` (`id_pegawai`) USING BTREE,
   CONSTRAINT `FK_pemesanan_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: peminjam
@@ -190,9 +204,29 @@ CREATE TABLE `peminjam` (
   PRIMARY KEY (`id_peminjam`),
   KEY `id_kategori` (`id_kategori`),
   KEY `id_instansi` (`id_instansi`),
-  CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+  CONSTRAINT `peminjam_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE
+  SET
+  NULL ON UPDATE CASCADE,
+  CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE
+  SET
+  NULL ON UPDATE CASCADE
+) AUTO_INCREMENT = 22;
+
+# ------------------------------------------------------------
+# SCHEMA DUMP FOR TABLE: perolehan
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `perolehan`;
+CREATE TABLE `perolehan` (
+  `id_perolehan` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tanggal` datetime NOT NULL,
+  `id_pemasok` int(10) unsigned NOT NULL,
+  `status` enum('pembelian', 'bantuan', 'penyesuaian stok') NOT NULL DEFAULT 'pembelian',
+  `keterangan` text DEFAULT NULL,
+  PRIMARY KEY (`id_perolehan`) USING BTREE,
+  KEY `FK_PEMASOK` (`id_pemasok`) USING BTREE,
+  CONSTRAINT `FK_PEMASOK` FOREIGN KEY (`id_pemasok`) REFERENCES `asti`.`pemasok` (`id_pemasok`)
+);
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: ruang
@@ -209,7 +243,7 @@ CREATE TABLE `ruang` (
   PRIMARY KEY (`id_ruang`) USING BTREE,
   KEY `FK_UNIT2` (`id_unit`) USING BTREE,
   CONSTRAINT `FK_ruang_unit` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 10;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: unit
@@ -221,7 +255,7 @@ CREATE TABLE `unit` (
   `nama` text NOT NULL,
   `keterangan` text DEFAULT '-',
   PRIMARY KEY (`id_unit`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT = 9;
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: admin
@@ -1370,9 +1404,68 @@ VALUES
   );
 
 # ------------------------------------------------------------
+# DATA DUMP FOR TABLE: perolehan
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
 # DATA DUMP FOR TABLE: ruang
 # ------------------------------------------------------------
 
+INSERT INTO
+  `ruang` (
+    `id_ruang`,
+    `nama`,
+    `id_unit`,
+    `latitude`,
+    `longitude`,
+    `keterangan`
+  )
+VALUES
+  (
+    7,
+    'Ruang BAAK',
+    7,
+    '-10.191945586704984',
+    '123.55429175915721',
+    '-'
+  );
+INSERT INTO
+  `ruang` (
+    `id_ruang`,
+    `nama`,
+    `id_unit`,
+    `latitude`,
+    `longitude`,
+    `keterangan`
+  )
+VALUES
+  (
+    8,
+    'Ruangg BAUK',
+    8,
+    '-10.163222343967035',
+    '123.60184607838492',
+    '-'
+  );
+INSERT INTO
+  `ruang` (
+    `id_ruang`,
+    `nama`,
+    `id_unit`,
+    `latitude`,
+    `longitude`,
+    `keterangan`
+  )
+VALUES
+  (
+    9,
+    'Ruang BAAK 2',
+    7,
+    '-10.1905939626797',
+    '123.60167440214221',
+    '-'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: unit

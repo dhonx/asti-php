@@ -97,17 +97,27 @@ $result = $connection->query($query);
                             <a class="block" href="?<?= $url_query ?>">Nama Ruang</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "latitude", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Latitude</a>
+                        </th>
+                        <th class="hidden lg:table-cell lg:text-left p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "longitude", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Longitude</a>
+                        </th>
+                        <!-- <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "keterangan", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Keterangan</a>
-                        </th>
+                        </th> -->
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()) {
-                        $id_ruang        = $row["id_ruang"];
-                        $nama           = $row["nama"];
-                        $keterangan     = $row["keterangan"];
+                        $id_ruang   = $row["id_ruang"];
+                        $nama       = $row["nama"];
+                        $latitude   = $row["latitude"];
+                        $longitude  = $row["longitude"];
+                        $keterangan = $row["keterangan"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
@@ -118,10 +128,22 @@ $result = $connection->query($query);
                             </td>
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Latitude
+                                </span>
+                                <?= $latitude ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Longitude
+                                </span>
+                                <?= $longitude ?>
+                            </td>
+                            <!-- <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Keterangan
                                 </span>
                                 <?= $keterangan ?>
-                            </td>
+                            </td> -->
                             <td class="w-full lg:w-auto p-1 flex relative lg:static">
                                 <div class="ml-auto">
                                     <a href="view?id_ruang=<?= $id_ruang ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">

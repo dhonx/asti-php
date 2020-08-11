@@ -49,7 +49,7 @@ if (isset($_POST["update_unit"])) {
     }
 }
 
-while ($row = $r_get_instansi->fetch_assoc()) {
+while ($row = $r_get_unit->fetch_assoc()) {
     $data["nama"] = $row["nama"];
     $data["keterangan"] = $row["keterangan"];
 }

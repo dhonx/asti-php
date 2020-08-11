@@ -6,7 +6,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["id_pemasok"];
+$valid_columns  = ["id_pemasok", "nama", "email"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -18,15 +18,18 @@ $is_search_mode = $common_data["is_search_mode"];
 
 $search_query = "SELECT
                     `pemasok`.*
+                    `admin`.`nama` AS `nama_admin`
                 FROM
-                    `unit`
+                    `pemasok`
+                INNER JOIN `admin`
+                    ON `pemasok`.`id_admin` = `admin`.`id_admin`
                 WHERE  ";
-$search_query .= build_search_query($keyword, ["nama"]);
+$search_query .= build_search_query($keyword, ["nama", "email"]);
 
 if ($is_search_mode) {
-    $count_all_result  = $connection->query("SELECT * FROM ($search_query) AS `unit_` ORDER BY $sort_by $asc");
+    $count_all_result  = $connection->query("SELECT `id_pemasok` FROM ($search_query) AS `unit_` ORDER BY $sort_by $asc");
 } else {
-    $count_all_result  = $connection->query("SELECT * FROM `unit`");
+    $count_all_result  = $connection->query("SELECT `id_pemasok` FROM `pemasok`");
 }
 
 $total_items = $count_all_result->num_rows;
@@ -44,7 +47,14 @@ if ($is_search_mode) {
     $search_query .= " LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($search_query) AS `unit_` ORDER BY $sort_by $asc";
 } else {
-    $query = "SELECT * FROM `unit` LIMIT $limit OFFSET $offset";
+    $query = "SELECT
+                    `pemasok`.*,
+                    `admin`.`nama` AS `nama_admin`
+                FROM
+                    `pemasok`
+                INNER JOIN `admin`
+                    ON `pemasok`.`id_admin` = `admin`.`id_admin`
+                LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `unit_` ORDER BY $sort_by $asc";
 }
 
@@ -57,7 +67,7 @@ $result = $connection->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Unit - ASTI</title>
+    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Pemasok - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -65,7 +75,7 @@ $result = $connection->query($query);
     <?php require_once "../../includes/loading.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Unit</h3>
+        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Pemasok</h3>
         <div class="flex my-4">
             <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Barang">
                 <span class="mdi align-middle mdi-plus"></span>
@@ -82,9 +92,17 @@ $result = $connection->query($query);
                 <thead>
                     <tr class="bg-gray-200 font-bold">
                         <?php $asc_toggle = $asc == "asc" ? "desc" : "asc"  ?>
-                        <th class="hidden lg:table-cell lg:text-left p-2">
+                        <th class="lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Nama Unit</a>
+                            <a class="block" href="?<?= $url_query ?>">Nama</a>
+                        </th>
+                        <th class="lg:table-cell lg:text-left p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "email", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Email</a>
+                        </th>
+                        <th class="lg:table-cell lg:text-left p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "no_telp", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">No HP</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-left p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "keterangan", "asc" => $asc_toggle])) ?>
@@ -95,9 +113,13 @@ $result = $connection->query($query);
                 </thead>
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()) {
-                        $id_pemasok        = $row["id_pemasok"];
-                        $nama           = $row["nama"];
-                        $keterangan     = $row["keterangan"];
+                        $id_pemasok         = $row["id_pemasok"];
+                        $nama               = $row["nama"];
+                        $no_telp            = $row["no_telp"];
+                        $alamat             = $row["alamat"];
+                        $email              = $row["email"];
+                        $keterangan         = $row["keterangan"];
+                        $nama_admin         = $row["nama_admin"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
@@ -105,6 +127,18 @@ $result = $connection->query($query);
                                     Nama
                                 </span>
                                 <?= $nama ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Email
+                                </span>
+                                <?= $email ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    No HP
+                                </span>
+                                <?= $no_telp ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">

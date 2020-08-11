@@ -57,7 +57,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
         </li>
         <li>
             <a class="<?= check_active_url("/admin/manajemen_barang/", TRUE) ?>" href="<?= build_url("/admin/manajemen_barang") ?>" role="menuitem" title="Manajemen Barang">
-                <span class="mdi align-middle mdi-package text-lg"></span>
+                <span class="mdi align-middle mdi-ballot-outline text-lg"></span>
                 <span class="lg:hidden label">Manajemen Barang</span>
             </a>
         </li>
@@ -69,7 +69,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
         </li>
         <li>
             <a class="<?= check_active_url("/admin/unit/", TRUE) ?>" href="<?= build_url("/admin/unit") ?>" role="menuitem" title="Manajemen Unit">
-                <span class="mdi align-middle mdi-cart-arrow-down text-lg"></span>
+                <span class="mdi align-middle mdi-puzzle-outline text-lg"></span>
                 <span class="lg:hidden label">Manajemen Unit</span>
             </a>
         </li>
@@ -83,6 +83,12 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             <a class="<?= check_active_url("/admin/pemasok/", TRUE) ?>" href="<?= build_url("/admin/pemasok") ?>" role="menuitem" title="Manajemen Pemasok">
                 <span class="mdi align-middle mdi-truck text-lg"></span>
                 <span class="lg:hidden label">Pemasok</span>
+            </a>
+        </li>
+        <li>
+            <a class="<?= check_active_url("/admin/perolehan/", TRUE) ?>" href="<?= build_url("/admin/perolehan") ?>" role="menuitem" title="Manajemen Perolehan">
+                <span class="mdi align-middle mdi-package-down text-lg"></span>
+                <span class="lg:hidden label">Perolehan</span>
             </a>
         </li>
         <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">

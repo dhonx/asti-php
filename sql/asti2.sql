@@ -219,13 +219,14 @@ CREATE TABLE IF NOT EXISTS `pemasok` (
   CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti2.pemasok: ~2 rows (approximately)
+-- Dumping data for table asti2.pemasok: ~5 rows (approximately)
 /*!40000 ALTER TABLE `pemasok` DISABLE KEYS */;
 REPLACE INTO `pemasok` (`id_pemasok`, `nama`, `no_telp`, `alamat`, `email`, `nama_pemilik`, `aktif`, `keterangan`, `id_admin`, `created_at`, `updated_at`) VALUES
 	(1, 'Acer', '7364236452', 'ddsdvdsvdfvbr', 'support@acer.co.id', 'Stefan De Vrij', 0, '-', 1, '2020-08-11 10:22:48', '2020-08-11 11:36:38'),
 	(2, 'ASUS', '7374636434', 'dscsdvdvger', 'support@asus.co.id', 'Alexis Sanchez', 0, '-', 1, '2020-08-11 11:28:51', '2020-08-11 11:36:41'),
-	(3, 'Apple', '8435634563465', 'ndicbduvdgscgh', 'support@apple.com', 'Steve Jobs', 0, '-', 1, '2020-08-11 11:48:00', '2020-08-11 11:48:00'),
-	(4, 'Microsoft', '832734643256', 'abhscbdhs', 'support@microsoft.com', 'Bill Gates', 0, '-', 1, '2020-08-11 11:50:53', '2020-08-11 11:50:53');
+	(3, 'Apple', '8435634563465', 'ndicbduvdgscgh', 'support@apple.com', 'Steve Jobs', 1, '-', 1, '2020-08-11 11:48:00', '2020-08-11 12:06:15'),
+	(4, 'Microsoft', '832734643256', 'abhscbdhs', 'support@microsoft.com', 'Bill Gates', 1, '-', 1, '2020-08-11 11:50:53', '2020-08-11 11:54:05'),
+	(5, 'Adobe', '723743674673', 'sndcsfbdcdb', 'support@adobe.com', 'Kevin Prince', 1, '-', 1, '2020-08-11 11:52:42', '2020-08-11 11:52:42');
 /*!40000 ALTER TABLE `pemasok` ENABLE KEYS */;
 
 -- Dumping structure for table asti2.pemesanan

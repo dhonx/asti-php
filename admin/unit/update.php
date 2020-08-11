@@ -17,9 +17,9 @@ if (!isset($_GET["id_unit"]) && !is_numeric($_GET["id_unit"])) {
 
 $id_unit_to_update = $_GET["id_unit"];
 
-$q_get_instansi = "SELECT * FROM `unit` WHERE `id_unit` = $id_unit_to_update";
-$r_get_instansi = $connection->query($q_get_instansi);
-if ($r_get_instansi && $r_get_instansi->num_rows == 0) {
+$q_get_unit = "SELECT * FROM `unit` WHERE `id_unit` = $id_unit_to_update";
+$r_get_unit = $connection->query($q_get_unit);
+if ($r_get_unit && $r_get_unit->num_rows == 0) {
     redirect('./');
 }
 
@@ -36,7 +36,7 @@ if (isset($_POST["update_unit"])) {
         $nama       = $connection->real_escape_string(clean($_POST["nama"]));
         $keterangan = $connection->real_escape_string(clean($_POST["keterangan"]));
 
-        $q_update = "UPDATE
+        $q_update =     "UPDATE
                             `unit`
                         SET
                             `nama` = '$nama',

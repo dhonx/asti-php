@@ -77,7 +77,7 @@ $result = $connection->query($query);
     <main class="flex flex-auto flex-col main">
         <h3 class="font-bold page-header py-2 text-2xl">Manajemen Ruang</h3>
         <div class="flex my-4">
-            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Barang">
+            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Ruang">
                 <span class="mdi align-middle mdi-plus"></span>
                 Tambah
             </a>

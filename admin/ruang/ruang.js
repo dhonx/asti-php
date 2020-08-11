@@ -25,4 +25,15 @@
     marker = L.marker([mapEl.dataset.latitude, mapEl.dataset.longitude]);
     marker.addTo(mymap);
   }
+
+  if (mapEl.dataset.readonly) {
+    mymap.dragging.disable();
+    mymap.touchZoom.disable();
+    mymap.doubleClickZoom.disable();
+    mymap.scrollWheelZoom.disable();
+    mymap.boxZoom.disable();
+    mymap.keyboard.disable();
+    if (mymap.tap) mymap.tap.disable();
+    mapEl.style.cursor = "default";
+  }
 })();

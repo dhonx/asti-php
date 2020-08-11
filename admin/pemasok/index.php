@@ -6,7 +6,7 @@ require_once "../../common/page.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = ["id_pemasok", "nama", "email"];
+$valid_columns  = ["id_pemasok", "nama", "email", "no_telp", "keterangan"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];

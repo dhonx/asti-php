@@ -27,8 +27,9 @@ if (isset($_POST["create_pemasok"])) {
         $nama         = $connection->real_escape_string(clean($_POST["nama"]));
         $no_telp      = $_POST["nomor_hp"];
         $email        = $connection->real_escape_string(clean($_POST["email"]));
+        $alamat       = $connection->real_escape_string(clean($_POST["alamat"]));
         $nama_pemilik = $connection->real_escape_string(clean($_POST["nama_pemilik"]));
-        $status       = isset($_POST["aktif"]) ? 1 : 0;
+        $status       = isset($_POST["status"]) ? 1 : 0;
         $keterangan   = $connection->real_escape_string(clean($_POST["keterangan"]));
 
         $admin_email = $_SESSION["email"];
@@ -103,7 +104,7 @@ if (isset($_POST["create_pemasok"])) {
             <div class="mb-2">
                 <span class="block">Status</span>
                 <?php if ($errors) {
-                    $status_checked = get_prev_field("status") == "on";
+                    $status_checked = isset($_POST["status"]) && get_prev_field("status") == "on";
                 } else {
                     $status_checked = true;
                 } ?>

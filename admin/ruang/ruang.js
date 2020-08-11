@@ -26,7 +26,7 @@
   }
 
   if (isReadOnly) {
-    mymap.dragging.disable();
+    // mymap.dragging.disable();
     mymap.touchZoom.disable();
     mymap.doubleClickZoom.disable();
     mymap.scrollWheelZoom.disable();

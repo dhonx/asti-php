@@ -26,7 +26,7 @@
     marker.addTo(mymap);
   }
 
-  if (mapEl.dataset.readonly) {
+  if (mapEl.dataset.readonly == "true") {
     mymap.dragging.disable();
     mymap.touchZoom.disable();
     mymap.doubleClickZoom.disable();

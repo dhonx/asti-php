@@ -78,7 +78,7 @@ while ($row = $r_get_ruang->fetch_assoc()) {
             </div>
 
             <div class="flex mb-2 justify-center">
-                <div class="w-full rounded-md" data-latitude="<?= $data["latitude"] ?>" data-longitude="<?= $data["longitude"] ?>" id="map" style="height:100vh; max-height: 500px"></div>
+                <div class="w-full rounded-md" data-latitude="<?= $data["latitude"] ?>" data-longitude="<?= $data["longitude"] ?>" data-readonly="true" id="map" style="height:100vh; max-height: 500px"></div>
             </div>
 
             <div class="block mt-2">

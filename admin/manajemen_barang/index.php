@@ -151,18 +151,13 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "jumlah", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Jumlah</a>
                         </th>
-                        <th class="hidden lg:table-cell text-center p-2">
-                            <!-- <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "total", "asc" => $asc_toggle])) ?> -->
+                        <th class="hidden lg:table-cell text-center lg:text-left p-2">
                             <a class="block" href="?<?= $url_query ?>">Total</a>
                         </th>
                         <th class="hidden lg:table-cell p-2">
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "aktif", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Status</a>
                         </th>
-                        <!-- <th class="hidden lg:table-cell p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_admin", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Dibuat Oleh</a>
-                        </th> -->
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
@@ -201,7 +196,7 @@ $result = $connection->query($query);
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Harga
                                 </span>
-                                <?= $harga_beli ?>
+                                <?= number_format($harga_beli, 2) ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
@@ -209,11 +204,11 @@ $result = $connection->query($query);
                                 </span>
                                 <?= $jumlah ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-1 text-center block lg:text-left lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
                                     Total
                                 </span>
-                                <?= $total ?>
+                                <?= number_format($total, 2) ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute text-center top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">

@@ -85,7 +85,7 @@ $result = $connection->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Perolehan - ASTI</title>
+    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Perolehan Barang - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -93,9 +93,9 @@ $result = $connection->query($query);
     <?php require_once "../../includes/loading.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Perolehan</h3>
+        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Perolehan Barang</h3>
         <div class="flex my-4">
-            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Perolehan">
+            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Perolehan Barang">
                 <span class="mdi align-middle mdi-plus"></span>
                 Tambah
             </a>
@@ -203,7 +203,7 @@ $result = $connection->query($query);
                                     <a href="update?id_perolehan=<?= $id_perolehan ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
                                         <span class="mdi mdi-pencil"></span>
                                     </a>
-                                    <a data-nama="Perolehan <?= $nama_komponen ?> yang diperoleh pada tanggal <?= $tanggal ?>" href="delete?id_perolehan=<?= $id_perolehan ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
+                                    <a data-nama="Perolehan Barang <?= $nama_komponen ?> yang diperoleh pada tanggal <?= $tanggal ?>" href="delete?id_perolehan=<?= $id_perolehan ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
                                         <span class="mdi mdi-trash-can"></span>
                                     </a>
                                 </div>

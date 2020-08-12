@@ -117,8 +117,8 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <label class="block" for="kondisi">Kondisi <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kondisi" name="kondisi">
                 <option value="baik">Baik</option>
-                <option value="rusak_ringan">Rusak Ringan</option>
-                <option value="rusak_berat">Rusak Berat</option>
+                <option value="rusak ringan">Rusak Ringan</option>
+                <option value="rusak berat">Rusak Berat</option>
             </select>
 
             <span class="block">Status</span>

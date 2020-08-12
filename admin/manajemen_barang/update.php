@@ -147,8 +147,8 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kondisi" name="kondisi">
                 <?php $prev_value = $errors ? get_prev_field("kondisi") : $data["kondisi"] ?>
                 <option <?= $prev_value == "baik" ? "selected" : "" ?> value="baik">Baik</option>
-                <option <?= $prev_value == "rusak_ringan" ? "selected" : "" ?> value="rusak_ringan">Rusak Ringan</option>
-                <option <?= $prev_value == "rusak_berat" ? "selected" : "" ?> value="rusak_berat">Rusak Berat</option>
+                <option <?= $prev_value == "rusak ringan" ? "selected" : "" ?> value="rusak ringan">Rusak Ringan</option>
+                <option <?= $prev_value == "rusak berat" ? "selected" : "" ?> value="rusak berat">Rusak Berat</option>
             </select>
 
             <span class="block">Status</span>

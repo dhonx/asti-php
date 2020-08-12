@@ -15,6 +15,7 @@ if (isset($_POST["create_barang"])) {
     $validation = $validator->make($_POST, [
         "kode_inventaris" => "required",
         "id_komponen"     => "required|numeric",
+        "id_perolehan"    => "required|numeric",
         "jumlah"          => "required|numeric",
         "harga_beli"      => "required|numeric",
         "kondisi"         => ["required", $validator("in", ["baik", "rusak ringan", "rusak berat"])],
@@ -26,6 +27,7 @@ if (isset($_POST["create_barang"])) {
     } else {
         $kode_inventaris = $connection->real_escape_string(clean($_POST["kode_inventaris"]));
         $id_komponen     = $_POST["id_komponen"];
+        $id_perolehan    = $_POST["id_perolehan"];
         $jumlah          = $_POST["jumlah"];
         $harga_beli      = $_POST["harga_beli"];
         $kondisi         = $connection->real_escape_string($_POST["kondisi"]);
@@ -34,6 +36,8 @@ if (isset($_POST["create_barang"])) {
 
         $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris'";
         $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
+
+        // $q_check_perolehan = "SELECT `id_perolehan` FROM";
 
         if ($r_check_kode_inventaris && $r_check_kode_inventaris->num_rows != 0) {
             array_push($errors, "Kode inventaris $kode_inventaris sudah ada");
@@ -66,6 +70,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
+    <script defer src="https://unpkg.com/axios@0.16.1/dist/axios.min.js"></script>
     <title>Tambah Barang - ASTI</title>
 </head>
 
@@ -105,11 +110,14 @@ $r_get_komponen = $connection->query($q_get_komponen);
                 <a href="../manajemen_komponen/create">Tambahkan komponen baru jika tidak ada</a>
             </div>
 
+            <label class="block" for="id_perolehan">Perolehan <span class="text-red-500" title="Harus dipilih">*</span></label>
+            <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_perolehan" name="id_perolehan"></select>
+
             <label class="block" for="harga_beli">Harga Beli <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 px-3 py-2 mb-2 rounded-md w-full" id="harga_beli" min="0.00" max="100.000.0000" name="harga_beli" required spellcheck="false" step="0.01" type="number" value="<?= $errors ? get_prev_field("harga_beli") : "" ?>">
 
             <label class="block" for="jumlah">Jumlah <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : "" ?>">
+            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : 1 ?>">
 
             <div>Total</div>
             <output class="bg-gray-200 block px-3 py-2 mb-2 rounded-md w-full" for="harga_beli jumlah" id="total" name="total">0</output>
@@ -127,7 +135,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <label class="cursor-pointer inline-block w-11/12" for="status">Aktif</label>
 
             <label class="block" for="keterangan">Keterangan</label>
-            <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan" style="min-height: 200px;"><?= $errors ? get_prev_field("keterangan") : "" ?></textarea>
+            <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="keterangan" name="keterangan" style="min-height: 200px;"><?= $errors ? get_prev_field("keterangan") : "-" ?></textarea>
 
             <div class="border-b border-solid my-2 w-full"></div>
 
@@ -145,6 +153,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
     </main>
     <?php require_once "../../includes/scripts.php" ?>
     <?php require_once "script.php" ?>
+    <script defer src="<?= build_url("/admin/manajemen_barang/get_perolehan.js") ?>"></script>
 </body>
 
 </html>

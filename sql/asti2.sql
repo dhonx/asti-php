@@ -1,13 +1,23 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.4.13-MariaDB - Source distribution
+-- Server OS:                    Linux
+-- HeidiSQL Version:             11.0.0.5919
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Dumping database structure for asti2
 DROP DATABASE IF EXISTS `asti2`;
 CREATE DATABASE IF NOT EXISTS `asti2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `asti2`;
 
+-- Dumping structure for table asti2.admin
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -23,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   UNIQUE KEY `email` (`email`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.admin: ~18 rows (approximately)
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, `tipe_admin`, `created_at`, `updated_at`) VALUES
 	(1, 'Don Nisnoni', 'donnisnoni.tid3@gmail.com', '081234567892', '$2y$10$UxxptXtGbiP1sEluVpua8uTA.Y6x91taXvqU3rgvLGvDZVIkLN63G', 1, 'super_admin', '2020-07-22 22:20:01', '2020-07-22 22:20:01'),
@@ -45,15 +56,17 @@ REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, 
 	(26, 'Chicko Jeriko', 'chicko.jeriko@gmail.com', '111111111111', '$2y$10$LYOrqrFJCvAsy9YBHkJDgewTshq0nbmqlAdAoQDZkw3IDsorrgRAq', 1, 'admin', '2020-07-25 23:46:44', '2020-07-28 23:36:28');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.barang
 DROP TABLE IF EXISTS `barang`;
 CREATE TABLE IF NOT EXISTS `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `kode_inventaris` text NOT NULL,
+  `id_perolehan` int(10) unsigned NOT NULL,
   `id_komponen` int(10) unsigned DEFAULT NULL,
   `jumlah` int(10) unsigned NOT NULL,
   `harga_beli` int(11) NOT NULL,
   `aktif` tinyint(3) unsigned DEFAULT 1,
-  `kondisi` enum('baik','rusak_ringan','rusak_berat') NOT NULL DEFAULT 'baik',
+  `kondisi` enum('baik','rusak ringan','rusak berat') NOT NULL DEFAULT 'baik',
   `keterangan` text DEFAULT '-',
   `id_admin` int(10) unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
@@ -62,18 +75,17 @@ CREATE TABLE IF NOT EXISTS `barang` (
   UNIQUE KEY `kode_inventaris` (`kode_inventaris`) USING HASH,
   KEY `id_komponen` (`id_komponen`),
   KEY `id_admin` (`id_admin`),
+  KEY `barang_ibfk_3` (`id_perolehan`),
   CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `barang_ibfk_3` FOREIGN KEY (`id_perolehan`) REFERENCES `perolehan` (`id_perolehan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.barang: ~0 rows (approximately)
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
-REPLACE INTO `barang` (`id_barang`, `kode_inventaris`, `id_komponen`, `jumlah`, `harga_beli`, `aktif`, `kondisi`, `keterangan`, `id_admin`, `created_at`, `updated_at`) VALUES
-	(1, '62degvfqf3', 1, 20, 10000, 1, 'baik', '-', 1, '2020-08-03 15:25:28', '2020-08-03 15:38:51'),
-	(2, 'e26354dsdcdscx', 1, 2, 10000000, 1, 'baik', '-', 1, '2020-08-04 10:53:05', '2020-08-04 12:00:29'),
-	(3, 'e26354dsdcdsc', 5, 10, 80000, 0, 'baik', '-', 1, '2020-08-04 11:52:56', '2020-08-04 11:53:58'),
-	(4, 'e26354dsdcdscsx', 9, 2, 20000, 0, 'baik', '-', 1, '2020-08-04 12:14:00', '2020-08-05 17:49:54');
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.detail_pemesanan
 DROP TABLE IF EXISTS `detail_pemesanan`;
 CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   `id_pemesanan` int(10) unsigned NOT NULL,
@@ -85,12 +97,14 @@ CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   CONSTRAINT `FK_detail_pemesanan_pemesanan` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.detail_pemesanan: ~2 rows (approximately)
 /*!40000 ALTER TABLE `detail_pemesanan` DISABLE KEYS */;
 REPLACE INTO `detail_pemesanan` (`id_pemesanan`, `id_komponen`, `jumlah`) VALUES
 	(2, 1, 4),
 	(3, 7, 3);
 /*!40000 ALTER TABLE `detail_pemesanan` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.detail_perolehan
 DROP TABLE IF EXISTS `detail_perolehan`;
 CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL,
@@ -103,12 +117,16 @@ CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   CONSTRAINT `FK_detail_perolehan_perolehan` FOREIGN KEY (`id_perolehan`) REFERENCES `perolehan` (`id_perolehan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.detail_perolehan: ~3 rows (approximately)
 /*!40000 ALTER TABLE `detail_perolehan` DISABLE KEYS */;
 REPLACE INTO `detail_perolehan` (`id_perolehan`, `id_komponen`, `harga_beli`, `jumlah`) VALUES
 	(7, 1, 4000000, 2),
-	(8, 6, 12000000, 2);
+	(8, 6, 12000000, 2),
+	(9, 1, 5000000, 5),
+	(10, 7, 3500000, 2);
 /*!40000 ALTER TABLE `detail_perolehan` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.instansi
 DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE IF NOT EXISTS `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -122,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `instansi` (
   UNIQUE KEY `email` (`email`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.instansi: ~8 rows (approximately)
 /*!40000 ALTER TABLE `instansi` DISABLE KEYS */;
 REPLACE INTO `instansi` (`id_instansi`, `nama`, `email`, `alamat`, `no_telp`, `created_at`, `updated_at`) VALUES
 	(1, 'Internal', '-', '-', '-', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -134,6 +153,7 @@ REPLACE INTO `instansi` (`id_instansi`, `nama`, `email`, `alamat`, `no_telp`, `c
 	(8, 'Politeknik Pertanian Negeri Kupang', 'politanikoe@yahoo.com', 'Jl. Adisucipto - Penfui ', '380881600', '2020-07-28 22:49:14', '2020-07-28 22:49:14');
 /*!40000 ALTER TABLE `instansi` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.kategori
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE IF NOT EXISTS `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -143,12 +163,14 @@ CREATE TABLE IF NOT EXISTS `kategori` (
   PRIMARY KEY (`id_kategori`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.kategori: ~2 rows (approximately)
 /*!40000 ALTER TABLE `kategori` DISABLE KEYS */;
 REPLACE INTO `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`) VALUES
 	(1, 'Internal', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(2, 'Eksternal', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.komponen
 DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE IF NOT EXISTS `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -166,6 +188,7 @@ CREATE TABLE IF NOT EXISTS `komponen` (
   CONSTRAINT `komponen_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.komponen: ~5 rows (approximately)
 /*!40000 ALTER TABLE `komponen` DISABLE KEYS */;
 REPLACE INTO `komponen` (`id_komponen`, `nama`, `tipe`, `merek`, `spesifikasi`, `keterangan`, `aktif`, `id_admin`, `created_at`, `updated_at`) VALUES
 	(1, 'Laptop Acer E5-471', 'E5-471', 'ACER', 'Operating System:  Linpus™ Linux®\nProcessor Manufacturer: Intel®\nProcessor Type: Core™ i3\nProcessor Model: i3-4030U\nProcessor Speed: 1.80 GHz\nGraphics Controller Manufacturer: Intel®\nGraphics Memory Technology: DDR3 SDRAM\nGraphics Memory Accessibility: Shared\nScreen Size: 35.6 cm (14")\nDisplay Screen Type: LCD\nDisplay Screen Technology: CineCrystal\nScreen Mode: HD\nBacklight Technology: LED\nScreen Resolution: 1366 x 768\nStandard Memory: 4 GB\nMemory Technology: DDR3L SDRAM\nNumber of Total Memory Slots: 2\nMemory Card Reader: Yes\nMemory Card Supported: Secure Digital (SD) Card\nTotal Hard Drive Capacity: 500 GB\nOptical Drive Type: DVD-Writer\nWireless LAN Standard: IEEE 802.11b/g/n\nEthernet Technology: Gigabit Ethernet\nMicrophone: Yes\nFinger Print Reader: No\nHDMI: Yes\nVGA: Yes\nTotal Number of USB Ports: 3\nNetwork (RJ-45): Yes\nOperating System: Linpus™ Linux®\nPointing Device Type: TouchPad\nKeyboard: Yes\nNumber of Cells: 6-cell\nBattery Chemistry: Lithium Ion (Li-Ion)\nBattery Capacity: 2500 mAh\nMaximum Power Supply Wattage: 40 W\nHeight: 30.30 mm\nHeight (Front): 25.30 mm\nHeight (Rear): 30.30 mm\nWidth: 346 mm\nDepth: 248 mm\nWeight (Approximate): 2.30 kg\nColour: Red\nWireless LAN: Acer Nplify 802.11b/g/nxxxx', '-', 1, 1, '2020-06-25 15:30:36', '2020-06-25 15:30:36'),
@@ -175,6 +198,7 @@ REPLACE INTO `komponen` (`id_komponen`, `nama`, `tipe`, `merek`, `spesifikasi`, 
 	(9, 'Laptop HP 14-BS007TU', '14-BS007TU', 'HP', '500 GB 5400 rpm SATA\r\nIntel Pentium N3710 (1.6 GHz, up to 2.56 GHz, 2 MB cache, 4 cores)\r\nIntel HD Graphics 405\r\n14&quot;&quot; diagonal HD SVA BrightView WLED-backlit', '', 1, 1, '2020-08-02 22:40:51', '2020-08-02 22:40:51');
 /*!40000 ALTER TABLE `komponen` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.pegawai
 DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE IF NOT EXISTS `pegawai` (
   `id_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -188,6 +212,7 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.pegawai: ~3 rows (approximately)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama`, `email`, `sandi`, `created_at`, `updated_at`) VALUES
 	(12, '1513001600', 'Bryan Adams', 'bryanadams@gmail.com', '$2y$10$7WTRuelkRVRZK4IiVQmsmej7EDd4u6.l84xcblChs7u0Bdg.U.Jeu', '2020-07-30 11:03:35', '2020-07-30 11:03:35'),
@@ -195,6 +220,7 @@ REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama`, `email`, `sandi`, `c
 	(14, '1513001900', 'Scott Adkins', 'scottadkins@gmail.com', '$2y$10$Bx89ShwYaCvVPzKmPS1J2er2y6vYfeD.RNqgBvPosrrl7thHqSUg6', '2020-07-30 12:08:51', '2020-07-30 12:08:51');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.pemasok
 DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE IF NOT EXISTS `pemasok` (
   `id_pemasok` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -213,6 +239,7 @@ CREATE TABLE IF NOT EXISTS `pemasok` (
   CONSTRAINT `pemasok_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.pemasok: ~5 rows (approximately)
 /*!40000 ALTER TABLE `pemasok` DISABLE KEYS */;
 REPLACE INTO `pemasok` (`id_pemasok`, `nama`, `no_telp`, `alamat`, `email`, `nama_pemilik`, `aktif`, `keterangan`, `id_admin`, `created_at`, `updated_at`) VALUES
 	(1, 'Acer', '7364236452', 'ddsdvdsvdfvbr', 'support@acer.co.id', 'Stefan De Vrij', 0, '-', 1, '2020-08-11 10:22:48', '2020-08-11 11:36:38'),
@@ -222,6 +249,7 @@ REPLACE INTO `pemasok` (`id_pemasok`, `nama`, `no_telp`, `alamat`, `email`, `nam
 	(5, 'Adobe', '723743674673', 'sndcsfbdcdb', 'support@adobe.com', 'Kevin Prince', 1, '-', 1, '2020-08-11 11:52:42', '2020-08-11 11:52:42');
 /*!40000 ALTER TABLE `pemasok` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.pemesanan
 DROP TABLE IF EXISTS `pemesanan`;
 CREATE TABLE IF NOT EXISTS `pemesanan` (
   `id_pemesanan` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -234,12 +262,14 @@ CREATE TABLE IF NOT EXISTS `pemesanan` (
   CONSTRAINT `FK_pemesanan_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.pemesanan: ~2 rows (approximately)
 /*!40000 ALTER TABLE `pemesanan` DISABLE KEYS */;
 REPLACE INTO `pemesanan` (`id_pemesanan`, `id_pegawai`, `tanggal_pesan`, `status`, `keterangan`) VALUES
 	(2, 12, '2020-08-27', 'dalam proses pemesanan', '-'),
 	(3, 13, '2020-08-14', 'usulan', '-');
 /*!40000 ALTER TABLE `pemesanan` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.peminjam
 DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE IF NOT EXISTS `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -259,6 +289,7 @@ CREATE TABLE IF NOT EXISTS `peminjam` (
   CONSTRAINT `peminjam_ibfk_2` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.peminjam: ~6 rows (approximately)
 /*!40000 ALTER TABLE `peminjam` DISABLE KEYS */;
 REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `email`, `jabatan`, `no_telp`, `sandi`, `id_instansi`, `id_kategori`, `created_at`, `updated_at`) VALUES
 	(14, 'Gregorius Nahak', 'gregoriusnahak@gmail.com', 'Mahasiswa', '08136353421', '$2b$10$igQPRch5PfQwlOKHwxB49O3sEDANOzp1XX2.FGlBXabpT8Q59L65q', 6, 2, '2020-07-30 22:36:50', '2020-08-02 03:46:24'),
@@ -269,11 +300,12 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `email`, `jabatan`, `no_telp`, `
 	(20, 'Zayn Malik', 'zaynmalik@gmail.com', 'Mahasiswa', '999999999999', '$2y$10$tpva6aklYtWom53WDNUcJOIB29.9WjmCI91YqUZpY5mVp7Kiilq3y', 8, 2, '2020-07-31 11:02:51', '2020-08-02 00:42:36');
 /*!40000 ALTER TABLE `peminjam` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.perolehan
 DROP TABLE IF EXISTS `perolehan`;
 CREATE TABLE IF NOT EXISTS `perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_pemasok` int(10) unsigned NOT NULL,
-  `tanggal` date NOT NULL DEFAULT current_timestamp(),
+  `tanggal` date NOT NULL DEFAULT curdate(),
   `status` enum('pembelian','bantuan','penyesuaian stok') NOT NULL DEFAULT 'pembelian',
   `keterangan` text DEFAULT '-',
   PRIMARY KEY (`id_perolehan`) USING BTREE,
@@ -281,12 +313,16 @@ CREATE TABLE IF NOT EXISTS `perolehan` (
   CONSTRAINT `FK_perolehan_pemasok` FOREIGN KEY (`id_pemasok`) REFERENCES `pemasok` (`id_pemasok`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.perolehan: ~3 rows (approximately)
 /*!40000 ALTER TABLE `perolehan` DISABLE KEYS */;
 REPLACE INTO `perolehan` (`id_perolehan`, `id_pemasok`, `tanggal`, `status`, `keterangan`) VALUES
 	(7, 1, '2020-08-11', 'pembelian', '-'),
-	(8, 3, '2020-08-20', 'bantuan', '-');
+	(8, 3, '2020-08-20', 'bantuan', '-'),
+	(9, 1, '2020-08-13', 'bantuan', '-'),
+	(10, 2, '2020-08-29', 'bantuan', '-');
 /*!40000 ALTER TABLE `perolehan` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.ruang
 DROP TABLE IF EXISTS `ruang`;
 CREATE TABLE IF NOT EXISTS `ruang` (
   `id_ruang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -300,6 +336,7 @@ CREATE TABLE IF NOT EXISTS `ruang` (
   CONSTRAINT `FK_ruang_unit` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.ruang: ~3 rows (approximately)
 /*!40000 ALTER TABLE `ruang` DISABLE KEYS */;
 REPLACE INTO `ruang` (`id_ruang`, `nama`, `id_unit`, `latitude`, `longitude`, `keterangan`) VALUES
 	(7, 'Ruang BAAK', 7, '-10.191945586704984', '123.55429175915721', '-'),
@@ -307,6 +344,7 @@ REPLACE INTO `ruang` (`id_ruang`, `nama`, `id_unit`, `latitude`, `longitude`, `k
 	(9, 'Ruang BAAK 2', 7, '-10.1905939626797', '123.60167440214221', '-');
 /*!40000 ALTER TABLE `ruang` ENABLE KEYS */;
 
+-- Dumping structure for table asti2.unit
 DROP TABLE IF EXISTS `unit`;
 CREATE TABLE IF NOT EXISTS `unit` (
   `id_unit` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -315,6 +353,7 @@ CREATE TABLE IF NOT EXISTS `unit` (
   PRIMARY KEY (`id_unit`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Dumping data for table asti2.unit: ~2 rows (approximately)
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
 REPLACE INTO `unit` (`id_unit`, `nama`, `keterangan`) VALUES
 	(7, 'BAAK', '-'),

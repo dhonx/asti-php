@@ -1,23 +1,13 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.4.13-MariaDB - Source distribution
--- Server OS:                    Linux
--- HeidiSQL Version:             11.0.0.5919
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for asti
 DROP DATABASE IF EXISTS `asti`;
-CREATE DATABASE IF NOT EXISTS `asti` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE IF NOT EXISTS `asti` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `asti`;
 
--- Dumping structure for table asti.admin
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -29,9 +19,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `tipe_admin` enum('super admin','admin') NOT NULL DEFAULT 'admin',
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `email` (`email`(3072)) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.admin: ~11 rows (approximately)
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, `tipe_admin`) VALUES
 	(1, 'Don Nisnoni', 'donnisnoni.tid3@gmail.com', '081234567892', '$2b$10$7BIVDCVuJb9KHcqmBtDugexESgrobiYrYHj62oM6vRVesoM8fbZ/K', 1, 'super admin'),
@@ -47,7 +36,6 @@ REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, 
 	(20, 'Randy Orton', 'randi-orton@yahoo.com', '084376436646', '$2b$10$R7.MGH2bCCNKBFqAEpi1bu8bXUYZj5zf7NNAb9EU.Wj.SGh7iooHW', 1, 'admin');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
--- Dumping structure for table asti.barang
 DROP TABLE IF EXISTS `barang`;
 CREATE TABLE IF NOT EXISTS `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -67,13 +55,11 @@ CREATE TABLE IF NOT EXISTS `barang` (
   CONSTRAINT `FK_ADMIN` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`),
   CONSTRAINT `FK_KOMPONEN` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`),
   CONSTRAINT `FK_PEROLEHAN` FOREIGN KEY (`id_perolehan`) REFERENCES `perolehan` (`id_perolehan`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.barang: ~0 rows (approximately)
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
--- Dumping structure for table asti.detail_mutasi_barang
 DROP TABLE IF EXISTS `detail_mutasi_barang`;
 CREATE TABLE IF NOT EXISTS `detail_mutasi_barang` (
   `id_mutasi_barang` int(10) unsigned NOT NULL,
@@ -87,11 +73,9 @@ CREATE TABLE IF NOT EXISTS `detail_mutasi_barang` (
   CONSTRAINT `FK_RUANG` FOREIGN KEY (`id_ruang`) REFERENCES `ruang` (`id_ruang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.detail_mutasi_barang: ~0 rows (approximately)
 /*!40000 ALTER TABLE `detail_mutasi_barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_mutasi_barang` ENABLE KEYS */;
 
--- Dumping structure for table asti.detail_pembuangan
 DROP TABLE IF EXISTS `detail_pembuangan`;
 CREATE TABLE IF NOT EXISTS `detail_pembuangan` (
   `id_pembuangan` int(10) unsigned NOT NULL,
@@ -104,11 +88,9 @@ CREATE TABLE IF NOT EXISTS `detail_pembuangan` (
   CONSTRAINT `FK_PEMBUANGAN` FOREIGN KEY (`id_pembuangan`) REFERENCES `pembuangan` (`id_pembuangan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.detail_pembuangan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `detail_pembuangan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_pembuangan` ENABLE KEYS */;
 
--- Dumping structure for table asti.detail_pemesanan
 DROP TABLE IF EXISTS `detail_pemesanan`;
 CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   `id_pemesanan` int(10) unsigned NOT NULL,
@@ -120,11 +102,9 @@ CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   CONSTRAINT `FK_PEMESANAN` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.detail_pemesanan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `detail_pemesanan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_pemesanan` ENABLE KEYS */;
 
--- Dumping structure for table asti.detail_peminjaman
 DROP TABLE IF EXISTS `detail_peminjaman`;
 CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
   `id_detail_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -138,11 +118,9 @@ CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
   CONSTRAINT `FK_BARANG3` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.detail_peminjaman: ~0 rows (approximately)
 /*!40000 ALTER TABLE `detail_peminjaman` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_peminjaman` ENABLE KEYS */;
 
--- Dumping structure for table asti.detail_perolehan
 DROP TABLE IF EXISTS `detail_perolehan`;
 CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL,
@@ -155,11 +133,9 @@ CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   CONSTRAINT `FK_ORDER2` FOREIGN KEY (`id_perolehan`) REFERENCES `perolehan` (`id_perolehan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.detail_perolehan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `detail_perolehan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_perolehan` ENABLE KEYS */;
 
--- Dumping structure for table asti.instansi
 DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE IF NOT EXISTS `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -168,9 +144,8 @@ CREATE TABLE IF NOT EXISTS `instansi` (
   `email` text NOT NULL,
   `no_telp` text NOT NULL,
   PRIMARY KEY (`id_instansi`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.instansi: ~3 rows (approximately)
 /*!40000 ALTER TABLE `instansi` DISABLE KEYS */;
 REPLACE INTO `instansi` (`id_instansi`, `nama`, `alamat`, `email`, `no_telp`) VALUES
 	(1, 'Internal', '-', '-', '-'),
@@ -178,22 +153,19 @@ REPLACE INTO `instansi` (`id_instansi`, `nama`, `alamat`, `email`, `no_telp`) VA
 	(3, 'Universitas Nusa Cendana', 'Jl. Adisucipto - Penfui', 'info@undana.ac.id', '+82380 881580');
 /*!40000 ALTER TABLE `instansi` ENABLE KEYS */;
 
--- Dumping structure for table asti.kategori
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE IF NOT EXISTS `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` varchar(150) NOT NULL,
   PRIMARY KEY (`id_kategori`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table asti.kategori: ~2 rows (approximately)
 /*!40000 ALTER TABLE `kategori` DISABLE KEYS */;
 REPLACE INTO `kategori` (`id_kategori`, `nama`) VALUES
 	(1, 'Internal'),
 	(2, 'Eksternal');
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 
--- Dumping structure for table asti.komponen
 DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE IF NOT EXISTS `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -207,13 +179,11 @@ CREATE TABLE IF NOT EXISTS `komponen` (
   PRIMARY KEY (`id_komponen`),
   KEY `admin` (`id_admin`),
   CONSTRAINT `admin` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.komponen: ~0 rows (approximately)
 /*!40000 ALTER TABLE `komponen` DISABLE KEYS */;
 /*!40000 ALTER TABLE `komponen` ENABLE KEYS */;
 
--- Dumping structure for table asti.mutasi_barang
 DROP TABLE IF EXISTS `mutasi_barang`;
 CREATE TABLE IF NOT EXISTS `mutasi_barang` (
   `id_mutasi_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -226,13 +196,11 @@ CREATE TABLE IF NOT EXISTS `mutasi_barang` (
   PRIMARY KEY (`id_mutasi_barang`),
   KEY `FK_ADMIN2` (`id_admin`),
   CONSTRAINT `FK_ADMIN2` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.mutasi_barang: ~0 rows (approximately)
 /*!40000 ALTER TABLE `mutasi_barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mutasi_barang` ENABLE KEYS */;
 
--- Dumping structure for table asti.mutasi_pegawai
 DROP TABLE IF EXISTS `mutasi_pegawai`;
 CREATE TABLE IF NOT EXISTS `mutasi_pegawai` (
   `id_mutasi_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -247,11 +215,9 @@ CREATE TABLE IF NOT EXISTS `mutasi_pegawai` (
   CONSTRAINT `FK_UNIT` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.mutasi_pegawai: ~0 rows (approximately)
 /*!40000 ALTER TABLE `mutasi_pegawai` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mutasi_pegawai` ENABLE KEYS */;
 
--- Dumping structure for table asti.pegawai
 DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE IF NOT EXISTS `pegawai` (
   `id_pegawai` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -259,9 +225,8 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   `nama_pegawai` text NOT NULL,
   PRIMARY KEY (`id_pegawai`),
   UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.pegawai: ~6 rows (approximately)
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
 REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama_pegawai`) VALUES
 	(1, '6437474375734643', 'Kevin Clark'),
@@ -272,7 +237,6 @@ REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama_pegawai`) VALUES
 	(9, '7364635245', 'Hendri Asam');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
--- Dumping structure for table asti.pemasok
 DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE IF NOT EXISTS `pemasok` (
   `id_pemasok` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -287,13 +251,11 @@ CREATE TABLE IF NOT EXISTS `pemasok` (
   PRIMARY KEY (`id_pemasok`),
   KEY `admin_` (`id_admin`),
   CONSTRAINT `admin_` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.pemasok: ~0 rows (approximately)
 /*!40000 ALTER TABLE `pemasok` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pemasok` ENABLE KEYS */;
 
--- Dumping structure for table asti.pembuangan
 DROP TABLE IF EXISTS `pembuangan`;
 CREATE TABLE IF NOT EXISTS `pembuangan` (
   `id_pembuangan` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -308,11 +270,9 @@ CREATE TABLE IF NOT EXISTS `pembuangan` (
   CONSTRAINT `FK_PEGAWAI2` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.pembuangan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `pembuangan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pembuangan` ENABLE KEYS */;
 
--- Dumping structure for table asti.pemeliharaan
 DROP TABLE IF EXISTS `pemeliharaan`;
 CREATE TABLE IF NOT EXISTS `pemeliharaan` (
   `id_pemeliharaan` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -333,11 +293,9 @@ CREATE TABLE IF NOT EXISTS `pemeliharaan` (
   CONSTRAINT `FK_PEGAWAI4` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.pemeliharaan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `pemeliharaan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pemeliharaan` ENABLE KEYS */;
 
--- Dumping structure for table asti.pemesanan
 DROP TABLE IF EXISTS `pemesanan`;
 CREATE TABLE IF NOT EXISTS `pemesanan` (
   `id_pemesanan` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -350,11 +308,9 @@ CREATE TABLE IF NOT EXISTS `pemesanan` (
   CONSTRAINT `FK_PEGAWAI` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.pemesanan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `pemesanan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pemesanan` ENABLE KEYS */;
 
--- Dumping structure for table asti.peminjam
 DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE IF NOT EXISTS `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -369,9 +325,8 @@ CREATE TABLE IF NOT EXISTS `peminjam` (
   KEY `id_instansi` (`id_instansi`),
   CONSTRAINT `peminjam_ibfk_185` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `peminjam_ibfk_186` FOREIGN KEY (`id_instansi`) REFERENCES `instansi` (`id_instansi`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.peminjam: ~4 rows (approximately)
 /*!40000 ALTER TABLE `peminjam` DISABLE KEYS */;
 REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `no_telp`, `jabatan`, `sandi`, `id_kategori`, `id_instansi`) VALUES
 	(3, 'Dion Ulysa', '546745675663', 'Ketua Mahasiswa Fakultas Hukum', '$2b$10$zj.QuAz2JF4po56fDL1aLOjPh/65X280y6z5q/TZlgW3rJcoVt08C', 1, 1),
@@ -380,7 +335,6 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `no_telp`, `jabatan`, `sandi`, `
 	(7, 'Leo Saans', '111111111111', 'Mahasiswa', '$2b$10$sa3OPbx7w2RQyw3VwNW3lOt/Uc081uRT46Oz0R8LwGyYIqS5Bk3hK', 2, 2);
 /*!40000 ALTER TABLE `peminjam` ENABLE KEYS */;
 
--- Dumping structure for table asti.peminjaman
 DROP TABLE IF EXISTS `peminjaman`;
 CREATE TABLE IF NOT EXISTS `peminjaman` (
   `id_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -408,28 +362,24 @@ CREATE TABLE IF NOT EXISTS `peminjaman` (
   CONSTRAINT `FK_PEMINJAM` FOREIGN KEY (`id_peminjam`) REFERENCES `peminjam` (`id_peminjam`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.peminjaman: ~0 rows (approximately)
 /*!40000 ALTER TABLE `peminjaman` DISABLE KEYS */;
 /*!40000 ALTER TABLE `peminjaman` ENABLE KEYS */;
 
--- Dumping structure for table asti.perolehan
 DROP TABLE IF EXISTS `perolehan`;
 CREATE TABLE IF NOT EXISTS `perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal` datetime NOT NULL,
   `id_pemasok` int(10) unsigned NOT NULL,
-  `status` enum('pembelian','bantuan','penyesuaian stok') NOT NULL DEFAULT 'pembelian',
+  `status` enum('Pembelian','Bantuan','Penyesuaian Stok') NOT NULL DEFAULT 'Pembelian',
   `keterangan` text DEFAULT NULL,
   PRIMARY KEY (`id_perolehan`),
   KEY `FK_PEMASOK` (`id_pemasok`),
   CONSTRAINT `FK_PEMASOK` FOREIGN KEY (`id_pemasok`) REFERENCES `pemasok` (`id_pemasok`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.perolehan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `perolehan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `perolehan` ENABLE KEYS */;
 
--- Dumping structure for table asti.perusahaan
 DROP TABLE IF EXISTS `perusahaan`;
 CREATE TABLE IF NOT EXISTS `perusahaan` (
   `id_perusahaan` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -446,11 +396,9 @@ CREATE TABLE IF NOT EXISTS `perusahaan` (
   PRIMARY KEY (`id_perusahaan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.perusahaan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `perusahaan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `perusahaan` ENABLE KEYS */;
 
--- Dumping structure for table asti.ruang
 DROP TABLE IF EXISTS `ruang`;
 CREATE TABLE IF NOT EXISTS `ruang` (
   `id_ruang` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -462,13 +410,11 @@ CREATE TABLE IF NOT EXISTS `ruang` (
   PRIMARY KEY (`id_ruang`),
   KEY `FK_UNIT2` (`id_unit`),
   CONSTRAINT `FK_UNIT2` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.ruang: ~0 rows (approximately)
 /*!40000 ALTER TABLE `ruang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ruang` ENABLE KEYS */;
 
--- Dumping structure for table asti.unit
 DROP TABLE IF EXISTS `unit`;
 CREATE TABLE IF NOT EXISTS `unit` (
   `id_unit` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -476,9 +422,8 @@ CREATE TABLE IF NOT EXISTS `unit` (
   `sandi` text NOT NULL,
   `keterangan` text DEFAULT '-',
   PRIMARY KEY (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table asti.unit: ~0 rows (approximately)
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
 /*!40000 ALTER TABLE `unit` ENABLE KEYS */;
 

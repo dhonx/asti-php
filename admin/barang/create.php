@@ -117,6 +117,10 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <label class="block" for="id_perolehan">Perolehan <span class="text-red-500" title="Harus dipilih">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_perolehan" name="id_perolehan"></select>
 
+            <div class="mt-1 mb-2">
+                <a href="../perolehan/create">Tambahkan perolehan baru jika tidak ada</a>
+            </div>
+
             <!-- <label class="block" for="harga_beli">Harga Beli <span class="text-red-500" title="Harus diisi">*</span></label> -->
             <!-- <input class="bg-gray-200 px-3 py-2 mb-2 rounded-md w-full" id="harga_beli" min="0.00" max="100.000.0000" name="harga_beli" required spellcheck="false" step="0.01" type="number" value="<?= $errors ? get_prev_field("harga_beli") : "" ?>"> -->
 

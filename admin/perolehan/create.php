@@ -150,6 +150,9 @@ $r_get_pemasok = $connection->query($q_get_pemasok);
             <label class="block" for="jumlah">Jumlah <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : "" ?>">
 
+            <div>Total</div>
+            <output class="bg-gray-200 block px-3 py-2 mb-2 rounded-md w-full" for="harga_beli jumlah" id="total" name="total">0</output>
+
             <label class="block" for="tanggal">Tanggal Pesan <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="tanggal" name="tanggal" required type="date" value="<?= $errors ? get_prev_field("tanggal") : "10" ?>">
 
@@ -179,6 +182,7 @@ $r_get_pemasok = $connection->query($q_get_pemasok);
         </form>
     </main>
     <?php require_once "../../includes/scripts.php" ?>
+    <?php require_once "script.php" ?>
 </body>
 
 </html>

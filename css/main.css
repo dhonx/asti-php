@@ -38,12 +38,16 @@ tbody tr:hover {
 .sidenav {
   max-height: 100vh;
   min-height: 100vh;
-  min-width: 200px;
   overflow-y: auto;
 }
 
 .sidenav:hover .label {
   display: inline-block;
+}
+
+.sidenav.expand,
+.sidenav:hover {
+  min-width: 200px;
 }
 
 .sidenav.expand .label {

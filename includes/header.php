@@ -25,40 +25,40 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
         </li>
         <?php if ($login_as == "super_admin") { ?>
             <li>
-                <a class="<?= check_active_url("/admin/manajemen_admin/", TRUE) ?>" href="<?= build_url("/admin/manajemen_admin") ?>" role="menuitem" title="Manajemen Admin">
+                <a class="<?= check_active_url("/admin/admin/", TRUE) ?>" href="<?= build_url("/admin/admin") ?>" role="menuitem" title="Manajemen Admin">
                     <span class="mdi align-middle mdi-account-cog text-lg"></span>
-                    <span class="lg:hidden label">Manajemen Admin</span>
+                    <span class="lg:hidden label">Admin</span>
                 </a>
             </li>
         <?php } ?>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_instansi/", TRUE) ?>" href="<?= build_url("/admin/manajemen_instansi") ?>" role="menuitem" title="Manajemen Instansi">
+            <a class="<?= check_active_url("/admin/instansi/", TRUE) ?>" href="<?= build_url("/admin/instansi") ?>" role="menuitem" title="Manajemen Instansi">
                 <span class="mdi align-middle mdi-office-building text-lg"></span>
-                <span class="lg:hidden label">Manajemen Instansi</span>
+                <span class="lg:hidden label">Instansi</span>
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_pegawai/", TRUE) ?>" href="<?= build_url("/admin/manajemen_pegawai") ?>" role="menuitem" title="Manajemen Pegawai">
+            <a class="<?= check_active_url("/admin/pegawai/", TRUE) ?>" href="<?= build_url("/admin/pegawai") ?>" role="menuitem" title="Manajemen Pegawai">
                 <span class="mdi align-middle mdi-account-supervisor text-lg"></span>
-                <span class="lg:hidden label">Manajemen Pegawai</span>
+                <span class="lg:hidden label">Pegawai</span>
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_peminjam/", TRUE) ?>" href="<?= build_url("/admin/manajemen_peminjam") ?>" role="menuitem" title="Manajemen Peminjam">
+            <a class="<?= check_active_url("/admin/peminjam/", TRUE) ?>" href="<?= build_url("/admin/peminjam") ?>" role="menuitem" title="Manajemen Peminjam">
                 <span class="mdi align-middle mdi-account-group text-lg"></span>
-                <span class="lg:hidden label">Manajemen Peminjam</span>
+                <span class="lg:hidden label">Peminjam</span>
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_komponen/", TRUE) ?>" href="<?= build_url("/admin/manajemen_komponen") ?>" role="menuitem" title="Manajemen Komponen">
+            <a class="<?= check_active_url("/admin/komponen/", TRUE) ?>" href="<?= build_url("/admin/komponen") ?>" role="menuitem" title="Manajemen Komponen">
                 <span class="mdi align-middle mdi-package text-lg"></span>
-                <span class="lg:hidden label">Manajemen Komponen</span>
+                <span class="lg:hidden label">Komponen</span>
             </a>
         </li>
         <li>
-            <a class="<?= check_active_url("/admin/manajemen_barang/", TRUE) ?>" href="<?= build_url("/admin/manajemen_barang") ?>" role="menuitem" title="Manajemen Barang">
+            <a class="<?= check_active_url("/admin/barang/", TRUE) ?>" href="<?= build_url("/admin/barang") ?>" role="menuitem" title="Manajemen Barang">
                 <span class="mdi align-middle mdi-ballot-outline text-lg"></span>
-                <span class="lg:hidden label">Manajemen Barang</span>
+                <span class="lg:hidden label">Barang</span>
             </a>
         </li>
         <li>
@@ -70,7 +70,7 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
         <li>
             <a class="<?= check_active_url("/admin/unit/", TRUE) ?>" href="<?= build_url("/admin/unit") ?>" role="menuitem" title="Manajemen Unit">
                 <span class="mdi align-middle mdi-puzzle-outline text-lg"></span>
-                <span class="lg:hidden label">Manajemen Unit</span>
+                <span class="lg:hidden label">Unit</span>
             </a>
         </li>
         <li>

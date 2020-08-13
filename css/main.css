@@ -38,6 +38,7 @@ tbody tr:hover {
 .sidenav {
   max-height: 100vh;
   min-height: 100vh;
+  min-width: 200px;
   overflow-y: auto;
 }
 

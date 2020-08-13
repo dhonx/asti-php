@@ -33,6 +33,7 @@ if ($r_get_ruang && $r_get_ruang->num_rows == 0) {
 
 while ($row = $r_get_ruang->fetch_assoc()) {
     $data["id_ruang"]   = $row["id_ruang"];
+    $data["id_unit"]    = $row["id_unit"];
     $data["nama"]       = $row["nama"];
     $data["latitude"]   = $row["latitude"];
     $data["longitude"]  = $row["longitude"];
@@ -66,7 +67,10 @@ while ($row = $r_get_ruang->fetch_assoc()) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Nama Unit:</span>
-                <span><?= $data["nama_unit"] ?></span>
+                <span>
+                    <?= $data["nama_unit"] ?>
+                    <a class="mdi mdi-link" href="../unit/view?id_unit=<?= $data["id_unit"] ?>" title="Lihat detail unit"></a>
+                </span>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Latitude:</span>
@@ -80,6 +84,8 @@ while ($row = $r_get_ruang->fetch_assoc()) {
             <div class="flex mb-2 justify-center">
                 <div class="w-full rounded-md" data-latitude="<?= $data["latitude"] ?>" data-longitude="<?= $data["longitude"] ?>" data-readonly="true" id="map" style="height:100vh; max-height: 500px"></div>
             </div>
+
+            <a class="block my-2" href="https://www.google.com/maps/search/?api=1&query=<?= $data["latitude"] ?>,<?= $data["longitude"] ?>" target="_blank">Buka di google map</a>
 
             <div class="block mt-2">
                 <span class="block font-bold">Keterangan:</span>

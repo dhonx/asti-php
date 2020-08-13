@@ -16,8 +16,8 @@ if (isset($_POST["create_barang"])) {
         "kode_inventaris" => "required",
         "id_komponen"     => "required|numeric",
         "id_perolehan"    => "required|numeric",
-        "jumlah"          => "required|numeric",
-        "harga_beli"      => "required|numeric",
+        // "jumlah"          => "required|numeric",
+        // "harga_beli"      => "required|numeric",
         "kondisi"         => ["required", $validator("in", ["baik", "rusak ringan", "rusak berat"])],
     ]);
     $validation->validate();
@@ -28,8 +28,6 @@ if (isset($_POST["create_barang"])) {
         $kode_inventaris = $connection->real_escape_string(clean($_POST["kode_inventaris"]));
         $id_komponen     = $_POST["id_komponen"];
         $id_perolehan    = $_POST["id_perolehan"];
-        $jumlah          = $_POST["jumlah"];
-        $harga_beli      = $_POST["harga_beli"];
         $kondisi         = $connection->real_escape_string($_POST["kondisi"]);
         $status          = isset($_POST["status"]) ? 1 : 0;
         $keterangan      = $connection->real_escape_string(clean($_POST["keterangan"]));
@@ -37,10 +35,13 @@ if (isset($_POST["create_barang"])) {
         $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris'";
         $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
 
-        // $q_check_perolehan = "SELECT `id_perolehan` FROM";
+        $q_check_perolehan = "SELECT `id_perolehan` FROM `perolehan` WHERE `id_perolehan` = $id_perolehan";
+        $r_check_perolehan = $connection->query($q_check_perolehan);
 
         if ($r_check_kode_inventaris && $r_check_kode_inventaris->num_rows != 0) {
             array_push($errors, "Kode inventaris $kode_inventaris sudah ada");
+        } else if ($r_check_perolehan && $r_check_perolehan->num_rows == 0) {
+            array_push($errors, "Id perolehan tidak valid");
         } else {
             $admin_email = $_SESSION["email"];
             $q_get_id_admin = "SELECT `id_admin` FROM `admin` WHERE `email` = '$admin_email'";
@@ -49,12 +50,15 @@ if (isset($_POST["create_barang"])) {
             $id_admin = $first_row["id_admin"];
 
             $q_insert = "INSERT INTO `barang`
-                        (`kode_inventaris`, `id_komponen`, `jumlah`, `harga_beli`, `kondisi`, `aktif`, `keterangan`, `id_admin`) 
+                        (`kode_inventaris`, `id_komponen`, `id_perolehan`, `kondisi`, `aktif`, `keterangan`, `id_admin`) 
                     VALUES
-                        ('$kode_inventaris', $id_komponen, $jumlah, $harga_beli, '$kondisi', $status, '$keterangan', $id_admin)";
+                        ('$kode_inventaris', $id_komponen, $id_perolehan, '$kondisi', $status, '$keterangan', $id_admin)";
 
             if ($connection->query($q_insert)) {
                 redirect("./");
+            } else {
+                print_r($connection->error_list);
+                die();
             }
         }
     }
@@ -113,14 +117,14 @@ $r_get_komponen = $connection->query($q_get_komponen);
             <label class="block" for="id_perolehan">Perolehan <span class="text-red-500" title="Harus dipilih">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_perolehan" name="id_perolehan"></select>
 
-            <label class="block" for="harga_beli">Harga Beli <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 px-3 py-2 mb-2 rounded-md w-full" id="harga_beli" min="0.00" max="100.000.0000" name="harga_beli" required spellcheck="false" step="0.01" type="number" value="<?= $errors ? get_prev_field("harga_beli") : "" ?>">
+            <!-- <label class="block" for="harga_beli">Harga Beli <span class="text-red-500" title="Harus diisi">*</span></label> -->
+            <!-- <input class="bg-gray-200 px-3 py-2 mb-2 rounded-md w-full" id="harga_beli" min="0.00" max="100.000.0000" name="harga_beli" required spellcheck="false" step="0.01" type="number" value="<?= $errors ? get_prev_field("harga_beli") : "" ?>"> -->
 
-            <label class="block" for="jumlah">Jumlah <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : 1 ?>">
+            <!-- <label class="block" for="jumlah">Jumlah <span class="text-red-500" title="Harus diisi">*</span></label> -->
+            <!-- <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : 1 ?>"> -->
 
-            <div>Total</div>
-            <output class="bg-gray-200 block px-3 py-2 mb-2 rounded-md w-full" for="harga_beli jumlah" id="total" name="total">0</output>
+            <!-- <div>Total</div> -->
+            <!-- <output class="bg-gray-200 block px-3 py-2 mb-2 rounded-md w-full" for="harga_beli jumlah" id="total" name="total">0</output> -->
 
             <label class="block" for="kondisi">Kondisi <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kondisi" name="kondisi">
@@ -152,8 +156,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
         </form>
     </main>
     <?php require_once "../../includes/scripts.php" ?>
-    <?php require_once "script.php" ?>
-    <script defer src="<?= build_url("/admin/manajemen_barang/get_perolehan.js") ?>"></script>
+    <script defer src="<?= build_url("/admin/barang/get_perolehan.js") ?>"></script>
 </body>
 
 </html>

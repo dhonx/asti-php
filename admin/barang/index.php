@@ -19,11 +19,11 @@ $is_search_mode = $common_data["is_search_mode"];
 $search_query = "SELECT
                     `barang`.`id_barang`,
                     `barang`.`kode_inventaris`,
-                    `barang`.`harga_beli`,
+                    `detail_perolehan`.`harga_beli`,
                     `barang`.`aktif`,
                     `barang`.`kondisi`,
-                    `barang`.`jumlah`,
-                    SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
+                    `detail_perolehan`.`jumlah`,
+                    SUM(`detail_perolehan`.`harga_beli` * `detail_perolehan`.`jumlah`) `total`,
                     `admin`.`nama` AS `nama_admin`,
                     `komponen`.`nama` AS `nama_komponen`
                 FROM
@@ -32,6 +32,10 @@ $search_query = "SELECT
                     `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
                 INNER JOIN
                     `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
+                INNER JOIN
+                    `perolehan` ON `barang`.`id_perolehan` = `perolehan`.`id_perolehan`
+                INNER JOIN
+                    `detail_perolehan` ON `perolehan`.`id_perolehan` = `detail_perolehan`.`id_perolehan`
                 WHERE ";
 
 $search_query .= build_search_query($keyword, ["`barang`.`kode_inventaris`", "`komponen`.`nama`", "`no_telp`"]);
@@ -44,20 +48,24 @@ if ($is_search_mode) {
         "SELECT
             `barang`.`id_barang`,
             `barang`.`kode_inventaris`,
-            `barang`.`harga_beli`,
+            `detail_perolehan`.`harga_beli`,
             `barang`.`aktif`,
             `barang`.`kondisi`,
-            `barang`.`jumlah`,
-            SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
+            `detail_perolehan`.`jumlah`,
+            SUM(`detail_perolehan`.`harga_beli` * `detail_perolehan`.`jumlah`) `total`,
             `admin`.`nama` AS `nama_admin`,
             `komponen`.`nama` AS `nama_komponen`
         FROM
             `barang`
         INNER JOIN
-            `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
+                    `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
         INNER JOIN
             `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
-         GROUP BY `id_barang`"
+        INNER JOIN
+            `perolehan` ON `barang`.`id_perolehan` = `perolehan`.`id_perolehan`
+        INNER JOIN
+            `detail_perolehan` ON `perolehan`.`id_perolehan` = `detail_perolehan`.`id_perolehan`
+         GROUP BY `barang`.`id_barang`"
     );
 }
 
@@ -79,11 +87,11 @@ if ($is_search_mode) {
     $query = "SELECT
                     `barang`.`id_barang`,
                     `barang`.`kode_inventaris`,
-                    `barang`.`harga_beli`,
+                    `detail_perolehan`.`harga_beli`,
                     `barang`.`aktif`,
                     `barang`.`kondisi`,
-                    `barang`.`jumlah`,
-                    SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
+                    `detail_perolehan`.`jumlah`,
+                    SUM(`detail_perolehan`.`harga_beli` * `detail_perolehan`.`jumlah`) `total`,
                     `admin`.`nama` AS `nama_admin`,
                     `komponen`.`nama` AS `nama_komponen`
                 FROM
@@ -92,7 +100,11 @@ if ($is_search_mode) {
                     `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
                 INNER JOIN
                     `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
-                GROUP BY `id_barang`
+                INNER JOIN
+                    `perolehan` ON `barang`.`id_perolehan` = `perolehan`.`id_perolehan`
+                INNER JOIN
+                    `detail_perolehan` ON `perolehan`.`id_perolehan` = `detail_perolehan`.`id_perolehan`
+                GROUP BY `barang`.`id_barang`
                 LIMIT $limit OFFSET $offset";
     $query = "SELECT * FROM ($query) AS `barang_` ORDER BY $sort_by $asc";
 }

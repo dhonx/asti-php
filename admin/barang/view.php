@@ -13,15 +13,10 @@ if (!isset($_GET["id_barang"]) && !is_numeric($_GET["id_barang"])) {
 $id_barang = $_GET["id_barang"];
 
 $q_get_barang =   "SELECT
-                    `barang`.`kode_inventaris`,
-                    `barang`.`harga_beli`,
-                    `barang`.`aktif`,
-                    `barang`.`kondisi`,
-                    `barang`.`jumlah`,
-                    `barang`.`created_at`,
-                    `barang`.`updated_at`,
-                    `barang`.`keterangan`,
-                    SUM(`barang`.`harga_beli` * `barang`.`jumlah`) `total`,
+                    `barang`.*,
+                    `detail_perolehan`.`harga_beli`,
+                    `detail_perolehan`.`jumlah`,
+                    SUM(`detail_perolehan`.`harga_beli` * `detail_perolehan`.`jumlah`) `total`,
                     `admin`.`nama` AS `nama_admin`,
                     `komponen`.`nama` AS `nama_komponen`
                 FROM
@@ -30,6 +25,10 @@ $q_get_barang =   "SELECT
                     `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
                 INNER JOIN
                     `komponen` ON `barang`.`id_komponen` = `komponen`.`id_komponen`
+                INNER JOIN
+                    `perolehan` ON `barang`.`id_perolehan` = `perolehan`.`id_perolehan`
+                INNER JOIN
+                    `detail_perolehan` ON `perolehan`.`id_perolehan` = `detail_perolehan`.`id_perolehan`
                 WHERE
                     `barang`.`id_barang` = $id_barang";
 
@@ -80,7 +79,7 @@ while ($row = $r_get_barang->fetch_assoc()) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Harga Beli:</span>
-                <span><?= $data["harga_beli"] ?></span>
+                <span><?= number_format($data["harga_beli"], 2) ?></span>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Jumlah:</span>
@@ -88,7 +87,7 @@ while ($row = $r_get_barang->fetch_assoc()) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">Total:</span>
-                <span><?= $data["total"] ?></span>
+                <span><?= number_format($data["total"], 2) ?></span>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Status:</span>

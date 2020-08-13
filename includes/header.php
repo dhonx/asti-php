@@ -10,12 +10,12 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
     </div>
 </header>
 <nav class="bg-gray-200 hidden lg:flex flex-col p-2 sidenav <?= $sidenav_active == 1 ? "expand" : "" ?>" id="nav-menu" role="menu">
-    <div class="flex border-bottom cursor-pointer" style="padding: 20px 4px; border-bottom: 1px solid #dde4e8;">
+    <!-- <div class="flex border-bottom cursor-pointer" style="padding: 20px 4px; border-bottom: 1px solid #dde4e8;">
         <img src="https://pbs.twimg.com/profile_images/1272910160609107974/VLBJhHRb_bigger.jpg" width="30px" style="border-radius: 20px;" alt="">
         <span class="font-bold lg:hidden ml-2 mr-auto label self-center">
             <?= $nama_awal ?>
         </span>
-    </div>
+    </div> -->
     <ul class="flex flex-col mt-2">
         <li>
             <a class="<?= check_active_url("/admin/") ?>" href="<?= build_url("/admin") ?>" role="menuitem" role="menuitem" title="Dashboard">

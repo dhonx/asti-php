@@ -78,7 +78,7 @@ while ($row = $r_get_instansi->fetch_assoc()) {
             <div class="mt-2">
                 <span class="font-bold">Jumlah Peminjam:</span>
                 <?php if ($data["jumlah_peminjam"] > 0) { ?>
-                    <a href="<?= build_url("/admin/manajemen_peminjam/?id_instansi=$id_instansi") ?>" title="Lihat peminjam dari instansi ini">
+                    <a href="<?= build_url("/admin/peminjam/?id_instansi=$id_instansi") ?>" title="Lihat peminjam dari instansi ini">
                         <?= $data["jumlah_peminjam"] ?>
                     </a>
                 <?php } else { ?>

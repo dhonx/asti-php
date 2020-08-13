@@ -144,7 +144,7 @@ $r_get_komponen = $connection->query($q_get_komponen);
             </select>
 
             <div class="mt-1 mb-2">
-                <a href="../manajemen_komponen/create">Tambahkan komponen baru jika tidak ada</a>
+                <a href="../komponen/create">Tambahkan komponen baru jika tidak ada</a>
             </div>
 
             <label class="block" for="id_perolehan">Perolehan <span class="text-red-500" title="Harus dipilih">*</span></label>

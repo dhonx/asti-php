@@ -72,12 +72,12 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
             <div>
                 <span class="font-bold">Barang:</span>
                 <span><?= $nama_komponen ?></span>
-                <a class="mdi mdi-open-in-new" href="../manajemen_komponen/view?id_komponen=<?= $id_komponen ?>" title="Lihat detail komponen ini"></a>
+                <a class="mdi mdi-open-in-new" href="../komponen/view?id_komponen=<?= $id_komponen ?>" title="Lihat detail komponen ini"></a>
             </div>
             <div>
                 <span class="font-bold">Dipesan oleh:</span>
                 <span><?= $nama_pegawai ?></span>
-                <a class="mdi mdi-open-in-new" href="../manajemen_pegawai/view?id_pegawai=<?= $id_pegawai ?>" title="Lihat detail pegawai ini"></a>
+                <a class="mdi mdi-open-in-new" href="../pegawai/view?id_pegawai=<?= $id_pegawai ?>" title="Lihat detail pegawai ini"></a>
             </div>
             <div>
                 <span class="font-bold">Jumlah:</span>

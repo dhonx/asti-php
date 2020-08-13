@@ -124,7 +124,7 @@ $r_get_pemasok = $connection->query($q_get_pemasok);
             </select>
 
             <div class="mt-1 mb-2">
-                <a href="../manajemen_komponen/create">Tambahkan komponen baru jika tidak ada</a>
+                <a href="../komponen/create">Tambahkan komponen baru jika tidak ada</a>
             </div>
 
             <label class="block" for="id_pemasok">Pemasok <span class="text-red-500" title="Harus dipilih">*</span></label>

@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "postcss-import": "^12.0.1",
-    "tailwindcss": "^1.6.0"
+    "tailwindcss": "^1.6.2"
   },
   "devDependencies": {
     "@types/leaflet": "^1.5.17",

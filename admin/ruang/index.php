@@ -104,10 +104,10 @@ $result = $connection->query($query);
                             <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "longitude", "asc" => $asc_toggle])) ?>
                             <a class="block" href="?<?= $url_query ?>">Longitude</a>
                         </th>
-                        <!-- <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "keterangan", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Keterangan</a>
-                        </th> -->
+                        <th class="hidden lg:table-cell lg:text-left p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "longitude", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Unit</a>
+                        </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
@@ -115,6 +115,7 @@ $result = $connection->query($query);
                     <?php while ($row = $result->fetch_assoc()) {
                         $id_ruang   = $row["id_ruang"];
                         $nama       = $row["nama"];
+                        $nama_unit  = $row["nama_unit"];
                         $latitude   = $row["latitude"];
                         $longitude  = $row["longitude"];
                         $keterangan = $row["keterangan"];
@@ -137,6 +138,12 @@ $result = $connection->query($query);
                                     Longitude
                                 </span>
                                 <?= $longitude ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Unit
+                                </span>
+                                <?= $nama_unit ?>
                             </td>
                             <!-- <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">

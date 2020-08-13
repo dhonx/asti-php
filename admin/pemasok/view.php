@@ -67,11 +67,11 @@ while ($row = $r_get_pemasok->fetch_assoc()) {
             </div>
             <div class="mt-2">
                 <span class="font-bold">No Telp:</span>
-                <span><?= $data["no_telp"] ?></span>
+                <a href="tel:<?= $data["no_telp"] ?>"><?= $data["no_telp"] ?></a>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Email:</span>
-                <span><?= $data["email"] ?></span>
+                <a href="mailto:<?= $data["email"] ?>"><?= $data["email"] ?></a>
             </div>
             <div class="mt-2">
                 <span class="font-bold">Nama Pemilik:</span>

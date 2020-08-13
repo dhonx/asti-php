@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "rakit/validation",
-            "version": "v1.3.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rakit/validation.git",
-                "reference": "33e5ef59f50145f6c01c6364e5c997cfccc9ebb1"
+                "reference": "126306ccabeadec24b6fa310605c71be67dee188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rakit/validation/zipball/33e5ef59f50145f6c01c6364e5c997cfccc9ebb1",
-                "reference": "33e5ef59f50145f6c01c6364e5c997cfccc9ebb1",
+                "url": "https://api.github.com/repos/rakit/validation/zipball/126306ccabeadec24b6fa310605c71be67dee188",
+                "reference": "126306ccabeadec24b6fa310605c71be67dee188",
                 "shasum": ""
             },
             "require": {
@@ -25,6 +25,7 @@
                 "php": ">=7.0"
             },
             "require-dev": {
+                "php-coveralls/php-coveralls": "^2.2",
                 "phpunit/phpunit": "^6.5",
                 "squizlabs/php_codesniffer": "^3"
             },
@@ -45,7 +46,7 @@
                 }
             ],
             "description": "PHP Laravel like standalone validation library",
-            "time": "2020-07-30T22:48:50+00:00"
+            "time": "2020-08-09T01:18:04+00:00"
         }
     ],
     "packages-dev": [],

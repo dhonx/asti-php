@@ -100,3 +100,13 @@ function convert_date($date_str)
     $date = date_create($date_str);
     return date_format($date, "Y-m-d");
 }
+
+function get_current_id_admin()
+{
+    require_once "connection/connection.php";
+    $admin_email = $_SESSION["email"];
+    $q_get_id_admin = "SELECT `id_admin` FROM `admin` WHERE `email` = '$admin_email'";
+    $r_get_id_admin = $connection->query($q_get_id_admin);
+    $first_row = $r_get_id_admin->fetch_assoc();
+    return $first_row["id_admin"];
+}

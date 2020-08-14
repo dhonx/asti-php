@@ -54,25 +54,47 @@ if (isset($_POST["create_perolehan"])) {
 
             if ($r_insert_perolehan) {
                 $last_insert_id = $connection->insert_id;
-                $q_insert_detail_perolehan = "INSERT INTO `detail_perolehan`
-                                                (`id_perolehan`, `id_komponen`, `harga_beli`, `jumlah`)
-                                              VALUES
-                                                ($last_insert_id, $id_komponen, $harga_beli, $jumlah)";
-                $r_insert_perolehan = $connection->query($q_insert_detail_perolehan);
+                $q_insert_detail_perolehan =    "INSERT INTO `detail_perolehan`
+                                                    (`id_perolehan`, `id_komponen`, `harga_beli`, `jumlah`)
+                                                VALUES
+                                                    ($last_insert_id, $id_komponen, $harga_beli, $jumlah)";
+                $r_insert_detail_perolehan = $connection->query($q_insert_detail_perolehan);
 
-                if ($r_insert_perolehan) {
-                    redirect("./");
+                if ($r_insert_detail_perolehan) {
+                    $current_id_admin = get_current_id_admin();
+                    foreach (range(1, $jumlah) as $number) {
+                        $hash_kode_inventaris = sha1($id_pemasok . $tanggal . $number);
+                        $q_insert_to_barang =   "INSERT INTO `barang`
+                                                    (`kode_inventaris`, `id_perolehan`, `keterangan`, `id_admin`)
+                                                VALUES
+                                                    ('$hash_kode_inventaris', $last_insert_id, '$keterangan', $current_id_admin)";
+                        $r_insert_to_barang = $connection->query($q_insert_to_barang);
+
+                        if ($r_insert_to_barang) {
+                            if ($number == $jumlah) {
+                                redirect("./");
+                            }
+                        }
+
+                        // Insert to barang failed, uncomment this for debugging purpose only
+                        // else {
+                        //     print_r($connection->error_list);
+                        //     die();
+                        // }
+                    }
                 }
 
                 // Insert detail_perolehan failed, uncomment this for debugging purpose only
                 // else {
                 //     print_r($connection->error_list);
+                //     die();
                 // }
             }
 
             // Insert perolehan failed, uncomment this for debugging purpose only
             // else {
             //     print_r($connection->error_list);
+            //     die();
             // }
         }
     }

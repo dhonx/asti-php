@@ -101,9 +101,10 @@ function convert_date($date_str)
     return date_format($date, "Y-m-d");
 }
 
+
 function get_current_id_admin()
 {
-    require_once "connection/connection.php";
+    require "connection/connection.php";
     $admin_email = $_SESSION["email"];
     $q_get_id_admin = "SELECT `id_admin` FROM `admin` WHERE `email` = '$admin_email'";
     $r_get_id_admin = $connection->query($q_get_id_admin);

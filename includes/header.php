@@ -50,6 +50,12 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
             </a>
         </li>
         <li>
+            <a class="<?= check_active_url("/admin/peminjaman/", TRUE) ?>" href="<?= build_url("/admin/peminjaman") ?>" role="menuitem" title="Manajemen Peminjaman">
+                <span class="mdi align-middle mdi-account-group text-lg"></span>
+                <span class="lg:hidden label">Peminjaman</span>
+            </a>
+        </li>
+        <li>
             <a class="<?= check_active_url("/admin/komponen/", TRUE) ?>" href="<?= build_url("/admin/komponen") ?>" role="menuitem" title="Manajemen Komponen">
                 <span class="mdi align-middle mdi-package text-lg"></span>
                 <span class="lg:hidden label">Komponen</span>

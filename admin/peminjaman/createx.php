@@ -10,6 +10,8 @@ authenticate(["super_admin", "admin"]);
 
 $errors = [];
 
+
+
 if (isset($_POST["create_peminjaman"])) {
     $valid_kondisi_values = ["baik", "rusak ringan", "rusak berat"];
     $validator = new Validator(VALIDATION_MESSAGES);
@@ -93,7 +95,8 @@ $r_get_peminjam = $connection->query($q_get_peminjam);
 
 $q_get_barang = "SELECT
                     `barang`.`id_barang`,
-                    `komponen`.`nama` AS `nama_komponen`
+                    `komponen`.`nama` AS `nama_komponen`,
+                    `barang`.`kode_inventaris`
                 FROM
                     `barang`
                 INNER JOIN `perolehan`
@@ -153,9 +156,10 @@ $r_get_barang = $connection->query($q_get_barang);
                 <?php while ($row = $r_get_barang->fetch_assoc()) {
                     $v_id_barang = $row["id_barang"];
                     $v_nama_komponen = $row["nama_komponen"];
+                    $v_kode_inventaris = $row["kode_inventaris"];
                 ?>
                     <option <?= $prev_value == $v_id_barang ? "selected" : "" ?> value="<?= $v_id_barang ?>">
-                        <?= $v_nama_komponen ?>
+                        <?= $v_nama_komponen ?> | <?= $v_kode_inventaris ?>
                     </option>
                 <?php } ?>
             </select>

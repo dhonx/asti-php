@@ -66,35 +66,36 @@ CREATE TABLE IF NOT EXISTS `barang` (
 
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
 REPLACE INTO `barang` (`id_barang`, `kode_inventaris`, `id_perolehan`, `aktif`, `kondisi`, `keterangan`, `id_admin`, `created_at`, `updated_at`) VALUES
-	(30, 'b6ff67afb0bf7d13ca6e3028a49aad7b6b85de56', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:03', '2020-08-15 00:24:03'),
-	(31, 'b1a335dfb1a9e3192abed1577f8dabdaee5b52bb', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:03', '2020-08-15 00:24:03'),
-	(32, 'eadc73675920f806ea30ac592b4e67044720c2d0', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:03', '2020-08-15 00:24:03'),
-	(33, '5c965dcd409e57d105ac22453379bfe23d2ca3ca', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(34, 'c9411955492ba64a4610addda67cdf0f57878038', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(35, '43eb260f28ac0fbc1c4ddd9a417673fc236b699c', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(36, '1a68693dee2fe2d50bcf8e2efe1b1ee69d50f1cd', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(37, 'e1cbe3cbbe678d66b54e9eb22744066afacd0cae', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(38, 'c596d59d55b7ec17e54476dc05ab305ddfeffcdf', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(39, '5ad15d2868dfd3c184fa6475f815b88e93d9c146', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(40, '9b32433fc00d9f25529fafe428028cda94c05359', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(41, '82624e1ef1559d2f6f21e1059649e9cd1eed21b4', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(42, '66e98e8cb19edfbe36703a85de6158fa49e034d3', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(43, '73715f72e574e780705967676a2626cd39088923', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(44, '4df77ba130421495e5968515b3130d740f5d8359', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(45, 'c9c7534c20c9af1d74a33881f64e9fbc53d9b9f1', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(46, 'b811a641c2fa907ccd9e6ed8ca89688830eb7fb7', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(47, '7d2104f12ec0330961d83fb3b82e89a7def2fd93', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(48, '07a07724e0aca987e8764ccf83508097142d7050', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(49, '01c4f5324fc8cfb53f49536427ca812e144d3cf5', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(50, '2b56f99a56b3ee3782ad20c2ab6f276a51913f50', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(51, '743c9e887bd432f2a528193e4aabd03ff86333ef', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:04', '2020-08-15 00:24:04'),
-	(52, 'f199aeb73b776b24f40179785c3f9b6be36eab1b', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05'),
-	(53, '791a993e7f2890909eda7db0cf8258d2fd7fb4af', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05'),
-	(54, 'd3d0a2599e31607f86b485d2b31058fa1e943fc8', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05'),
-	(55, 'f45a0836cd18c4cbc21f9792b7409258177ebe86', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05'),
-	(56, 'a797d2663ce170a7cadce37be1044f1e0fd81f58', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05'),
-	(57, '022b7f400ca96d678e35efe2e4ed4ec47ebb4e52', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05'),
-	(58, 'b03e1b1c84a46a0520730ca83b5a0bf213cb8db3', 16, 1, 'baik', '-', 1, '2020-08-15 00:24:05', '2020-08-15 00:24:05');
+	(59, '64f0d40362e970f9d412b3a0146237f73e3523c8', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(60, '9bef3f1e7afae4992d33afd8da143c8c030b6218', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(61, 'dd002fceadb7c102f5cf46113ee874848305a6dc', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(62, '1ab36e4f99e9d7ab32568703f9a1bebaaf3a8f4c', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(63, 'bdca79003a7d7bcd70ba52615a28fdb223f051ce', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(64, '7e18ec224c291a3fd98cb28eab8492eb94a5d5ca', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(65, 'd17187a5a04cb8788e4179ac878605631740e70c', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(66, '7b094e1d747e307108c1d59cb76e52c576149557', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(67, '73e8c47e35b0a66357167bca19d4a84df26be4b6', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(68, '57ab90ebfab1e1334f8e2e91091c0582e9c2dc69', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(69, 'aac25a55456640abc4760337af9c21ccb6f9847a', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(70, 'ddc986371a1cfd5be22185fccc791938e63cf5e8', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(71, 'd36729fcbf0b9e9038860811501b773dbd1a3ad4', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(72, '5d3cb7c4f0f8c17ae24ab39d4b27d59555477267', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(73, 'a705bb81f90faa392d39b5d286b1ccbb482919e4', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(74, '16f8eb4f36db2a5a1661186b0169eb38632e545c', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(75, 'feecbf6aa46d95493782f65f90eba65c8d56e919', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(76, '68f8f2ea2303eacc3c2033f28b5b3451502cd239', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(77, '2a93593ef54bb3cd27c81378d5910034798e4cfa', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(78, 'f42034bcdd5adc8feb77c43744b974e63afc5bb0', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
+	(79, '141237384de481c7359d845c036f1e87671fc6e9', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(80, '6c6f4ad1df380787c8fb1bb1f57b19a9e9915f6e', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(81, 'afe4cffe029e7739f361c0e6d41d05e90c10234d', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(82, '96e573b513bf64573b0e067476cdcd6a533e3605', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(83, 'b4a7fd8d317bbcc096b7ad8414568d06d11a9b39', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(84, '38113cf24501192a2cf16f8c0b5f5402a48d2b3c', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(85, 'b99572b5f5bbe7320eb749271467c1e1c23c6173', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(86, '434d565e5f283d010a621a820d88fc786ac03382', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(87, '83e4c57ac5779f2662abc4e1801f970268d71a93', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
+	(88, '06f97c81a6d75bc9407f1bc134979a7046476eb2', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49');
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `detail_pemesanan`;
@@ -114,6 +115,25 @@ REPLACE INTO `detail_pemesanan` (`id_pemesanan`, `id_komponen`, `jumlah`) VALUES
 	(3, 7, 3);
 /*!40000 ALTER TABLE `detail_pemesanan` ENABLE KEYS */;
 
+DROP TABLE IF EXISTS `detail_peminjaman`;
+CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
+  `id_detail_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_peminjaman` int(10) unsigned NOT NULL,
+  `id_barang` int(10) unsigned NOT NULL,
+  `kondisi_pinjam` enum('Y','N') NOT NULL DEFAULT 'Y',
+  `jumlah_pinjam` int(11) NOT NULL DEFAULT 0,
+  `kondisi_kembali` enum('Y','N') NOT NULL DEFAULT 'Y',
+  `jumlah_kembali` int(10) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_detail_peminjaman`) USING BTREE,
+  KEY `FK_BARANG3` (`id_barang`) USING BTREE,
+  KEY `FK_PEMINJAMAN` (`id_peminjaman`),
+  CONSTRAINT `FK_BARANG3` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`),
+  CONSTRAINT `FK_PEMINJAMAN` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `detail_peminjaman` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detail_peminjaman` ENABLE KEYS */;
+
 DROP TABLE IF EXISTS `detail_perolehan`;
 CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL,
@@ -128,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `detail_perolehan` (
 
 /*!40000 ALTER TABLE `detail_perolehan` DISABLE KEYS */;
 REPLACE INTO `detail_perolehan` (`id_perolehan`, `id_komponen`, `harga_beli`, `jumlah`) VALUES
-	(16, 1, 5000000, 29);
+	(17, 1, 2000000, 20),
+	(18, 7, 3000000, 10);
 /*!40000 ALTER TABLE `detail_perolehan` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `instansi`;
@@ -291,6 +312,36 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `email`, `jabatan`, `no_telp`, `
 	(20, 'Zayn Malik', 'zaynmalik@gmail.com', 'Mahasiswa', '999999999999', '$2y$10$tpva6aklYtWom53WDNUcJOIB29.9WjmCI91YqUZpY5mVp7Kiilq3y', 8, 2, '2020-07-31 11:02:51', '2020-08-02 00:42:36');
 /*!40000 ALTER TABLE `peminjam` ENABLE KEYS */;
 
+DROP TABLE IF EXISTS `peminjaman`;
+CREATE TABLE IF NOT EXISTS `peminjaman` (
+  `id_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tanggal_peminjaman` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_mulai` datetime NOT NULL,
+  `tanggal_selesai` datetime NOT NULL,
+  `id_peminjam` int(10) unsigned NOT NULL,
+  `tujuan_peminjaman` text DEFAULT NULL,
+  `setuju_1_pinjam` varchar(4) DEFAULT NULL,
+  `setuju_2_pinjam` varchar(4) DEFAULT NULL,
+  `setuju_3_pinjam` varchar(4) DEFAULT NULL,
+  `status_peminjaman` tinyint(4) unsigned NOT NULL,
+  `keterangan_peminjaman` text DEFAULT NULL,
+  `id_admin` int(10) unsigned NOT NULL,
+  `tanggal_pengembalian` datetime DEFAULT NULL,
+  `setuju_1_kembali` varchar(4) DEFAULT NULL,
+  `setuju_2_kembali` varchar(4) DEFAULT NULL,
+  `setuju_3_kembali` varchar(4) DEFAULT NULL,
+  `status_pengembalian` tinyint(4) NOT NULL,
+  `keterangan_pengembalian` text DEFAULT '-',
+  PRIMARY KEY (`id_peminjaman`) USING BTREE,
+  KEY `FK_PEMINJAM` (`id_peminjam`) USING BTREE,
+  KEY `FK_ADMIN3` (`id_admin`) USING BTREE,
+  CONSTRAINT `FK_ADMIN3` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`),
+  CONSTRAINT `FK_PEMINJAM` FOREIGN KEY (`id_peminjam`) REFERENCES `peminjam` (`id_peminjam`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `peminjaman` DISABLE KEYS */;
+/*!40000 ALTER TABLE `peminjaman` ENABLE KEYS */;
+
 DROP TABLE IF EXISTS `penyetuju`;
 CREATE TABLE IF NOT EXISTS `penyetuju` (
   `id_penyetuju` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -325,7 +376,8 @@ CREATE TABLE IF NOT EXISTS `perolehan` (
 
 /*!40000 ALTER TABLE `perolehan` DISABLE KEYS */;
 REPLACE INTO `perolehan` (`id_perolehan`, `id_pemasok`, `tanggal`, `status`, `keterangan`) VALUES
-	(16, 1, '2020-08-21', 'pembelian', '-');
+	(17, 1, '2020-08-14', 'pembelian', '-'),
+	(18, 2, '2020-08-21', 'pembelian', '-');
 /*!40000 ALTER TABLE `perolehan` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `ruang`;

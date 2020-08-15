@@ -5,7 +5,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 DROP DATABASE IF EXISTS `asti`;
-CREATE DATABASE IF NOT EXISTS `asti` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE IF NOT EXISTS `asti` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `asti`;
 
 DROP TABLE IF EXISTS `admin`;
@@ -110,9 +110,9 @@ CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
   `id_detail_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_barang` int(10) unsigned NOT NULL,
   `kondisi_pinjam` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `jumlah_pinjam` varchar(50) NOT NULL,
+  `jumlah_pinjam` int(11) NOT NULL DEFAULT 0,
   `kondisi_kembali` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `jumlah_kembali` int(10) unsigned NOT NULL,
+  `jumlah_kembali` int(10) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_detail_peminjaman`),
   KEY `FK_BARANG3` (`id_barang`),
   CONSTRAINT `FK_BARANG3` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`)
@@ -338,23 +338,23 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `no_telp`, `jabatan`, `sandi`, `
 DROP TABLE IF EXISTS `peminjaman`;
 CREATE TABLE IF NOT EXISTS `peminjaman` (
   `id_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tanggal_peminjaman` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tanggal_peminjaman` datetime NOT NULL DEFAULT current_timestamp(),
   `tanggal_mulai` datetime NOT NULL,
   `tanggal_selesai` datetime NOT NULL,
   `id_peminjam` int(10) unsigned NOT NULL,
-  `tujuan_peminjaman` text NOT NULL,
-  `setuju_1_pinjam` varchar(4) NOT NULL,
-  `setuju_2_pinjam` varchar(4) NOT NULL,
-  `setuju_3_pinjam` varchar(4) NOT NULL,
+  `tujuan_peminjaman` text DEFAULT NULL,
+  `setuju_1_pinjam` varchar(4) DEFAULT NULL,
+  `setuju_2_pinjam` varchar(4) DEFAULT NULL,
+  `setuju_3_pinjam` varchar(4) DEFAULT NULL,
   `status_peminjaman` tinyint(4) unsigned NOT NULL,
   `keterangan_peminjaman` text DEFAULT NULL,
   `id_admin` int(10) unsigned NOT NULL,
-  `tanggal_pengembalian` datetime NOT NULL,
-  `setuju_1_kembali` varchar(4) NOT NULL,
-  `setuju_2_kembali` varchar(4) NOT NULL,
-  `setuju_3_kembali` varchar(4) NOT NULL,
+  `tanggal_pengembalian` datetime DEFAULT NULL,
+  `setuju_1_kembali` varchar(4) DEFAULT NULL,
+  `setuju_2_kembali` varchar(4) DEFAULT NULL,
+  `setuju_3_kembali` varchar(4) DEFAULT NULL,
   `status_pengembalian` tinyint(4) NOT NULL,
-  `keterangan_pengembalian` text DEFAULT NULL,
+  `keterangan_pengembalian` text DEFAULT '-',
   PRIMARY KEY (`id_peminjaman`),
   KEY `FK_PEMINJAM` (`id_peminjam`),
   KEY `FK_ADMIN3` (`id_admin`),
@@ -370,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal` datetime NOT NULL,
   `id_pemasok` int(10) unsigned NOT NULL,
-  `status` enum('Pembelian','Bantuan','Penyesuaian Stok') NOT NULL DEFAULT 'Pembelian',
+  `status` enum('pembelian','bantuan','penyesuaian stok') NOT NULL DEFAULT 'pembelian',
   `keterangan` text DEFAULT NULL,
   PRIMARY KEY (`id_perolehan`),
   KEY `FK_PEMASOK` (`id_pemasok`),

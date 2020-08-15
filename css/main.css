@@ -98,6 +98,15 @@ tbody tr:hover {
   font-size: 30px;
 }
 
+.selected-barang-lists .selected-item {
+  display: inline-block;
+  @apply bg-red-500;
+  @apply py-2;
+  @apply px-3;
+  @apply rounded-md;
+  @apply cursor-pointer;
+}
+
 /* @media (prefers-color-scheme: dark) {
   body {
     background-color: #2d3748;

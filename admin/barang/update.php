@@ -26,7 +26,7 @@ if ($r_get_barang && $r_get_barang->num_rows == 0) {
 if (isset($_POST["update_barang"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
     $validation = $validator->make($_POST, [
-        "kode_inventaris" => "required",
+        // "kode_inventaris" => "required",
         "id_komponen"     => "required|numeric",
         "id_perolehan"    => "required|numeric",
         // "jumlah"          => "required|numeric",
@@ -38,7 +38,7 @@ if (isset($_POST["update_barang"])) {
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        $kode_inventaris = $connection->real_escape_string(clean($_POST["kode_inventaris"]));
+        // $kode_inventaris = $connection->real_escape_string(clean($_POST["kode_inventaris"]));
         $id_komponen     = $_POST["id_komponen"];
         $id_perolehan    = $_POST["id_perolehan"];
         // $jumlah          = $_POST["jumlah"];
@@ -47,15 +47,17 @@ if (isset($_POST["update_barang"])) {
         $status          = isset($_POST["status"]) ? 1 : 0;
         $keterangan      = $connection->real_escape_string(clean($_POST["keterangan"]));
 
-        $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris' AND `id_barang` != $id_barang_to_update";
-        $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
+        // $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris' AND `id_barang` != $id_barang_to_update";
+        // $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
 
         $q_check_perolehan = "SELECT `id_perolehan` FROM `perolehan` WHERE `id_perolehan` = $id_perolehan";
         $r_check_perolehan = $connection->query($q_check_perolehan);
 
-        if ($r_check_kode_inventaris && $r_check_kode_inventaris->num_rows != 0) {
-            array_push($errors, "Kode inventaris $kode_inventaris sudah ada");
-        } else if ($r_check_perolehan && $r_check_perolehan->num_rows == 0) {
+        // if ($r_check_kode_inventaris && $r_check_kode_inventaris->num_rows != 0) {
+        //     array_push($errors, "Kode inventaris $kode_inventaris sudah ada");
+        // } else 
+
+        if ($r_check_perolehan && $r_check_perolehan->num_rows == 0) {
             array_push($errors, "Id perolehan tidak valid");
         } else {
             $admin_email = $_SESSION["email"];
@@ -67,7 +69,7 @@ if (isset($_POST["update_barang"])) {
             $q_update = "UPDATE 
                             `barang`
                         SET
-                            `kode_inventaris` = '$kode_inventaris',
+                            -- `kode_inventaris` = '$kode_inventaris',
                             `id_komponen` = $id_komponen,
                             `id_perolehan` = $id_perolehan,
                             -- `jumlah` = $jumlah,
@@ -127,8 +129,8 @@ $r_get_komponen = $connection->query($q_get_komponen);
                 </div>
             <?php } ?>
 
-            <label class="block" for="kode_inventaris">Kode Inventaris <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kode_inventaris" name="kode_inventaris" required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("kode_inventaris") : $data["kode_inventaris"] ?>">
+            <!-- <label class="block" for="kode_inventaris">Kode Inventaris <span class="text-red-500" title="Harus diisi">*</span></label>
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" disabled id="kode_inventaris" name="kode_inventaris" readonly required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("kode_inventaris") : $data["kode_inventaris"] ?>"> -->
 
             <label class="block" for="id_komponen">Komponen <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_komponen" name="id_komponen">

@@ -64,13 +64,19 @@ if (isset($_POST["update_barang"])) {
                         SET
                             `kondisi` = '$kondisi',
                             `aktif` = $status,
-                            `keterangan` = '$keterangan',
+                            `keterangan` = '$keterangan'
                         WHERE
                             `id_barang` = $id_barang_to_update";
 
         if ($connection->query($q_update)) {
             redirect("./");
         }
+
+        // Update barang query fails, uncomment this code for debugging purpose only
+        // else {
+        //     print_r($connection->error_list);
+        //     die();
+        // }
     }
 }
 

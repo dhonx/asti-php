@@ -10,96 +10,77 @@ authenticate(["super_admin", "admin"]);
 
 $errors = [];
 
-// Redirect to refferer url if id_barang is not valid
 if (!isset($_GET["id_barang"]) && !is_numeric($_GET["id_barang"])) {
     redirect($_SERVER['HTTP_REFERER']);
 }
 
 $id_barang_to_update = $_GET["id_barang"];
 
-$q_get_barang = "SELECT * FROM `barang` WHERE `id_barang` = $id_barang_to_update";
+$q_get_barang = "SELECT
+                    `barang`.`kode_inventaris`,
+                    `barang`.`aktif`,
+                    `barang`.`kondisi`,
+                    `barang`.`keterangan`,
+                    `komponen`.`nama` AS `nama_komponen`
+                FROM
+                    `barang`
+                INNER JOIN `perolehan`
+                    ON `perolehan`.`id_perolehan` = `barang`.`id_perolehan`
+                INNER JOIN `detail_perolehan`
+                    ON `detail_perolehan`.`id_perolehan` = `perolehan`.`id_perolehan`
+                INNER JOIN `komponen`
+                    ON `komponen`.`id_komponen` = `detail_perolehan`.`id_komponen`
+                WHERE
+                    `id_barang` = $id_barang_to_update";
 $r_get_barang = $connection->query($q_get_barang);
 if ($r_get_barang && $r_get_barang->num_rows == 0) {
     redirect('./');
 }
 
+// Get barang query failed, uncomment this code for debugging purpose only
+// else {
+//     print_r($connection->error_list);
+//     die();
+// }
+
 if (isset($_POST["update_barang"])) {
     $validator = new Validator(VALIDATION_MESSAGES);
     $validation = $validator->make($_POST, [
-        // "kode_inventaris" => "required",
-        "id_komponen"     => "required|numeric",
-        "id_perolehan"    => "required|numeric",
-        // "jumlah"          => "required|numeric",
-        // "harga_beli"      => "required|numeric",
-        "kondisi"         => ["required", $validator("in", ["baik", "rusak ringan", "rusak berat"])],
+        "kondisi" => ["required", $validator("in", ["baik", "rusak ringan", "rusak berat"])],
     ]);
     $validation->validate();
 
     if ($validation->fails()) {
         $errors = $validation->errors()->firstOfAll();
     } else {
-        // $kode_inventaris = $connection->real_escape_string(clean($_POST["kode_inventaris"]));
-        $id_komponen     = $_POST["id_komponen"];
-        $id_perolehan    = $_POST["id_perolehan"];
-        // $jumlah          = $_POST["jumlah"];
-        // $harga_beli      = $_POST["harga_beli"];
-        $kondisi         = $connection->real_escape_string($_POST["kondisi"]);
-        $status          = isset($_POST["status"]) ? 1 : 0;
-        $keterangan      = $connection->real_escape_string(clean($_POST["keterangan"]));
+        $kondisi    = $_POST["kondisi"];
+        $status     = isset($_POST["status"]) ? 1 : 0;
+        $keterangan = $connection->real_escape_string(clean($_POST["keterangan"]));
 
-        // $q_check_kode_inventaris = "SELECT `kode_inventaris` FROM `barang` WHERE `kode_inventaris` = '$kode_inventaris' AND `id_barang` != $id_barang_to_update";
-        // $r_check_kode_inventaris = $connection->query($q_check_kode_inventaris);
+        $id_admin = get_current_id_admin();
 
-        $q_check_perolehan = "SELECT `id_perolehan` FROM `perolehan` WHERE `id_perolehan` = $id_perolehan";
-        $r_check_perolehan = $connection->query($q_check_perolehan);
-
-        // if ($r_check_kode_inventaris && $r_check_kode_inventaris->num_rows != 0) {
-        //     array_push($errors, "Kode inventaris $kode_inventaris sudah ada");
-        // } else 
-
-        if ($r_check_perolehan && $r_check_perolehan->num_rows == 0) {
-            array_push($errors, "Id perolehan tidak valid");
-        } else {
-            $admin_email = $_SESSION["email"];
-            $q_get_id_admin = "SELECT `id_admin` FROM `admin` WHERE `email` = '$admin_email'";
-            $r_get_id_admin = $connection->query($q_get_id_admin);
-            $first_row = $r_get_id_admin->fetch_assoc();
-            $id_admin = $first_row["id_admin"];
-
-            $q_update = "UPDATE 
+        $q_update = "UPDATE 
                             `barang`
                         SET
-                            -- `kode_inventaris` = '$kode_inventaris',
-                            `id_komponen` = $id_komponen,
-                            `id_perolehan` = $id_perolehan,
-                            -- `jumlah` = $jumlah,
-                            -- `harga_beli` = $harga_beli,
                             `kondisi` = '$kondisi',
                             `aktif` = $status,
                             `keterangan` = '$keterangan',
-                            `id_admin` = $id_admin
                         WHERE
                             `id_barang` = $id_barang_to_update";
 
-            if ($connection->query($q_update)) {
-                redirect("./");
-            }
+        if ($connection->query($q_update)) {
+            redirect("./");
         }
     }
 }
 
 while ($row = $r_get_barang->fetch_assoc()) {
     $data["kode_inventaris"] = $row["kode_inventaris"];
-    // $data["id_komponen"]     = $row["id_komponen"];
-    // $data["jumlah"]          = $row["jumlah"];
-    // $data["harga_beli"]      = $row["harga_beli"];
     $data["aktif"]           = $row["aktif"];
+    $data["nama_komponen"]   = $row["nama_komponen"];
     $data["kondisi"]         = $row["kondisi"];
     $data["keterangan"]      = $row["keterangan"];
 }
-
-$q_get_komponen = "SELECT `id_komponen`, `nama` FROM `komponen`";
-$r_get_komponen = $connection->query($q_get_komponen);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +90,6 @@ $r_get_komponen = $connection->query($q_get_komponen);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
     <title>Ubah Barang <?= $data["kode_inventaris"] ?> - ASTI</title>
-    <script defer src="https://unpkg.com/axios@0.16.1/dist/axios.min.js"></script>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -129,37 +109,8 @@ $r_get_komponen = $connection->query($q_get_komponen);
                 </div>
             <?php } ?>
 
-            <!-- <label class="block" for="kode_inventaris">Kode Inventaris <span class="text-red-500" title="Harus diisi">*</span></label>
-            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" disabled id="kode_inventaris" name="kode_inventaris" readonly required spellcheck="false" type="text" value="<?= $errors ? get_prev_field("kode_inventaris") : $data["kode_inventaris"] ?>"> -->
-
-            <label class="block" for="id_komponen">Komponen <span class="text-red-500" title="Harus diisi">*</span></label>
-            <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_komponen" name="id_komponen">
-                <?php $prev_value = $errors ? get_prev_field("id_komponen") : $data["id_komponen"] ?>
-                <?php while ($row = $r_get_komponen->fetch_assoc()) {
-                    $v_id_komponen = $row["id_komponen"];
-                    $v_nama_komponen = $row["nama"];
-                ?>
-                    <option <?= $prev_value == $v_id_komponen ? "selected" : "" ?> value="<?= $v_id_komponen ?>">
-                        <?= $v_nama_komponen ?>
-                    </option>
-                <?php } ?>
-            </select>
-
-            <div class="mt-1 mb-2">
-                <a href="../komponen/create">Tambahkan komponen baru jika tidak ada</a>
-            </div>
-
-            <label class="block" for="id_perolehan">Perolehan <span class="text-red-500" title="Harus dipilih">*</span></label>
-            <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_perolehan" name="id_perolehan"></select>
-
-            <!-- <label class="block" for="harga_beli">Harga Beli <span class="text-red-500" title="Harus diisi">*</span></label> -->
-            <!-- <input class="bg-gray-200 px-3 py-2 mb-2 rounded-md w-full" id="harga_beli" min="0.00" max="100.000.0000" name="harga_beli" required spellcheck="false" step="0.01" type="number" value="<?= $errors ? get_prev_field("harga_beli") : $data["harga_beli"] ?>"> -->
-
-            <!-- <label class="block" for="jumlah">Jumlah <span class="text-red-500" title="Harus diisi">*</span></label> -->
-            <!-- <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="jumlah" name="jumlah" required type="number" value="<?= $errors ? get_prev_field("jumlah") : $data["jumlah"] ?>"> -->
-
-            <!-- <div>Total</div> -->
-            <!-- <output class="bg-gray-200 block px-3 py-2 mb-2 rounded-md w-full" for="harga_beli jumlah" id="total" name="total">0</output> -->
+            <label class="block" for="nama_komponen">Nama Komponen</label>
+            <input autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" disabled id="nama_komponen" minlength="5" readonly required spellcheck="false" type="text" value="<?= $data["nama_komponen"] ?>">
 
             <label class="block" for="kondisi">Kondisi <span class="text-red-500" title="Harus diisi">*</span></label>
             <select class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="kondisi" name="kondisi">
@@ -192,7 +143,6 @@ $r_get_komponen = $connection->query($q_get_komponen);
         </form>
     </main>
     <?php require_once "../../includes/scripts.php" ?>
-    <script defer src="<?= build_url("/admin/barang/get_perolehan.js") ?>"></script>
 </body>
 
 </html>

@@ -14,19 +14,22 @@ $id_barang = $_GET["id_barang"];
 
 $q_get_barang =   "SELECT
                     `barang`.*,
-                    `detail_perolehan`.`harga_beli`
+                    `detail_perolehan`.`harga_beli`,
+                    `komponen`.`nama` AS `nama_komponen`,
+                    `perolehan`.`id_perolehan`
                     -- `admin`.`nama` AS `nama_admin`
                 FROM
                     `barang`
                 -- INNER JOIN
                 --     `admin` ON `barang`.`id_admin` = `admin`.`id_admin`
-                INNER JOIN
-                    `perolehan` ON `barang`.`id_perolehan` = `perolehan`.`id_perolehan`
-                INNER JOIN
-                    `detail_perolehan` ON `perolehan`.`id_perolehan` = `detail_perolehan`.`id_perolehan`
+                INNER JOIN `perolehan`
+                    ON `barang`.`id_perolehan` = `perolehan`.`id_perolehan`
+                INNER JOIN `detail_perolehan`
+                    ON `perolehan`.`id_perolehan` = `detail_perolehan`.`id_perolehan`
+                INNER JOIN `komponen`
+                    ON `komponen`.`id_komponen` = `detail_perolehan`.`id_komponen`
                 WHERE
-                    `barang`.`id_barang` = $id_barang
-                ";
+                    `barang`.`id_barang` = $id_barang";
 
 $r_get_barang = $connection->query($q_get_barang);
 if ($r_get_barang && $r_get_barang->num_rows == 0) {
@@ -46,6 +49,8 @@ while ($row = $r_get_barang->fetch_assoc()) {
     $data["kondisi"]         = $row["kondisi"];
     $data["created_at"]      = $row["created_at"];
     $data["updated_at"]      = $row["updated_at"];
+    $data["nama_komponen"]   = $row["nama_komponen"];
+    $data["id_perolehan"]   = $row["id_perolehan"];
     // $data["nama_admin"]      = $row["nama_admin"];
     $data["keterangan"]      = $row["keterangan"];
 }
@@ -72,10 +77,10 @@ while ($row = $r_get_barang->fetch_assoc()) {
                 <span class="font-bold">Kode Inventaris:</span>
                 <span><?= $data["kode_inventaris"] ?></span>
             </div>
-            <!-- <div class="mt-2">
+            <div class="mt-2">
                 <span class="font-bold">Komponen:</span>
                 <span><?= $data["nama_komponen"] ?></span>
-            </div> -->
+            </div>
             <div class="mt-2">
                 <span class="font-bold">Harga Beli:</span>
                 <span><?= number_format($data["harga_beli"], 2) ?></span>
@@ -104,6 +109,10 @@ while ($row = $r_get_barang->fetch_assoc()) {
             </div>
             <div class="border border-b mt-2"></div>
             <div class="flex">
+                <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="../perolehan/view?id_perolehan=<?= $data["id_perolehan"] ?>" title="Lihat detail perolehan">
+                    <span class="mdi align-middle mdi-information-outline"></span>
+                    Lihat detail perolehan
+                </a>
                 <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_barang=<?= $id_barang ?>" title="Ubah data ini">
                     <span class="mdi align-middle mdi-pencil-outline"></span>
                     Ubah

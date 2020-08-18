@@ -162,13 +162,13 @@ $result = $connection->query($query);
                             <td class="w-full lg:w-auto p-1 flex relative lg:static">
                                 <div class="ml-auto">
                                     <a href="view?id_pemasok=<?= $id_pemasok ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
-                                        <span class="mdi mdi-eye"></span>
+                                        <span class="mdi mdi-information-outline"></span>
                                     </a>
                                     <a href="update?id_pemasok=<?= $id_pemasok ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
-                                        <span class="mdi mdi-pencil"></span>
+                                        <span class="mdi mdi-pencil-outline"></span>
                                     </a>
                                     <a data-nama="<?= $nama ?>" href="delete?id_pemasok=<?= $id_pemasok ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
-                                        <span class="mdi mdi-trash-can"></span>
+                                        <span class="mdi mdi-trash-can-outline"></span>
                                     </a>
                                 </div>
                             </td>

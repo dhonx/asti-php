@@ -98,11 +98,11 @@ while ($row = $r_get_peminjam->fetch_assoc()) {
             <div class="border border-b mt-2"></div>
             <div class="flex">
                 <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_peminjam=<?= $id_peminjam ?>" title="Ubah data ini">
-                    <span class="mdi align-middle mdi-pencil"></span>
+                    <span class="mdi align-middle mdi-pencil-outline"></span>
                     Ubah
                 </a>
                 <a data-nama="<?= $data["nama"] ?>" class="active-scale bg-red-500 delete-link block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_peminjam=<?= $id_peminjam ?>" title="Hapus data ini">
-                    <span class="mdi align-middle mdi-trash-can"></span>
+                    <span class="mdi align-middle mdi-trash-can-outline"></span>
                     Hapus
                 </a>
             </div>

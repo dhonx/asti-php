@@ -100,11 +100,11 @@ while ($row = $r_get_pemesanan->fetch_assoc()) {
             <div class="border border-b mt-2"></div>
             <div class="flex">
                 <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_pemesanan=<?= $id_pemesanan ?>" title="Ubah data ini">
-                    <span class="mdi align-middle mdi-pencil"></span>
+                    <span class="mdi align-middle mdi-pencil-outline"></span>
                     Ubah
                 </a>
                 <a data-nama="<?= $nama_komponen ?> oleh <?= $nama_pegawai ?>" class="active-scale bg-red-500 delete-link block py-2 px-3 mx-1 my-2 rounded-md text-white" href="delete?id_pemesanan=<?= $id_pemesanan ?>" title="Hapus data ini">
-                    <span class="mdi align-middle mdi-trash-can"></span>
+                    <span class="mdi align-middle mdi-trash-can-outline"></span>
                     Hapus
                 </a>
             </div>

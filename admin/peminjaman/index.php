@@ -3,10 +3,11 @@ require_once "../../utils.php";
 require_once "../../config.php";
 require_once "../../connection/connection.php";
 require_once "../../common/page.php";
+require_once "common.php";
 
 authenticate(["super_admin", "admin"]);
 
-$valid_columns  = [];
+$valid_columns  = ["nama_peminjam", "jumlah_barang", "tanggal_peminjaman", "disetujui"];
 $common_data = processs_common_input($_GET, $valid_columns);
 
 $sort_by        = $common_data["sort_by"];
@@ -16,13 +17,41 @@ $ipp            = $common_data["ipp"];
 $page           = $common_data["page"];
 $is_search_mode = $common_data["is_search_mode"];
 
-$search_query = "SELECT * FROM `unit` WHERE ";
-$search_query .= build_search_query($keyword, ["nama"]);
+$q_get_detail_peminjaman_count =    "SELECT
+                                        COUNT(`id_detail_peminjaman`)
+                                    FROM
+                                        `detail_peminjaman`
+                                    WHERE
+                                        `id_peminjaman` = `peminjaman`.`id_peminjaman`";
+$search_query = "SELECT
+                    `peminjaman`.*,
+                    `peminjam`.`nama` AS `nama_peminjam`,
+                    ($q_get_detail_peminjaman_count) AS `jumlah_barang`,
+                    CASE 
+                        WHEN
+                            `peminjaman`.`setuju_1_pinjam` = 1
+                        AND
+                            `peminjaman`.`setuju_2_pinjam` = 1
+                        AND
+                            `peminjaman`.`setuju_3_pinjam` = 1
+                        THEN 'Ya'
+                        ELSE 'Tidak'
+                    END AS `disetujui`
+                FROM
+                    `peminjaman`
+                INNER JOIN `detail_peminjaman`
+                    ON `detail_peminjaman`.`id_peminjaman` = `peminjaman`.`id_peminjaman`
+                INNER JOIN `peminjam`
+                    ON `peminjam`.`id_peminjam` = `peminjam`.`id_peminjam`
+                GROUP BY
+                    `peminjaman`.`id_peminjaman`
+                WHERE ";
+$search_query .= build_search_query($keyword, ["nama_peminjam"]);
 
 if ($is_search_mode) {
-    $count_all_result  = $connection->query("SELECT * FROM ($search_query) AS `unit_` ORDER BY $sort_by $asc");
+    $count_all_result  = $connection->query("SELECT * FROM ($search_query) AS `_peminjaman` ORDER BY $sort_by $asc");
 } else {
-    $count_all_result  = $connection->query("SELECT * FROM `unit`");
+    $count_all_result  = $connection->query("SELECT * FROM `peminjaman`");
 }
 
 $total_items = $count_all_result->num_rows;
@@ -38,10 +67,32 @@ $limit        = $offset_limit["limit"];
 
 if ($is_search_mode) {
     $search_query .= " LIMIT $limit OFFSET $offset";
-    $query = "SELECT * FROM ($search_query) AS `unit_` ORDER BY $sort_by $asc";
+    $query = "SELECT * FROM ($search_query) AS `_peminjaman` ORDER BY $sort_by $asc";
 } else {
-    $query = "SELECT * FROM `unit` LIMIT $limit OFFSET $offset";
-    $query = "SELECT * FROM ($query) AS `unit_` ORDER BY $sort_by $asc";
+    $query =    "SELECT
+                    `peminjaman`.*,
+                    `peminjam`.`nama` AS `nama_peminjam`,
+                    ($q_get_detail_peminjaman_count) AS `jumlah_barang`,
+                    CASE 
+                        WHEN
+                            `peminjaman`.`setuju_1_pinjam` = 1
+                        AND
+                            `peminjaman`.`setuju_2_pinjam` = 1
+                        AND
+                            `peminjaman`.`setuju_3_pinjam` = 1
+                        THEN 'Ya'
+                        ELSE 'Tidak'
+                    END AS `disetujui`
+                FROM
+                    `peminjaman`
+                INNER JOIN `detail_peminjaman`
+                    ON `detail_peminjaman`.`id_peminjaman` = `peminjaman`.`id_peminjaman`
+                INNER JOIN `peminjam`
+                    ON `peminjam`.`id_peminjam` = `peminjam`.`id_peminjam`
+                GROUP BY
+                    `peminjaman`.`id_peminjaman`
+                LIMIT $limit OFFSET $offset";
+    $query = "SELECT * FROM ($query) AS `_peminjaman` ORDER BY $sort_by $asc";
 }
 
 $result = $connection->query($query);
@@ -53,7 +104,7 @@ $result = $connection->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once "../../includes/css.php" ?>
-    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Unit - ASTI</title>
+    <title><?= $is_search_mode ? "Hasil pencarian dari $keyword - " : "" ?> Manajemen Peminjaman - ASTI</title>
 </head>
 
 <body class="flex font-sans min-h-screen overflow-hidden text-sm">
@@ -61,14 +112,14 @@ $result = $connection->query($query);
     <?php require_once "../../includes/loading.php" ?>
 
     <main class="flex flex-auto flex-col main">
-        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Unit</h3>
+        <h3 class="font-bold page-header py-2 text-2xl">Manajemen Peminjaman</h3>
         <div class="flex my-4">
-            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Unit">
+            <a class="active-scale bg-blue-900 font-bold mr-2 px-3 py-2 rounded-md text-white" href="create" role="button" title="Tambah Peminjaman">
                 <span class="mdi align-middle mdi-plus"></span>
                 Tambah
             </a>
             <form class="flex ml-auto relative" method="get">
-                <input class="bg-gray-200 px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data unit" type="text" value="<?= $keyword ?>">
+                <input class="bg-gray-200 px-2 mx-2 rounded-md" placeholder="Cari..." name="keyword" title="Cari data peminjaman" type="text" value="<?= $keyword ?>">
                 <span class="absolute mdi mdi-magnify self-center" style="right:15px"></span>
             </form>
         </div>
@@ -79,45 +130,67 @@ $result = $connection->query($query);
                     <tr class="bg-gray-200 font-bold">
                         <?php $asc_toggle = $asc == "asc" ? "desc" : "asc"  ?>
                         <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Nama Unit</a>
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "nama_peminjam", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Peminjam</a>
                         </th>
-                        <th class="hidden lg:table-cell lg:text-left p-2">
-                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "keterangan", "asc" => $asc_toggle])) ?>
-                            <a class="block" href="?<?= $url_query ?>">Keterangan</a>
+                        <th class="hidden lg:table-cell text-center p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "jumlah_barang", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Jumlah Barang</a>
+                        </th>
+                        <th class="hidden lg:table-cell text-center p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "tanggal_peminjaman", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Tanggal Peminjaman</a>
+                        </th>
+                        <th class="hidden lg:table-cell text-center p-2">
+                            <?php $url_query = http_build_query(array_merge($_GET, ["sort_by" => "disetujui", "asc" => $asc_toggle])) ?>
+                            <a class="block" href="?<?= $url_query ?>">Disetujui</a>
                         </th>
                         <th class="hidden lg:table-cell lg:text-right p-2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()) {
-                        $id_unit        = $row["id_unit"];
-                        $nama           = $row["nama"];
-                        $keterangan     = $row["keterangan"];
+                        $id_peminjaman      = $row["id_peminjaman"];
+                        $nama_peminjam      = $row["nama_peminjam"];
+                        $jumlah_barang      = $row["jumlah_barang"];
+                        $tanggal_peminjaman = $row["tanggal_peminjaman"];
+                        $disetujui    = $row["disetujui"];
                     ?>
                         <tr class="bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap">
                             <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Nama
+                                    Peminjam
                                 </span>
-                                <?= $nama ?>
+                                <?= $nama_peminjam ?>
                             </td>
-                            <td class="w-full lg:w-auto p-1 lg:text-left text-center block lg:table-cell relative lg:static">
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
-                                    Keterangan
+                                    Jumlah Barang
                                 </span>
-                                <?= $keterangan ?>
+                                <?= $jumlah_barang ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Tanggal Peminjaman
+                                </span>
+                                <?= date_format(date_create($tanggal_peminjaman), "j F Y") ?>
+                            </td>
+                            <td class="w-full lg:w-auto p-1 text-center block lg:table-cell relative lg:static">
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase h-full">
+                                    Disetujui
+                                </span>
+                                <?= $disetujui ?>
                             </td>
                             <td class="w-full lg:w-auto p-1 flex relative lg:static">
                                 <div class="ml-auto">
-                                    <a href="view?id_unit=<?= $id_unit ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
-                                        <span class="mdi mdi-eye"></span>
+                                    <a href="view?id_peminjaman=<?= $id_peminjaman ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Lihat detail">
+                                        <span class="mdi mdi-information-outline"></span>
                                     </a>
-                                    <a href="update?id_unit=<?= $id_unit ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
-                                        <span class="mdi mdi-pencil"></span>
+                                    <a href="update?id_peminjaman=<?= $id_peminjaman ?>" class="text-blue-400 text-lg p-1 hover:text-blue-600" role="button" title="Ubah">
+                                        <span class="mdi mdi-pencil-outline"></span>
                                     </a>
-                                    <a data-nama="<?= $nama ?>" href="delete?id_unit=<?= $id_unit ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
-                                        <span class="mdi mdi-trash-can"></span>
+                                    <a data-nama="<?= "" ?>" href="delete?id_peminjaman=<?= $id_peminjaman ?>" class="delete-link cursor-pointer text-red-400 text-lg p-1 hover:text-red-600" role="button" title="Hapus">
+                                        <span class="mdi mdi-trash-can-outline"></span>
                                     </a>
                                 </div>
                             </td>

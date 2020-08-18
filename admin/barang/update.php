@@ -88,7 +88,7 @@ if (isset($_POST["update_barang"])) {
 
 while ($row = $r_get_barang->fetch_assoc()) {
     $data["kode_inventaris"] = $row["kode_inventaris"];
-    $data["id_komponen"]     = $row["id_komponen"];
+    // $data["id_komponen"]     = $row["id_komponen"];
     // $data["jumlah"]          = $row["jumlah"];
     // $data["harga_beli"]      = $row["harga_beli"];
     $data["aktif"]           = $row["aktif"];

@@ -66,36 +66,11 @@ CREATE TABLE IF NOT EXISTS `barang` (
 
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
 REPLACE INTO `barang` (`id_barang`, `kode_inventaris`, `id_perolehan`, `aktif`, `kondisi`, `keterangan`, `id_admin`, `created_at`, `updated_at`) VALUES
-	(59, '64f0d40362e970f9d412b3a0146237f73e3523c8', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(60, '9bef3f1e7afae4992d33afd8da143c8c030b6218', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(61, 'dd002fceadb7c102f5cf46113ee874848305a6dc', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(62, '1ab36e4f99e9d7ab32568703f9a1bebaaf3a8f4c', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(63, 'bdca79003a7d7bcd70ba52615a28fdb223f051ce', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(64, '7e18ec224c291a3fd98cb28eab8492eb94a5d5ca', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(65, 'd17187a5a04cb8788e4179ac878605631740e70c', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(66, '7b094e1d747e307108c1d59cb76e52c576149557', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(67, '73e8c47e35b0a66357167bca19d4a84df26be4b6', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(68, '57ab90ebfab1e1334f8e2e91091c0582e9c2dc69', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(69, 'aac25a55456640abc4760337af9c21ccb6f9847a', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(70, 'ddc986371a1cfd5be22185fccc791938e63cf5e8', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(71, 'd36729fcbf0b9e9038860811501b773dbd1a3ad4', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(72, '5d3cb7c4f0f8c17ae24ab39d4b27d59555477267', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(73, 'a705bb81f90faa392d39b5d286b1ccbb482919e4', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(74, '16f8eb4f36db2a5a1661186b0169eb38632e545c', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(75, 'feecbf6aa46d95493782f65f90eba65c8d56e919', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(76, '68f8f2ea2303eacc3c2033f28b5b3451502cd239', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(77, '2a93593ef54bb3cd27c81378d5910034798e4cfa', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(78, 'f42034bcdd5adc8feb77c43744b974e63afc5bb0', 17, 1, 'baik', '-', 1, '2020-08-15 08:50:38', '2020-08-15 08:50:38'),
-	(79, '141237384de481c7359d845c036f1e87671fc6e9', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(80, '6c6f4ad1df380787c8fb1bb1f57b19a9e9915f6e', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(81, 'afe4cffe029e7739f361c0e6d41d05e90c10234d', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(82, '96e573b513bf64573b0e067476cdcd6a533e3605', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(83, 'b4a7fd8d317bbcc096b7ad8414568d06d11a9b39', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(84, '38113cf24501192a2cf16f8c0b5f5402a48d2b3c', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(85, 'b99572b5f5bbe7320eb749271467c1e1c23c6173', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(86, '434d565e5f283d010a621a820d88fc786ac03382', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(87, '83e4c57ac5779f2662abc4e1801f970268d71a93', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49'),
-	(88, '06f97c81a6d75bc9407f1bc134979a7046476eb2', 18, 1, 'baik', '-', 1, '2020-08-15 10:56:49', '2020-08-15 10:56:49');
+	(89, 'f37eb7d4a3f715319563d7176c33b421e4a6c349', 19, 1, 'baik', '-', 1, '2020-08-19 01:21:25', '2020-08-19 01:21:25'),
+	(90, '44cdd4e2e370387fce2630ae9c907e49edf819bb', 19, 1, 'baik', '-', 1, '2020-08-19 01:21:25', '2020-08-19 01:21:25'),
+	(91, 'b4f8f1e2b55c8f1e2b4699a45f4c4f6b136b9d39', 19, 1, 'baik', '-', 1, '2020-08-19 01:21:25', '2020-08-19 01:21:25'),
+	(92, 'fc582bae1fd7f8833bba19bd09c4461a821c8f0a', 19, 1, 'baik', '-', 1, '2020-08-19 01:21:26', '2020-08-19 01:21:26'),
+	(93, 'f299fd7c7b90f8f060a8126591c7bc17ce970f8a', 19, 1, 'baik', '-', 1, '2020-08-19 01:21:26', '2020-08-19 01:48:04');
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `detail_pemesanan`;
@@ -105,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   `jumlah` int(10) unsigned NOT NULL,
   KEY `FK_PEMESANAN` (`id_pemesanan`) USING BTREE,
   KEY `FK_KOMPONEN2` (`id_komponen`) USING BTREE,
-  CONSTRAINT `FK_detail_pemesanan_komponen` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE CASCADE,
-  CONSTRAINT `FK_detail_pemesanan_pemesanan` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE
+  CONSTRAINT `FK_detail_pemesanan_komponen` FOREIGN KEY (`id_komponen`) REFERENCES `komponen` (`id_komponen`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_detail_pemesanan_pemesanan` FOREIGN KEY (`id_pemesanan`) REFERENCES `pemesanan` (`id_pemesanan`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `detail_pemesanan` DISABLE KEYS */;
@@ -120,18 +95,22 @@ CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
   `id_detail_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_peminjaman` int(10) unsigned NOT NULL,
   `id_barang` int(10) unsigned NOT NULL,
-  `kondisi_pinjam` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `jumlah_pinjam` int(11) NOT NULL DEFAULT 0,
-  `kondisi_kembali` enum('Y','N') NOT NULL DEFAULT 'Y',
-  `jumlah_kembali` int(10) unsigned NOT NULL DEFAULT 0,
+  `kondisi_pinjam` enum('baik','rusak ringan','rusak berat') DEFAULT 'baik',
+  `kondisi_kembali` enum('baik','rusak ringan','rusak berat') DEFAULT 'baik',
   PRIMARY KEY (`id_detail_peminjaman`) USING BTREE,
   KEY `FK_BARANG3` (`id_barang`) USING BTREE,
   KEY `FK_PEMINJAMAN` (`id_peminjaman`),
-  CONSTRAINT `FK_BARANG3` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`),
-  CONSTRAINT `FK_PEMINJAMAN` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`)
+  CONSTRAINT `FK_BARANG3` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_PEMINJAMAN` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `detail_peminjaman` DISABLE KEYS */;
+REPLACE INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_barang`, `kondisi_pinjam`, `kondisi_kembali`) VALUES
+	(5, 5, 93, 'baik', 'baik'),
+	(6, 5, 92, 'baik', 'baik'),
+	(7, 5, 91, 'baik', 'baik'),
+	(8, 5, 90, 'baik', 'baik'),
+	(9, 5, 89, 'baik', 'baik');
 /*!40000 ALTER TABLE `detail_peminjaman` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `detail_perolehan`;
@@ -148,8 +127,7 @@ CREATE TABLE IF NOT EXISTS `detail_perolehan` (
 
 /*!40000 ALTER TABLE `detail_perolehan` DISABLE KEYS */;
 REPLACE INTO `detail_perolehan` (`id_perolehan`, `id_komponen`, `harga_beli`, `jumlah`) VALUES
-	(17, 1, 2000000, 20),
-	(18, 7, 3000000, 10);
+	(19, 1, 4500000, 5);
 /*!40000 ALTER TABLE `detail_perolehan` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `instansi`;
@@ -315,31 +293,35 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `email`, `jabatan`, `no_telp`, `
 DROP TABLE IF EXISTS `peminjaman`;
 CREATE TABLE IF NOT EXISTS `peminjaman` (
   `id_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tanggal_peminjaman` datetime NOT NULL DEFAULT current_timestamp(),
-  `tanggal_mulai` datetime NOT NULL,
-  `tanggal_selesai` datetime NOT NULL,
+  `tanggal_peminjaman` date NOT NULL DEFAULT curdate(),
+  `tanggal_mulai` date NOT NULL,
+  `tanggal_selesai` date NOT NULL,
   `id_peminjam` int(10) unsigned NOT NULL,
   `tujuan_peminjaman` text DEFAULT NULL,
-  `setuju_1_pinjam` varchar(4) DEFAULT NULL,
-  `setuju_2_pinjam` varchar(4) DEFAULT NULL,
-  `setuju_3_pinjam` varchar(4) DEFAULT NULL,
-  `status_peminjaman` tinyint(4) unsigned NOT NULL,
+  `setuju_1_pinjam` tinyint(4) DEFAULT 0,
+  `setuju_2_pinjam` tinyint(4) DEFAULT 0,
+  `setuju_3_pinjam` tinyint(4) DEFAULT 0,
+  `status_peminjaman` tinyint(4) unsigned DEFAULT 1,
   `keterangan_peminjaman` text DEFAULT NULL,
   `id_admin` int(10) unsigned NOT NULL,
-  `tanggal_pengembalian` datetime DEFAULT NULL,
-  `setuju_1_kembali` varchar(4) DEFAULT NULL,
-  `setuju_2_kembali` varchar(4) DEFAULT NULL,
-  `setuju_3_kembali` varchar(4) DEFAULT NULL,
-  `status_pengembalian` tinyint(4) NOT NULL,
+  `tanggal_pengembalian` date DEFAULT NULL,
+  `setuju_1_kembali` tinyint(4) DEFAULT 0,
+  `setuju_2_kembali` tinyint(4) DEFAULT 0,
+  `setuju_3_kembali` tinyint(4) DEFAULT 0,
+  `status_pengembalian` tinyint(4) DEFAULT 0,
   `keterangan_pengembalian` text DEFAULT '-',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_peminjaman`) USING BTREE,
   KEY `FK_PEMINJAM` (`id_peminjam`) USING BTREE,
   KEY `FK_ADMIN3` (`id_admin`) USING BTREE,
-  CONSTRAINT `FK_ADMIN3` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`),
-  CONSTRAINT `FK_PEMINJAM` FOREIGN KEY (`id_peminjam`) REFERENCES `peminjam` (`id_peminjam`)
+  CONSTRAINT `FK_ADMIN` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_PEMINJAM` FOREIGN KEY (`id_peminjam`) REFERENCES `peminjam` (`id_peminjam`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `peminjaman` DISABLE KEYS */;
+REPLACE INTO `peminjaman` (`id_peminjaman`, `tanggal_peminjaman`, `tanggal_mulai`, `tanggal_selesai`, `id_peminjam`, `tujuan_peminjaman`, `setuju_1_pinjam`, `setuju_2_pinjam`, `setuju_3_pinjam`, `status_peminjaman`, `keterangan_peminjaman`, `id_admin`, `tanggal_pengembalian`, `setuju_1_kembali`, `setuju_2_kembali`, `setuju_3_kembali`, `status_pengembalian`, `keterangan_pengembalian`, `created_at`, `updated_at`) VALUES
+	(5, '2020-08-19', '2020-08-20', '2020-08-21', 15, '-', 0, 0, 0, 1, '-', 1, NULL, 0, 0, 0, 0, '-', '2020-08-19 02:00:05', '2020-08-19 02:00:05');
 /*!40000 ALTER TABLE `peminjaman` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `penyetuju`;
@@ -376,8 +358,7 @@ CREATE TABLE IF NOT EXISTS `perolehan` (
 
 /*!40000 ALTER TABLE `perolehan` DISABLE KEYS */;
 REPLACE INTO `perolehan` (`id_perolehan`, `id_pemasok`, `tanggal`, `status`, `keterangan`) VALUES
-	(17, 1, '2020-08-14', 'pembelian', '-'),
-	(18, 2, '2020-08-21', 'pembelian', '-');
+	(19, 1, '2020-08-12', 'pembelian', '-');
 /*!40000 ALTER TABLE `perolehan` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `ruang`;

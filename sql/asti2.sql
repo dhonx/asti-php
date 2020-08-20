@@ -42,7 +42,7 @@ REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, 
 	(22, 'Aldi Vulus', 'donnisnoni.tid3x@gmail.com', '11111111111', '$2y$10$f7BTHI.csNGR5M.0GQwOVezXpl/FRk2DvQI5.6pMiiBMr5/j2H9hS', 1, 'admin', '2020-07-22 20:55:46', '2020-07-22 20:55:46'),
 	(23, 'Lorensius Lama', 'lorensius@gmail.com', '22222222', '$2y$10$1Fwr5BlQxmGtA.ql34D00.y904WdZpE8c90ioKbQPG3arkSv9dxp2', 0, 'admin', '2020-07-23 19:05:09', '2020-07-23 19:05:22'),
 	(24, 'Ignasius Uly', 'ignasius@gmail.com', '111111111111', '$2y$10$s1eGF.0tf7dYELiZjrP2MemSuRSuFH6HESGeIK9InYnCul7N3dCxO', 1, 'admin', '2020-07-23 19:18:37', '2020-07-23 19:18:37'),
-	(26, 'Chicko Jeriko', 'chicko.jeriko@gmail.com', '111111111111', '$2y$10$LYOrqrFJCvAsy9YBHkJDgewTshq0nbmqlAdAoQDZkw3IDsorrgRAq', 1, 'admin', '2020-07-25 23:46:44', '2020-07-28 23:36:28');
+	(27, 'Chicko Jeriko', 'chicko.jeriko@gmail.com', '111111111111', '$2y$10$L047NUeOu/8XerzPWjO39O5BUDyKfhowms9BU2Qqo0gdWkhXz73hC', 1, 'admin', '2020-08-21 02:29:44', '2020-08-21 02:29:44');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `barang`;

@@ -15,6 +15,7 @@ $q_get_peminjam = "SELECT
                         `peminjam`.`nama`,
                         `peminjam`.`jabatan`,
                         `peminjam`.`no_telp`,
+                        `peminjam`.`email`,
                         `instansi`.`nama` AS `nama_instansi`,
                         `kategori`.`nama` AS `nama_kategori`,
                         `peminjam`.`created_at`,
@@ -37,6 +38,7 @@ while ($row = $r_get_peminjam->fetch_assoc()) {
     $data["nama"]          = $row["nama"];
     $data["jabatan"]       = $row["jabatan"];
     $data["no_telp"]       = $row["no_telp"];
+    $data["email"]         = $row["email"];
     $data["nama_instansi"] = $row["nama_instansi"];
     $data["nama_kategori"] = $row["nama_kategori"];
     $data["created_at"]    = $row["created_at"];
@@ -66,36 +68,49 @@ while ($row = $r_get_peminjam->fetch_assoc()) {
                 <span class="font-bold">Nama:</span>
                 <span><?= $data["nama"] ?></span>
             </div>
+
             <div class="mt-2">
                 <span class="font-bold">Jabatan:</span>
                 <span><?= $data["jabatan"] ?></span>
             </div>
+
             <div class="mt-2">
                 <span class="font-bold">No HP/Telp:</span>
                 <a href="telp:<?= $data["no_telp"] ?>"><?= $data["no_telp"] ?></a>
             </div>
+
+            <div class="mt-2">
+                <span class="font-bold">Email:</span>
+                <a href="mailto:<?= $data["email"] ?>"><?= $data["email"] ?></a>
+            </div>
+
             <div class="mt-2">
                 <span class="font-bold">Instansi:</span>
                 <span>
                     <?= $data["nama_instansi"] ?>
                     <?php if ($data["id_instansi"] != 1) { ?>
-                        <a class="mdi mdi-link" href="<?= build_url("/admin/instansi/view?id_instansi={$data["id_instansi"]}") ?>" title="Lihat detail instansi ini"></a>
+                        <a class="mdi mdi-information-outline" href="<?= build_url("/admin/instansi/view?id_instansi={$data["id_instansi"]}") ?>" title="Lihat detail instansi ini"></a>
                     <?php  } ?>
                 </span>
             </div>
+
             <div class="mt-2">
                 <span class="font-bold">Kategori:</span>
                 <span><?= $data["nama_kategori"] ?></span>
             </div>
+
             <div class="mt-2">
                 <span class="font-bold">Tanggal dibuat:</span>
                 <span><?= $data["created_at"] ?></span>
             </div>
+
             <div class="mt-2">
                 <span class="font-bold">Tanggal terakhir diupdate:</span>
                 <span><?= $data["updated_at"] ?></span>
             </div>
+
             <div class="border border-b mt-2"></div>
+
             <div class="flex">
                 <a class="active-scale bg-blue-900 block py-2 px-3 mx-1 my-2 rounded-md text-white" href="update?id_peminjam=<?= $id_peminjam ?>" title="Ubah data ini">
                     <span class="mdi align-middle mdi-pencil-outline"></span>

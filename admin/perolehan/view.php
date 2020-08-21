@@ -96,7 +96,7 @@ while ($row = $r_get_perolehan->fetch_assoc()) {
 
             <div class="mt-2">
                 <span class="font-bold">Total:</span>
-                <span><?= number_format($data["total"], "2") ?></span>
+                <span>Rp. <?= number_format($data["total"], "2") ?></span>
             </div>
 
             <div class="mt-2">

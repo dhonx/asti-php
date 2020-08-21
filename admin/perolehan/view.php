@@ -104,6 +104,11 @@ while ($row = $r_get_perolehan->fetch_assoc()) {
                 <span><?= ucwords($data["status"]) ?></span>
             </div>
 
+            <div class="mt-2">
+                <span class="font-bold">Tanggal:</span>
+                <span><?= date_format(date_create($data["tanggal"]), "j F Y") ?></span>
+            </div>
+
             <div class="block mt-2">
                 <span class="block font-bold">Keterangan:</span>
                 <textarea class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" style="min-height: 200px;" readonly><?= $data["keterangan"] ?></textarea>

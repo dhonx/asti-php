@@ -203,17 +203,20 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   `nama` tinytext NOT NULL,
   `email` tinytext NOT NULL,
   `sandi` tinytext NOT NULL,
+  `id_unit` int(11) unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_pegawai`),
-  UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH
+  UNIQUE KEY `no_pegawai` (`no_pegawai`) USING HASH,
+  KEY `FK_UNIT` (`id_unit`),
+  CONSTRAINT `FK_UNIT` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
-REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama`, `email`, `sandi`, `created_at`, `updated_at`) VALUES
-	(12, '1513001600', 'Bryan Adams', 'bryanadams@gmail.com', '$2y$10$7WTRuelkRVRZK4IiVQmsmej7EDd4u6.l84xcblChs7u0Bdg.U.Jeu', '2020-07-30 11:03:35', '2020-07-30 11:03:35'),
-	(13, '1513001700', 'Billie Elishx', 'billie.elish@gmail.com', '$2y$10$saCEAUvfimXviox4lycrLOywtAckXP8Bw7xxq2uKCSPsYuquxOJyy', '2020-07-30 11:15:47', '2020-07-30 11:58:02'),
-	(14, '1513001900', 'Scott Adkins', 'scottadkins@gmail.com', '$2y$10$Bx89ShwYaCvVPzKmPS1J2er2y6vYfeD.RNqgBvPosrrl7thHqSUg6', '2020-07-30 12:08:51', '2020-07-30 12:08:51');
+REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama`, `email`, `sandi`, `id_unit`, `created_at`, `updated_at`) VALUES
+	(12, '1513001600', 'Bryan Adams', 'bryanadams@gmail.com', '$2y$10$7WTRuelkRVRZK4IiVQmsmej7EDd4u6.l84xcblChs7u0Bdg.U.Jeu', 7, '2020-07-30 11:03:35', '2020-08-21 17:46:29'),
+	(13, '1513001700', 'Billie Elishx', 'billie.elish@gmail.com', '$2y$10$saCEAUvfimXviox4lycrLOywtAckXP8Bw7xxq2uKCSPsYuquxOJyy', 7, '2020-07-30 11:15:47', '2020-08-21 17:46:32'),
+	(14, '1513001900', 'Scott Adkins', 'scottadkins@gmail.com', '$2y$10$Bx89ShwYaCvVPzKmPS1J2er2y6vYfeD.RNqgBvPosrrl7thHqSUg6', 7, '2020-07-30 12:08:51', '2020-08-21 17:46:35');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `pemasok`;

@@ -18,6 +18,7 @@ if (isset($_POST["create_pegawai"])) {
         "email"            => "required|email",
         "sandi"            => "required|min:8",
         "konfirmasi_sandi" => "required|min:8|same:sandi",
+        "id_unit"          => "required|numeric|min:1"
     ]);
     $validation->validate();
 
@@ -29,6 +30,7 @@ if (isset($_POST["create_pegawai"])) {
         $email           = $connection->real_escape_string(clean($_POST["email"]));
         $sandi           = $_POST["sandi"];
         $encrypted_sandi = password_hash($sandi, PASSWORD_BCRYPT);
+        $id_unit         = $_POST["id_unit"];
 
         // Check if nomor pegawai is exist
         $q_check_no_pegawai =   "SELECT
@@ -48,19 +50,36 @@ if (isset($_POST["create_pegawai"])) {
                                 `email` = '$email'";
         $r_check_email = $connection->query($q_check_email);
 
+        $q_check_unit = "SELECT
+                            `id_unit`
+                        FROM
+                            `unit`
+                        WHERE
+                            `id_unit` = $id_unit";
+        $r_check_unit = $connection->query($q_check_unit);
+
         if ($r_check_no_pegawai && $r_check_no_pegawai->num_rows != 0) {
             array_push($errors, "Nomor pegawai sudah ada");
         } else if ($r_check_email && $r_check_email->num_rows != 0) {
             array_push($errors, "Email $email sudah ada");
+        } else if ($r_check_unit && $r_check_unit->num_rows == 0) {
+            array_push($errors, "ID unit tidak valid");
         } else {
-            $q_insert = "INSERT INTO `pegawai` (`no_pegawai`, `nama`, `email`, `sandi`)
-                        VALUES ('$no_pegawai', '$nama', '$email', '$encrypted_sandi')";
+            $q_insert = "INSERT INTO `pegawai` (`no_pegawai`, `nama`, `email`, `sandi`, `id_unit`)
+                        VALUES ('$no_pegawai', '$nama', '$email', '$encrypted_sandi', $id_unit)";
             if ($connection->query($q_insert)) {
                 redirect("./");
             }
         }
     }
 }
+
+$q_get_unit =   "SELECT
+                    `id_unit`,
+                    `nama`
+                FROM
+                    `unit`";
+$r_get_unit =   $connection->query($q_get_unit);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +121,19 @@ if (isset($_POST["create_pegawai"])) {
 
             <label class="block" for="konfirmasi_sandi">Konfirmasi Sandi <span class="text-red-500" title="Harus diisi">*</span></label>
             <input class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="konfirmasi_sandi" minlength="8" name="konfirmasi_sandi" required type="password" value="<?= $errors ? get_prev_field('konfirmasi_sandi') : '' ?>">
+
+            <label class="block" for="id_unit">Unit <span class="text-red-500" title="Harus dipilih">*</span></label>
+            <select autofocus class="bg-gray-200 w-full px-3 py-2 mb-2 rounded-md" id="id_unit" name="id_unit">
+                <?php $prev_value = $errors ? get_prev_field("id_unit") : "" ?>
+                <?php while ($row = $r_get_unit->fetch_assoc()) {
+                    $v_id_unit = $row["id_unit"];
+                    $v_nama_unit = $row["nama"];
+                ?>
+                    <option <?= $prev_value == $v_id_unit ? "selected" : "" ?> value="<?= $v_id_unit ?>">
+                        <?= $v_nama_unit ?>
+                    </option>
+                <?php } ?>
+            </select>
 
             <div class="border-b border-solid my-2 w-full"></div>
 

@@ -65,7 +65,7 @@ while ($row = $r_get_pegawai->fetch_assoc()) {
                 <span><?= $data["no_pegawai"] ?></span>
             </div>
 
-            <div>
+            <div class="mt-2">
                 <span class="font-bold">Nama:</span>
                 <span><?= $data["nama"] ?></span>
             </div>

@@ -4,11 +4,9 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-DROP DATABASE IF EXISTS `asti`;
 CREATE DATABASE IF NOT EXISTS `asti` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `asti`;
 
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -36,7 +34,6 @@ REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, 
 	(20, 'Randy Orton', 'randi-orton@yahoo.com', '084376436646', '$2b$10$R7.MGH2bCCNKBFqAEpi1bu8bXUYZj5zf7NNAb9EU.Wj.SGh7iooHW', 1, 'admin');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `barang`;
 CREATE TABLE IF NOT EXISTS `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_komponen` int(10) unsigned NOT NULL,
@@ -60,7 +57,6 @@ CREATE TABLE IF NOT EXISTS `barang` (
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_mutasi_barang`;
 CREATE TABLE IF NOT EXISTS `detail_mutasi_barang` (
   `id_mutasi_barang` int(10) unsigned NOT NULL,
   `id_barang` int(10) unsigned NOT NULL,
@@ -76,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `detail_mutasi_barang` (
 /*!40000 ALTER TABLE `detail_mutasi_barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_mutasi_barang` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_pembuangan`;
 CREATE TABLE IF NOT EXISTS `detail_pembuangan` (
   `id_pembuangan` int(10) unsigned NOT NULL,
   `id_barang` int(10) unsigned NOT NULL,
@@ -91,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `detail_pembuangan` (
 /*!40000 ALTER TABLE `detail_pembuangan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_pembuangan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_pemesanan`;
 CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   `id_pemesanan` int(10) unsigned NOT NULL,
   `id_komponen` int(10) unsigned NOT NULL,
@@ -105,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
 /*!40000 ALTER TABLE `detail_pemesanan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_pemesanan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_peminjaman`;
 CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
   `id_detail_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_barang` int(10) unsigned NOT NULL,
@@ -121,7 +114,6 @@ CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
 /*!40000 ALTER TABLE `detail_peminjaman` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_peminjaman` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_perolehan`;
 CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL,
   `id_komponen` int(10) unsigned NOT NULL,
@@ -136,7 +128,6 @@ CREATE TABLE IF NOT EXISTS `detail_perolehan` (
 /*!40000 ALTER TABLE `detail_perolehan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detail_perolehan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE IF NOT EXISTS `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -153,7 +144,6 @@ REPLACE INTO `instansi` (`id_instansi`, `nama`, `alamat`, `email`, `no_telp`) VA
 	(3, 'Universitas Nusa Cendana', 'Jl. Adisucipto - Penfui', 'info@undana.ac.id', '+82380 881580');
 /*!40000 ALTER TABLE `instansi` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE IF NOT EXISTS `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` varchar(150) NOT NULL,
@@ -166,7 +156,6 @@ REPLACE INTO `kategori` (`id_kategori`, `nama`) VALUES
 	(2, 'Eksternal');
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE IF NOT EXISTS `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -174,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `komponen` (
   `merek` text NOT NULL,
   `spesifikasi` text NOT NULL,
   `keterangan` text DEFAULT NULL,
-  `status` enum('AKTIF','TIDAK AKTIF') NOT NULL,
+  `aktif` tinyint(4) NOT NULL DEFAULT 1,
   `id_admin` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_komponen`),
   KEY `admin` (`id_admin`),
@@ -184,7 +173,6 @@ CREATE TABLE IF NOT EXISTS `komponen` (
 /*!40000 ALTER TABLE `komponen` DISABLE KEYS */;
 /*!40000 ALTER TABLE `komponen` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `mutasi_barang`;
 CREATE TABLE IF NOT EXISTS `mutasi_barang` (
   `id_mutasi_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal_mutasi` date NOT NULL,
@@ -201,7 +189,6 @@ CREATE TABLE IF NOT EXISTS `mutasi_barang` (
 /*!40000 ALTER TABLE `mutasi_barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mutasi_barang` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `mutasi_pegawai`;
 CREATE TABLE IF NOT EXISTS `mutasi_pegawai` (
   `id_mutasi_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal_mutasi` date NOT NULL,
@@ -218,7 +205,6 @@ CREATE TABLE IF NOT EXISTS `mutasi_pegawai` (
 /*!40000 ALTER TABLE `mutasi_pegawai` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mutasi_pegawai` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE IF NOT EXISTS `pegawai` (
   `id_pegawai` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `no_pegawai` text NOT NULL,
@@ -237,7 +223,6 @@ REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama_pegawai`) VALUES
 	(9, '7364635245', 'Hendri Asam');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE IF NOT EXISTS `pemasok` (
   `id_pemasok` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -256,10 +241,9 @@ CREATE TABLE IF NOT EXISTS `pemasok` (
 /*!40000 ALTER TABLE `pemasok` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pemasok` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pembuangan`;
 CREATE TABLE IF NOT EXISTS `pembuangan` (
   `id_pembuangan` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tanggal_buang` datetime NOT NULL,
+  `tanggal_buang` date DEFAULT curdate(),
   `id_pegawai` int(10) unsigned NOT NULL,
   `setuju_1` varchar(4) NOT NULL,
   `setuju_2` varchar(4) NOT NULL,
@@ -273,7 +257,6 @@ CREATE TABLE IF NOT EXISTS `pembuangan` (
 /*!40000 ALTER TABLE `pembuangan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pembuangan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pemeliharaan`;
 CREATE TABLE IF NOT EXISTS `pemeliharaan` (
   `id_pemeliharaan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal_pemeliharaan` datetime NOT NULL,
@@ -296,7 +279,6 @@ CREATE TABLE IF NOT EXISTS `pemeliharaan` (
 /*!40000 ALTER TABLE `pemeliharaan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pemeliharaan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pemesanan`;
 CREATE TABLE IF NOT EXISTS `pemesanan` (
   `id_pemesanan` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal_pesan` date NOT NULL,
@@ -311,7 +293,6 @@ CREATE TABLE IF NOT EXISTS `pemesanan` (
 /*!40000 ALTER TABLE `pemesanan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pemesanan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE IF NOT EXISTS `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -335,7 +316,6 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `no_telp`, `jabatan`, `sandi`, `
 	(7, 'Leo Saans', '111111111111', 'Mahasiswa', '$2b$10$sa3OPbx7w2RQyw3VwNW3lOt/Uc081uRT46Oz0R8LwGyYIqS5Bk3hK', 2, 2);
 /*!40000 ALTER TABLE `peminjam` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `peminjaman`;
 CREATE TABLE IF NOT EXISTS `peminjaman` (
   `id_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal_peminjaman` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -365,7 +345,6 @@ CREATE TABLE IF NOT EXISTS `peminjaman` (
 /*!40000 ALTER TABLE `peminjaman` DISABLE KEYS */;
 /*!40000 ALTER TABLE `peminjaman` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `perolehan`;
 CREATE TABLE IF NOT EXISTS `perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal` datetime NOT NULL,
@@ -380,7 +359,6 @@ CREATE TABLE IF NOT EXISTS `perolehan` (
 /*!40000 ALTER TABLE `perolehan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `perolehan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `perusahaan`;
 CREATE TABLE IF NOT EXISTS `perusahaan` (
   `id_perusahaan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -399,7 +377,6 @@ CREATE TABLE IF NOT EXISTS `perusahaan` (
 /*!40000 ALTER TABLE `perusahaan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `perusahaan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `ruang`;
 CREATE TABLE IF NOT EXISTS `ruang` (
   `id_ruang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -415,7 +392,6 @@ CREATE TABLE IF NOT EXISTS `ruang` (
 /*!40000 ALTER TABLE `ruang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ruang` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `unit`;
 CREATE TABLE IF NOT EXISTS `unit` (
   `id_unit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,

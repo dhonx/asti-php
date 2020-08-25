@@ -4,11 +4,9 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-DROP DATABASE IF EXISTS `asti2`;
 CREATE DATABASE IF NOT EXISTS `asti2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `asti2`;
 
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id_admin` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -45,7 +43,6 @@ REPLACE INTO `admin` (`id_admin`, `nama`, `email`, `no_telp`, `sandi`, `aktif`, 
 	(27, 'Chicko Jeriko', 'chicko.jeriko@gmail.com', '111111111111', '$2y$10$L047NUeOu/8XerzPWjO39O5BUDyKfhowms9BU2Qqo0gdWkhXz73hC', 1, 'admin', '2020-08-21 02:29:44', '2020-08-21 02:29:44');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `barang`;
 CREATE TABLE IF NOT EXISTS `barang` (
   `id_barang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `kode_inventaris` text NOT NULL,
@@ -73,7 +70,20 @@ REPLACE INTO `barang` (`id_barang`, `kode_inventaris`, `id_perolehan`, `aktif`, 
 	(93, 'f299fd7c7b90f8f060a8126591c7bc17ce970f8a', 19, 1, 'baik', '-', 1, '2020-08-19 01:21:26', '2020-08-19 01:48:04');
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_pemesanan`;
+CREATE TABLE IF NOT EXISTS `detail_pembuangan` (
+  `id_pembuangan` int(10) unsigned NOT NULL,
+  `id_barang` int(10) unsigned NOT NULL,
+  `kondisi_barang` enum('Y','N') NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  KEY `FK_PEMBUANGAN` (`id_pembuangan`) USING BTREE,
+  KEY `FK_BARANG4` (`id_barang`) USING BTREE,
+  CONSTRAINT `FK_BARANG4` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`),
+  CONSTRAINT `FK_PEMBUANGAN` FOREIGN KEY (`id_pembuangan`) REFERENCES `pembuangan` (`id_pembuangan`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `detail_pembuangan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detail_pembuangan` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
   `id_pemesanan` int(10) unsigned NOT NULL,
   `id_komponen` int(10) unsigned NOT NULL,
@@ -90,7 +100,6 @@ REPLACE INTO `detail_pemesanan` (`id_pemesanan`, `id_komponen`, `jumlah`) VALUES
 	(3, 7, 3);
 /*!40000 ALTER TABLE `detail_pemesanan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_peminjaman`;
 CREATE TABLE IF NOT EXISTS `detail_peminjaman` (
   `id_detail_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_peminjaman` int(10) unsigned NOT NULL,
@@ -113,7 +122,6 @@ REPLACE INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_b
 	(9, 5, 89, 'baik', 'baik');
 /*!40000 ALTER TABLE `detail_peminjaman` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `detail_perolehan`;
 CREATE TABLE IF NOT EXISTS `detail_perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL,
   `id_komponen` int(10) unsigned NOT NULL,
@@ -130,7 +138,6 @@ REPLACE INTO `detail_perolehan` (`id_perolehan`, `id_komponen`, `harga_beli`, `j
 	(19, 1, 4500000, 5);
 /*!40000 ALTER TABLE `detail_perolehan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `instansi`;
 CREATE TABLE IF NOT EXISTS `instansi` (
   `id_instansi` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -155,7 +162,6 @@ REPLACE INTO `instansi` (`id_instansi`, `nama`, `email`, `alamat`, `no_telp`, `c
 	(8, 'Politeknik Pertanian Negeri Kupang', 'politanikoe@yahoo.com', 'Jl. Adisucipto - Penfui ', '380881600', '2020-07-28 22:49:14', '2020-07-28 22:49:14');
 /*!40000 ALTER TABLE `instansi` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE IF NOT EXISTS `kategori` (
   `id_kategori` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -170,7 +176,6 @@ REPLACE INTO `kategori` (`id_kategori`, `nama`, `created_at`, `updated_at`) VALU
 	(2, 'Eksternal', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `komponen`;
 CREATE TABLE IF NOT EXISTS `komponen` (
   `id_komponen` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -196,7 +201,6 @@ REPLACE INTO `komponen` (`id_komponen`, `nama`, `tipe`, `merek`, `spesifikasi`, 
 	(9, 'Laptop HP 14-BS007TU', '14-BS007TU', 'HP', '500 GB 5400 rpm SATA\r\nIntel Pentium N3710 (1.6 GHz, up to 2.56 GHz, 2 MB cache, 4 cores)\r\nIntel HD Graphics 405\r\n14&quot;&quot; diagonal HD SVA BrightView WLED-backlit', '', 1, 1, '2020-08-02 22:40:51', '2020-08-02 22:40:51');
 /*!40000 ALTER TABLE `komponen` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE IF NOT EXISTS `pegawai` (
   `id_pegawai` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `no_pegawai` tinytext NOT NULL,
@@ -219,7 +223,6 @@ REPLACE INTO `pegawai` (`id_pegawai`, `no_pegawai`, `nama`, `email`, `sandi`, `i
 	(14, '1513001900', 'Scott Adkins', 'scottadkins@gmail.com', '$2y$10$Bx89ShwYaCvVPzKmPS1J2er2y6vYfeD.RNqgBvPosrrl7thHqSUg6', 7, '2020-07-30 12:08:51', '2020-08-21 17:46:35');
 /*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pemasok`;
 CREATE TABLE IF NOT EXISTS `pemasok` (
   `id_pemasok` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -246,7 +249,22 @@ REPLACE INTO `pemasok` (`id_pemasok`, `nama`, `no_telp`, `alamat`, `email`, `nam
 	(5, 'Adobe', '723743674673', 'sndcsfbdcdb', 'support@adobe.com', 'Kevin Prince', 1, '-', 1, '2020-08-11 11:52:42', '2020-08-11 11:52:42');
 /*!40000 ALTER TABLE `pemasok` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `pemesanan`;
+CREATE TABLE IF NOT EXISTS `pembuangan` (
+  `id_pembuangan` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tanggal_buang` date DEFAULT curdate(),
+  `id_pegawai` int(10) unsigned NOT NULL,
+  `setuju_1` varchar(4) NOT NULL,
+  `setuju_2` varchar(4) NOT NULL,
+  `setuju_3` varchar(4) NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  PRIMARY KEY (`id_pembuangan`) USING BTREE,
+  KEY `FK_PEGAWAI2` (`id_pegawai`) USING BTREE,
+  CONSTRAINT `FK_PEGAWAI2` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `pembuangan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pembuangan` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `pemesanan` (
   `id_pemesanan` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_pegawai` int(10) unsigned NOT NULL,
@@ -264,7 +282,6 @@ REPLACE INTO `pemesanan` (`id_pemesanan`, `id_pegawai`, `tanggal_pesan`, `status
 	(3, 13, '2020-08-14', 'usulan', '-');
 /*!40000 ALTER TABLE `pemesanan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `peminjam`;
 CREATE TABLE IF NOT EXISTS `peminjam` (
   `id_peminjam` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -293,7 +310,6 @@ REPLACE INTO `peminjam` (`id_peminjam`, `nama`, `email`, `jabatan`, `no_telp`, `
 	(20, 'Zayn Malik', 'zaynmalik@gmail.com', 'Mahasiswa', '999999999999', '$2y$10$tpva6aklYtWom53WDNUcJOIB29.9WjmCI91YqUZpY5mVp7Kiilq3y', 8, 2, '2020-07-31 11:02:51', '2020-08-02 00:42:36');
 /*!40000 ALTER TABLE `peminjam` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `peminjaman`;
 CREATE TABLE IF NOT EXISTS `peminjaman` (
   `id_peminjaman` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tanggal_peminjaman` date NOT NULL DEFAULT curdate(),
@@ -327,7 +343,6 @@ REPLACE INTO `peminjaman` (`id_peminjaman`, `tanggal_peminjaman`, `tanggal_mulai
 	(5, '2020-08-19', '2020-08-20', '2020-08-21', 15, '-', 0, 0, 0, 1, '-', 1, NULL, 0, 0, 0, 0, '-', '2020-08-19 02:00:05', '2020-08-19 02:00:05');
 /*!40000 ALTER TABLE `peminjaman` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `penyetuju`;
 CREATE TABLE IF NOT EXISTS `penyetuju` (
   `id_penyetuju` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `penyetuju_1` int(10) unsigned NOT NULL,
@@ -347,7 +362,6 @@ REPLACE INTO `penyetuju` (`id_penyetuju`, `penyetuju_1`, `penyetuju_2`, `penyetu
 	(2, 12, 13, 14);
 /*!40000 ALTER TABLE `penyetuju` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `perolehan`;
 CREATE TABLE IF NOT EXISTS `perolehan` (
   `id_perolehan` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_pemasok` int(10) unsigned NOT NULL,
@@ -364,7 +378,6 @@ REPLACE INTO `perolehan` (`id_perolehan`, `id_pemasok`, `tanggal`, `status`, `ke
 	(19, 1, '2020-08-12', 'pembelian', '-');
 /*!40000 ALTER TABLE `perolehan` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `ruang`;
 CREATE TABLE IF NOT EXISTS `ruang` (
   `id_ruang` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,
@@ -385,7 +398,6 @@ REPLACE INTO `ruang` (`id_ruang`, `nama`, `id_unit`, `latitude`, `longitude`, `k
 	(10, 'Test 1', 8, '-10.175356117351322', '123.58004450798036', '-');
 /*!40000 ALTER TABLE `ruang` ENABLE KEYS */;
 
-DROP TABLE IF EXISTS `unit`;
 CREATE TABLE IF NOT EXISTS `unit` (
   `id_unit` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` text NOT NULL,

@@ -97,30 +97,32 @@ $nama_awal = explode(" ", $_SESSION["nama"])[0];
                 <span class="lg:hidden label">Perolehan</span>
             </a>
         </li>
-        <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">
-            <a class="w-full" href="#" role="menuitem" title="Perluas">
-                <?php if ($sidenav_active) { ?>
-                    <span class="mdi align-middle mdi-chevron-double-left text-lg"></span>
-                <?php } else { ?>
-                    <span class="mdi align-middle mdi-chevron-double-right text-lg"></span>
-                <?php } ?>
+        <div class="lg:sticky bg-gray-200 lg:bottom-0">
+            <li class="hidden lg:flex lg:mt-auto" id="expand-button" data-url="<?= build_url("/admin/set_config?sidenav") ?>" onclick="toggleSidenavExpand(this)">
+                <a class="w-full" href="#" role="menuitem" title="Perluas">
+                    <?php if ($sidenav_active) { ?>
+                        <span class="mdi align-middle mdi-chevron-double-left text-lg"></span>
+                    <?php } else { ?>
+                        <span class="mdi align-middle mdi-chevron-double-right text-lg"></span>
+                    <?php } ?>
 
-                <span class="lg:hidden label">
-                    <?= $sidenav_active == 1 ? "Perkecil" : "Perbesar" ?>
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="#" role="menuitem" title="Pengaturan">
-                <span class="mdi align-middle mdi-cog text-lg"></span>
-                <span class="lg:hidden label">Pengaturan</span>
-            </a>
-        </li>
-        <li>
-            <a href="<?= BASE_PATH ?>/logout" role="menuitem" title="Logout">
-                <span class="mdi align-middle mdi-exit-to-app text-lg"></span>
-                <span class="lg:hidden label">Logout</span>
-            </a>
-        </li>
+                    <span class="lg:hidden label">
+                        <?= $sidenav_active == 1 ? "Perkecil" : "Perbesar" ?>
+                    </span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="#" role="menuitem" title="Pengaturan">
+                    <span class="mdi align-middle mdi-cog text-lg"></span>
+                    <span class="lg:hidden label">Pengaturan</span>
+                </a>
+            </li> -->
+            <li>
+                <a href="<?= BASE_PATH ?>/logout" role="menuitem" title="Logout">
+                    <span class="mdi align-middle mdi-exit-to-app text-lg"></span>
+                    <span class="lg:hidden label">Logout</span>
+                </a>
+            </li>
+        </div>
     </ul>
 </nav>
